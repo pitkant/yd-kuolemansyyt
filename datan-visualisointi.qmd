@@ -1,9 +1,11 @@
 ---
-title: "datan-visualisointi"
-format: html
+title: "YP YD-visualisoinnit"
+date: 2025-09-30
+format: pdf
+tbl-colwidths: true
 ---
 
-# Relevanttien pakettien lataaminen
+# 0. Relevanttien pakettien lataaminen
 
 ```{r}
 library(pxweb)
@@ -13,7 +15,7 @@ library(tidyr)
 library(janitor)
 ```
 
-# 0. Datan hakeminen
+# 0.1 Datan hakeminen
 
 ```{r 0_datan_hakeminen}
 pxweb_query_list <- 
@@ -109,11 +111,9 @@ A BibTeX entry for LaTeX users is
   }
 ```
 
-# 1. 3x pylväsdiagrammi yd-kuolemansyyn (itsemurhat, huumeet, väkivalta) 
-
 ## Filtteröinti
 
-```{r 1_yd_kuolemansyyt_filtterointi}
+```{r 0_yd_yleinen_filtterointi}
 statfin_ksyyt_pxt_11az <- statfin_ksyyt_pxt_11az %>% 
   janitor::clean_names()
 
@@ -140,11 +140,13 @@ huumekuolemat <- statfin_ksyyt_pxt_12d9 %>%
   ungroup() %>% 
   mutate(kuolemansyy = "huumekuolema")
 ```
-## Visualisointi
 
-```{r 1_yd_kuolemansyyt_visualisointi}
-# kuolemat <- rbind(itsemurhat_vakivalta, huumekuolemat)
 
+# 1. 3x pylväsdiagrammi yd-kuolemansyyn (itsemurhat, huumeet, väkivalta) 
+
+## Filtteröinti
+
+```{r 1_yd_kuolemansyyt_filtterointi}
 itsemurhat_ikaryhmat <- itsemurhat_vakivalta %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(kuolemansyy == "itsemurha") %>% 
@@ -159,7 +161,11 @@ huumekuolemat_ikaryhmat <- huumekuolemat %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli == "Yhteensä")
 
-ggplot(itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=vuosi)) +
+```
+## Visualisointi
+
+```{r 1_yd_kuolemansyyt_visualisointi}
+ggplot(itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -167,7 +173,7 @@ ggplot(itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=vuosi)) +
        y = "Kuolleita (n)",
        fill = "Ikäryhmä")
 
-ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=vuosi)) +
+ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -175,7 +181,7 @@ ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=vuosi)) +
        y = "Kuolleita (n)",
        fill = "Ikäryhmä")
 
-ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=vuosi)) +
+ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
@@ -215,7 +221,7 @@ huumekuolemat_sp <- huumekuolemat %>%
 ## Visualisointi
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi}
-ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=vuosi)) +
+ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -223,7 +229,7 @@ ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=vuosi)) +
        y = "Kuolleita (n)",
        fill = "Sukupuoli")
 
-ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=vuosi)) +
+ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -231,7 +237,7 @@ ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=vuosi)) +
        y = "Kuolleita (n)",
        fill = "Sukupuoli")
 
-ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=vuosi)) +
+ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
@@ -290,7 +296,7 @@ kaikki_long <- kaikki_wide %>%
 ## Visualisointi
 
 ```{r 3_yd_kuolemansyyt_vs_muut_visualisointi}
-ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=vuosi)) +
+ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity") + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9)",
