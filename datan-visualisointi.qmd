@@ -632,7 +632,7 @@ kaikki_70_asdr <- left_join(kaikki_70, itse_laskettu_keskivakiluku, by = join_by
 ```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr}
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
-  labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1981-2023 (ikävakioitu)",
+  labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023 (ikävakioitu)",
        caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11rc)",
        x = "Vuosi",
        y = "Per 1000 samanikäistä",
