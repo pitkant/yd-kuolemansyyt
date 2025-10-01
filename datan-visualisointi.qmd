@@ -393,7 +393,9 @@ yd_kuolemat_kaikki <- rbind(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht) %>
 
 ```{r}
 yd_kuolemat_kaikki %>% 
-  rename(itsem_m = "itsemurha_Miehet", itsem_n = "itsemurha_Naiset", vakiv_m = "vakivalta_Miehet", vakiv_n = "vakivalta_Naiset", huume_m = "huumekuolema_Miehet", huume_n = "huumekuolema_Naiset")
+  rename(itsem_m = "itsemurha_Miehet", itsem_n = "itsemurha_Naiset",
+         vakiv_m = "vakivalta_Miehet", vakiv_n = "vakivalta_Naiset",
+         huume_m = "huumekuolema_Miehet", huume_n = "huumekuolema_Naiset")
 ```
 
 
@@ -516,7 +518,7 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9)",
        x = "Vuosi",
-       y = "Per 1000 samanikäistä",
+       y = "Kuolleita (n)",
        colour = "Kuolemansyy") +
   scale_color_grey()
 ```
@@ -576,7 +578,7 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1981-2023 (ikävakioitu)",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11s1)",
        x = "Vuosi",
-       y = "Kuolleita (n)",
+       y = "Per 1000 samanikäistä",
        colour = "Kuolemansyy") +
   scale_color_grey()
 ```
