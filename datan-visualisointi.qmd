@@ -1,18 +1,19 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-09-30
+date: 2025-10-01
 format: 
   pdf:
     df-print: kable
 execute: 
-  echo: true
+  echo: false
   warning: false
   error: false
 ---
 
 # 0. Relevanttien pakettien lataaminen
 
-Tilastotietojen lataamisessa Tilastokeskuksen StatFin-tietokannasta käytetään [pxweb-pakettia](https://ropengov.github.io/pxweb/). Paketti mahdollistaa hakujen tekemisen tekstipohjaisesta käyttöliittymästä, jolloin haut ovat tallennettavissa, helposti toistettavissa ja muokattavissa suoraan R:stä. `pxweb`-paketti toimii monien eri pxweb-tietokantojen kanssa eri maissa.
+Tilastotietojen lataamisessa Tilastokeskuksen StatFin-tietokannasta käytetään [pxweb-pakettia](https://ropengov.github.io/pxweb/). Paketti mahdollistaa hakujen tekemisen tekstipohjaisesta käyttöliittymästä, jolloin haut ovat tallennettavissa, helposti toistettavissa ja muokattavissa suoraan R:stä. `pxweb`-paketti toimii monien eri pxweb-tietokantojen kanssa eri maissa. `pxweb`-paketti on kehitetty osana [rOpenGov](https://ropengov.org)
+-pakettiekosysteemiä.
 
 Datan käsittelyyn (data wrangling) käytetään [tidyverseen](https://www.tidyverse.org) kuuluvia `ggplot2`-, `dplyr`- ja `tidyr`-paketteja.
 
@@ -383,9 +384,12 @@ huumekuolemat_yht <- huumekuolemat %>%
   summarize(kuolleet_06_23_yht = sum(kuolleet_06_23, na.rm = TRUE)) %>% 
   ungroup()
 
-yd_kuolemat_kaikki <- rbind(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht) %>% 
+yd_kuolemat_kaikki <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) %>% 
   tidyr::pivot_wider(names_from = c(kuolemansyy, sukupuoli), 
-                     values_from = kuolleet_06_23_yht)
+                     values_from = kuolleet_06_23_yht) %>% 
+  rowwise() %>% 
+  mutate(yht_m = sum(itsemurha_Miehet, huumekuolema_Miehet, vakivalta_Miehet),
+         yht_n = sum(itsemurha_Naiset, huumekuolema_Naiset, vakivalta_Naiset))
 ```
 
 
@@ -576,7 +580,7 @@ kaikki_70_asdr <- left_join(kaikki_70, keskivakiluvut_15_29, by = join_by("vuosi
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1981-2023 (ikävakioitu)",
-       caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11s1)",
+       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11s1)",
        x = "Vuosi",
        y = "Per 1000 samanikäistä",
        colour = "Kuolemansyy") +
