@@ -110,6 +110,16 @@ window.Quarto = {
 <h1>0.1 Datan hakeminen</h1>
 <section id="keskiväkiluku" class="level2">
 <h2 class="anchored" data-anchor-id="keskiväkiluku">Keskiväkiluku</h2>
+<p>Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.</p>
+<section id="keskiväkiluvun-laskeminen-itse" class="level3">
+<h3 class="anchored" data-anchor-id="keskiväkiluvun-laskeminen-itse">Keskiväkiluvun laskeminen itse</h3>
+<p><a href="https://stat.fi/meta/kas/keskivakiluku.html">Tilastokeskuksen määritelmän</a> mukaan:</p>
+<blockquote class="blockquote">
+<p>Tietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.</p>
+</blockquote>
+<p>Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.</p>
+<p>Muodostetaan 15-29 -vuotiaiden ryhmä. Hyödynnetään <code>dplyr</code>-paketista löytyviä <a href="https://dplyr.tidyverse.org/articles/window-functions.html">window function</a> -funktioita eli lag-funktiota, saadaan valittua jokaiselle vuodelle sitä seuraavan vuoden luku (taulukko on järjestetty nousevaan järjestykseen eli ensimmäisenä on vanhin vuosi ja viimeisenä uusin vuosi, 2024).</p>
+</section>
 </section>
 <section id="filtteröinti" class="level2">
 <h2 class="anchored" data-anchor-id="filtteröinti">Filtteröinti</h2>
@@ -311,6 +321,7 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 </blockquote>
 <p>Kategorisoidaan ensin 1 ikävuoden välein otetut keskiväkiluvut aiemmin käytettyihin kategorioihin 15 - 19, 20 - 24 ja 25-29.</p>
 <p>Lasketaan sitten kuolleiden määrän ja keskiväkiluvun suhteesta saatava ASDR.</p>
+<p>Ongelmallista ylemmässä on se, että keskiväkiluvut ulottuvat vain vuoteen 1981 asti. Käytetään siis itse laskettua keskiväkilukua.</p>
 </section>
 <section id="visualisointi-3" class="level3">
 <h3 class="anchored" data-anchor-id="visualisointi-3">Visualisointi</h3>
@@ -368,6 +379,14 @@ Kindly cite the 'pxweb' R package as follows:
   Dirty Data_. doi:10.32614/CRAN.package.janitor
   &lt;https://doi.org/10.32614/CRAN.package.janitor&gt;, R package version
   2.2.1, &lt;https://CRAN.R-project.org/package=janitor&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'patchwork' in publications use:
+
+  Pedersen T (2025). _patchwork: The Composer of Plots_.
+  doi:10.32614/CRAN.package.patchwork
+  &lt;https://doi.org/10.32614/CRAN.package.patchwork&gt;, R package version
+  1.3.2, &lt;https://CRAN.R-project.org/package=patchwork&gt;.</code></pre>
 </div>
 </div>
 </section>
