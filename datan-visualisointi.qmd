@@ -96,7 +96,9 @@ statfin_ksyyt_pxt_12d9 <- as.data.frame(px_data,
 
 ## Keskiväkiluku
 
-```{r vaestotietojen_hakeminen}
+Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.
+
+```{r vaestorakenne_keskivakiluku}
 # PXWEB query 
 pxweb_query_list <- 
   list("Alue"="SSS",
@@ -106,8 +108,7 @@ pxweb_query_list <-
        "Tiedot"=c("keskiv"))
 
 # Download data 
-px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11s1.px",
+px_data <- pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11s1.px",
             query = pxweb_query_list)
 
 # Convert to data.frame 
@@ -115,6 +116,47 @@ statfin_vaerak_pxt_11s1 <- as.data.frame(px_data,
                                          column.name.type = "text",
                                          variable.value.type = "text")
 ```
+
+### Keskiväkiluvun laskeminen itse
+
+[Tilastokeskuksen määritelmän](https://stat.fi/meta/kas/keskivakiluku.html) mukaan:
+
+> Tietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.
+
+Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.
+
+```{r vaestorakenne_keskivakiluku_laskeminen_itse}
+# PXWEB query 
+pxweb_query_list <- 
+  list("Vuosi"=as.character(1865:2024),
+       "Sukupuoli"=c("SSS"),
+       "Ikä"=c("15-19", "20-24", "25-29"),
+       "Tiedot"=c("vaesto"))
+
+# Download data 
+px_data <- 
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11rc.px",
+            query = pxweb_query_list)
+
+# Convert to data.frame 
+statfin_vaerak_pxt_11rc <- as.data.frame(px_data,
+                                         column.name.type = "text",
+                                         variable.value.type = "text")
+```
+
+Muodostetaan 15-29 -vuotiaiden ryhmä. Hyödynnetään `dplyr`-paketista löytyviä [window function](https://dplyr.tidyverse.org/articles/window-functions.html) -funktioita eli lag-funktiota, saadaan valittua jokaiselle vuodelle sitä seuraavan vuoden luku (taulukko on järjestetty nousevaan järjestykseen eli ensimmäisenä on vanhin vuosi ja viimeisenä uusin vuosi, 2024).
+
+```{r}
+statfin_vaerak_pxt_11rc <- statfin_vaerak_pxt_11rc %>% 
+  janitor::clean_names()
+
+itse_laskettu_keskivakiluku <- statfin_vaerak_pxt_11rc %>% 
+  group_by(vuosi) %>% 
+  summarize(vakiluku_15_29 = sum(vaesto_31_12)) %>% 
+  mutate(keskivakiluku = (vakiluku_15_29 + lag(vakiluku_15_29)) / 2) %>% 
+  ungroup()
+```
+
 
 ## Filtteröinti
 
@@ -201,6 +243,7 @@ vakivalta_ikaryhmat_2 <- rbind(vakivalta_ikaryhmat, vakivalta_ikaryhmat_total) %
 huumekuolemat_ikaryhmat_2 <- rbind(huumekuolemat_ikaryhmat, huumekuolemat_ikaryhmat_total) %>% 
   mutate(ika = factor(ika, levels=c("15 - 29 (Yhteensä)", "15 - 19", "20 - 24", "25 - 29")))
 ```
+
 ## Visualisointi (dodge)
 
 Tässä visualisoinnissa esitetään erikseen eri kuolinsyiden Yhteensä-määrä ja erilliset kuolinsyyt omina palkkeinaan.
@@ -573,6 +616,16 @@ kaikki_70_asdr <- left_join(kaikki_70, keskivakiluvut_15_29, by = join_by("vuosi
   filter(as.numeric(vuosi) > 1981) %>% 
   mutate(asdr = (kuolleet_yht / keskivakiluku_ikaryhma) * 1000)
 ```
+Ongelmallista ylemmässä on se, että keskiväkiluvut ulottuvat vain vuoteen 1981 asti. Käytetään siis itse laskettua keskiväkilukua.
+
+```{r}
+itse_laskettu_keskivakiluku <- itse_laskettu_keskivakiluku %>% 
+  filter(as.character(vuosi) > 1960)
+
+kaikki_70_asdr <- left_join(kaikki_70, itse_laskettu_keskivakiluku, by = join_by("vuosi" == "vuosi")) %>% 
+  mutate(asdr = (kuolleet_yht / keskivakiluku) * 1000)
+```
+
 
 ### Visualisointi
 
@@ -580,7 +633,7 @@ kaikki_70_asdr <- left_join(kaikki_70, keskivakiluvut_15_29, by = join_by("vuosi
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1981-2023 (ikävakioitu)",
-       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11s1)",
+       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11rc)",
        x = "Vuosi",
        y = "Per 1000 samanikäistä",
        colour = "Kuolemansyy") +
@@ -599,6 +652,8 @@ print(citation("dplyr"), bibtex = FALSE)
 print(citation("tidyr"), bibtex = FALSE)
 
 print(citation("janitor"), bibtex = FALSE)
+
+print(citation("patchwork"), bibtex = FALSE)
 ```
 
 
