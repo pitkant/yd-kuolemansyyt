@@ -28,6 +28,10 @@ library(dplyr)
 library(tidyr)
 library(janitor)
 library(patchwork)
+library(xlsx)
+library(gt)
+library(knitr)
+library(kableExtra)
 ```
 
 # 0.1 Datan hakeminen
@@ -567,12 +571,95 @@ yd_kuolemat_kaikki_vuosi <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_y
                      values_from = kuolleet_06_23)
 ```
 
-Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä.
+Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä. Tämä code chunk on laitettu eval = FALSE koska emme halua, että tämän dokumentin jokainen renderöinti ylikirjoittaa käsin tehdyt muutokset!
 
-```{r}
-library(xlsx)
+```{r, eval = FALSE}
+if (FALSE) {
+  write.xlsx(yd_kuolemat_kaikki_vuosi, "yd_kuolemat_kaikki_vuosi.xlsx")
+}
+```
 
-write.xlsx(yd_kuolemat_kaikki_vuosi, "yd_kuolemat_kaikki_vuosi.xlsx")
+Tässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuvat vaakasuunnassa pdf-tiedostoon.
+
+```{r lue_valmistelu_excel_tiedosto}
+yd_kuolemat_muokattu_itsemurhat <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx", 1) %>% 
+  filter(sukupuoli %in% c("Yhteensä", "Miehet (%)", "Naiset (%)")) %>% 
+  select(ika, sukupuoli, starts_with("v_"))
+yd_kuolemat_muokattu_huumekuolemat <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx", 2) %>% 
+  filter(sukupuoli %in% c("Yhteensä", "Miehet (%)", "Naiset (%)")) %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  mutate(across(starts_with("v_"), as.numeric))
+yd_kuolemat_muokattu_vakivalta <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx", 3) %>% 
+  filter(sukupuoli %in% c("Yhteensä", "Miehet (%)", "Naiset (%)")) %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  mutate(across(starts_with("v_"), as.numeric))
+yd_kuolemat_muokattu_yhteensa <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx", 4) %>% 
+  filter(sukupuoli %in% c("Yhteensä", "Miehet (%)", "Naiset (%)")) %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  mutate(across(starts_with("v_"), as.numeric))
+
+knitr::kable(yd_kuolemat_muokattu_itsemurhat, format = "pipe", caption = "Itsemurhat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
+knitr::kable(yd_kuolemat_muokattu_huumekuolemat, format = "pipe", caption = "Huumekuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
+knitr::kable(yd_kuolemat_muokattu_vakivalta, format = "pipe", caption = "Väkivaltakuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
+knitr::kable(yd_kuolemat_muokattu_yhteensa, format = "pipe", caption = "Kaikki YD-kuolemat yhteensä", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
+```
+
+Taulukot on myös mahdollista renderöidä käyttämällä gt-pakettia.
+
+```{r renderoi_taulukot_gt_paketilla, eval = FALSE}
+yd_kuolemat_muokattu_itsemurhat_table <- yd_kuolemat_muokattu_itsemurhat %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  gt() %>% 
+  tab_header(title = "Itsemurhat",
+             subtitle = "Yhteensä (n) ja sukupuolittain (%)") %>% 
+  fmt_number(
+    columns = starts_with("v_"),
+    decimals = 2
+  ) %>% 
+  tab_style(style = cell_text(size = "smaller"),
+            locations = cells_stub())
+
+yd_kuolemat_muokattu_huumekuolemat_table <- yd_kuolemat_muokattu_huumekuolemat %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  gt() %>% 
+  tab_header(title = "Huumekuolemat",
+             subtitle = "Yhteensä (n) ja sukupuolittain (%)") %>% 
+  fmt_number(
+    columns = starts_with("v_"),
+    decimals = 2
+  ) %>% 
+  tab_style(style = cell_text(size = "smaller"),
+            locations = cells_stub())
+
+yd_kuolemat_muokattu_vakivalta_table <- yd_kuolemat_muokattu_vakivalta %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+  gt() %>% 
+  tab_header(title = "Väkivaltakuolemat",
+             subtitle = "Yhteensä (n) ja sukupuolittain (%)") %>% 
+  fmt_number(
+    columns = starts_with("v_"),
+    decimals = 2
+  ) %>% 
+  tab_style(style = cell_text(size = "smaller"),
+            locations = cells_stub())
+
+yd_kuolemat_muokattu_yhteensa_table <- yd_kuolemat_muokattu_yhteensa %>% 
+  select(ika, sukupuoli, starts_with("v_")) %>% 
+gt() %>% 
+  tab_header(title = "Kaikki YD-kuolemat yhteensä",
+             subtitle = "Yhteensä (n) ja sukupuolittain (%)") %>% 
+  fmt_number(
+    columns = starts_with("v_"),
+    decimals = 2
+  ) %>% 
+  tab_style(style = cell_text(size = "smaller"),
+            locations = cells_stub())
+  
+  
+yd_kuolemat_muokattu_itsemurhat_table
+yd_kuolemat_muokattu_huumekuolemat_table
+yd_kuolemat_muokattu_vakivalta_table
+yd_kuolemat_muokattu_yhteensa_table
 ```
 
 
