@@ -548,6 +548,34 @@ yd_kuolemat_kaikki %>%
 ```
 
 
+### Taulukko 2: Sarakkeina vuodet
+
+```{r}
+itsemurhat_yht <- itsemurhat_vakivalta %>% 
+  filter(kuolemansyy == "itsemurha") %>% 
+  filter(as.numeric(vuosi) >= 2006)
+
+vakivalta_yht <- itsemurhat_vakivalta %>% 
+  filter(kuolemansyy == "vakivalta") %>% 
+  filter(as.numeric(vuosi) >= 2006)
+
+huumekuolemat_yht <- huumekuolemat %>% 
+  filter(as.numeric(vuosi) >= 2006)
+
+yd_kuolemat_kaikki_vuosi <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) %>% 
+  tidyr::pivot_wider(names_from = vuosi, names_prefix = "v_", 
+                     values_from = kuolleet_06_23)
+```
+
+Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä.
+
+```{r}
+library(xlsx)
+
+write.xlsx(yd_kuolemat_kaikki_vuosi, "yd_kuolemat_kaikki_vuosi.xlsx")
+```
+
+
 # 3. Pylväsdiagrammi, jossa 15-29-vuotiaiden nuorten kuolemat 2006-2024
 
 ## Filtteröinti
