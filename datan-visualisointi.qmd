@@ -750,7 +750,7 @@ if (FALSE) {
 }
 ```
 
-Tässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuvat vaakasuunnassa pdf-tiedostoon.
+Tässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuisivat paremmin vaakasuunnassa pdf-tiedostoon, mutta selkeyden vuoksi ei kuitenkaan ihan niin pieneksi, että ne mahtuisivat pystysuunnassa olevalle A4-paperille.
 
 ```{r lue_valmistelu_excel_tiedosto, eval = TRUE}
 user_font_size <- 7
