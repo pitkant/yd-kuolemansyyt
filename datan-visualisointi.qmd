@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-01
+date: 2025-10-20
 format: 
   pdf:
     df-print: kable
@@ -32,9 +32,16 @@ library(xlsx)
 library(gt)
 library(knitr)
 library(kableExtra)
+library(RColorBrewer)
 ```
 
 # 0.1 Datan hakeminen
+
+Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta.
+
+```{r}
+tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
+```
 
 Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023" (statfin_ksyyt_pxt_12d9) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
 - Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)
@@ -44,7 +51,7 @@ Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn,
 
 Alaviitteissä mainitaan: "Luokitus perustuu Euroopan huumausaineiden ja niiden väärinkäytön seurantakeskuksen EMCDDA:n huumeluokitukseen Selection B. Luokkia on yhdistelty."
 
-```{r 0_datan_hakeminen}
+```{r 0_datan_hakeminen_pxweb, eval=lataa_datasetit_uudelleen}
 pxweb_query_list <- 
   list("Tilaston peruskuolemansyy (aikasarjaluokitus)"=c("SSS", "50","51"),
        "Ikä"=c("15-19","20-24","25-29"),
@@ -59,6 +66,9 @@ px_data <-
 statfin_ksyyt_pxt_11az <- as.data.frame(px_data,
                                         column.name.type = "text",
                                         variable.value.type = "text")
+
+statfin_ksyyt_pxt_11az <- statfin_ksyyt_pxt_11az %>% 
+  janitor::clean_names()
 
 pxweb_query_list <- 
   list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14",
@@ -90,6 +100,9 @@ statfin_ksyyt_pxt_11be <- as.data.frame(px_data,
                                         column.name.type = "text",
                                         variable.value.type = "text")
 
+statfin_ksyyt_pxt_11be <- statfin_ksyyt_pxt_11be %>% 
+  janitor::clean_names()
+
 pxweb_query_list <- 
   list("Huume (B-luokitus)"=c("SSS"),
        "Ikä"=c("15-19","20-24","25-29"),
@@ -107,11 +120,25 @@ statfin_ksyyt_pxt_12d9 <- as.data.frame(px_data,
 
 statfin_ksyyt_pxt_12d9 <- statfin_ksyyt_pxt_12d9 %>% 
   janitor::clean_names()
+
+# Optional saving of datasets
+if (tallenna_datasetit) {
+  saveRDS(object = statfin_ksyyt_pxt_11az, file = "prepared_data/statfin_ksyyt_pxt_11az.rds")
+  saveRDS(object = statfin_ksyyt_pxt_11be, file = "prepared_data/statfin_ksyyt_pxt_11be.rds")
+  saveRDS(object = statfin_ksyyt_pxt_12d9, file = "prepared_data/statfin_ksyyt_pxt_12d9.rds")
+}
 ```
+
+```{r 0_datan_hakeminen_valmiista_tiedostoista, eval = TRUE}
+statfin_ksyyt_pxt_11az <- readRDS("prepared_data/statfin_ksyyt_pxt_11az.rds")
+statfin_ksyyt_pxt_11be <- readRDS("prepared_data/statfin_ksyyt_pxt_11be.rds")
+statfin_ksyyt_pxt_12d9 <- readRDS("prepared_data/statfin_ksyyt_pxt_12d9.rds")
+```
+
 
 Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa "Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli" (statfin_ksyyt_pxt_11be) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.
 
-```{r}
+```{r, eval = lataa_datasetit_uudelleen}
 # PXWEB query: Huumausainekuolemat ICD-10 -koodeilla, ilman itsemurhia
 pxweb_query_list <- 
   list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14", 
@@ -141,18 +168,24 @@ px_data <-
             query = pxweb_query_list)
 
 # Convert to data.frame, clean names and do summarizing
-statfin_ksyyt_pxt_11be <- as.data.frame(px_data, column.name.type = "text", variable.value.type = "text") %>% 
+statfin_ksyyt_pxt_11be_summarized <- as.data.frame(px_data, column.name.type = "text", variable.value.type = "text") %>% 
   janitor::clean_names() %>% 
   tidyr::drop_na() %>% 
   group_by(ika, vuosi, sukupuoli) %>% 
   summarize(n_huumekuolema = sum(kuolleet)) %>% 
   ungroup()
 
+if (tallenna_datasetit) {
+  saveRDS(object = statfin_ksyyt_pxt_11be_summarized, file = "prepared_data/statfin_ksyyt_pxt_11be_summarized.rds")
+}
+
 ```
 Luvut ovat kuitenkin hieman erilaisia verrattuna taulukon statfin_ksyyt_pxt_12d9 Yhteensä-lukuihin. Esimerkiksi vuonna 2006 saadaan taulukosta statfin_ksyyt_pxt_11be yhteensä 55 huumekuolemaa, kun taulukossa statfin_ksyyt_pxt_12d9 niitä on 54. Erot ovat joinakin vuosina melko suuria; esimerkiksi vuonna 2010 25 - 29 -vuotiaiden ikäryhmässä erotus eri tilastointitapojen välillä on 11 kuolemantapausta ja vuonna 2018 -6 kuolemantapausta.
 
-```{r}
-vertailu <- dplyr::left_join(statfin_ksyyt_pxt_11be, statfin_ksyyt_pxt_12d9, by = join_by(ika, vuosi, sukupuoli)) %>% 
+```{r, eval = TRUE}
+statfin_ksyyt_pxt_11be_summarized <- readRDS("prepared_data/statfin_ksyyt_pxt_11be_summarized.rds")
+
+vertailu <- dplyr::left_join(statfin_ksyyt_pxt_11be_summarized, statfin_ksyyt_pxt_12d9, by = join_by(ika, vuosi, sukupuoli)) %>% 
   mutate(erotus = n_huumekuolema - huumeisiin_kuolleet_b_luokitus) %>% 
   filter(sukupuoli == "Yhteensä")
 
@@ -166,7 +199,7 @@ ggplot(vertailu, aes(x = as.integer(vuosi), y = erotus, group = ika)) +
 
 Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.
 
-```{r vaestorakenne_keskivakiluku}
+```{r vaestorakenne_keskivakiluku, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
   list("Alue"="SSS",
@@ -183,6 +216,13 @@ px_data <- pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaer
 statfin_vaerak_pxt_11s1 <- as.data.frame(px_data,
                                          column.name.type = "text",
                                          variable.value.type = "text")
+
+statfin_vaerak_pxt_11s1 <- statfin_vaerak_pxt_11s1 %>% 
+  janitor::clean_names()
+
+if (tallenna_datasetit) {
+  saveRDS(object = statfin_vaerak_pxt_11s1, file = "prepared_data/statfin_vaerak_pxt_11s1.rds")
+}
 ```
 
 ### Keskiväkiluvun laskeminen itse
@@ -193,7 +233,7 @@ statfin_vaerak_pxt_11s1 <- as.data.frame(px_data,
 
 Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.
 
-```{r vaestorakenne_keskivakiluku_laskeminen_itse}
+```{r vaestorakenne_keskivakiluku_laskeminen_itse, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
   list("Vuosi"=as.character(1865:2024),
@@ -210,13 +250,19 @@ px_data <-
 statfin_vaerak_pxt_11rc <- as.data.frame(px_data,
                                          column.name.type = "text",
                                          variable.value.type = "text")
+
+statfin_vaerak_pxt_11rc <- statfin_vaerak_pxt_11rc %>% 
+  janitor::clean_names()
+
+if (tallenna_datasetit) {
+  saveRDS(object = statfin_vaerak_pxt_11rc, file = "prepared_data/statfin_vaerak_pxt_11rc.rds")
+}
 ```
 
 Muodostetaan 15-29 -vuotiaiden ryhmä. Hyödynnetään `dplyr`-paketista löytyviä [window function](https://dplyr.tidyverse.org/articles/window-functions.html) -funktioita eli lag-funktiota, saadaan valittua jokaiselle vuodelle sitä seuraavan vuoden luku (taulukko on järjestetty nousevaan järjestykseen eli ensimmäisenä on vanhin vuosi ja viimeisenä uusin vuosi, 2024).
 
-```{r}
-statfin_vaerak_pxt_11rc <- statfin_vaerak_pxt_11rc %>% 
-  janitor::clean_names()
+```{r, eval = TRUE}
+statfin_vaerak_pxt_11rc <- readRDS("prepared_data/statfin_vaerak_pxt_11rc.rds")
 
 itse_laskettu_keskivakiluku <- statfin_vaerak_pxt_11rc %>% 
   group_by(vuosi) %>% 
@@ -235,7 +281,7 @@ Tässä haetaan Tilastokeskuksen tietokannasta elinajanodote vuosina 1-v -tarkku
 
 Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne.
 
-```{r}
+```{r elinajanodotteet, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
   list("Vuosi"=c("1986","1987","1988","1989","1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"),
@@ -262,6 +308,10 @@ kuolleet_12ap <- px_data_frame %>%
   group_by(ikaluokka, sukupuoli, vuosi) %>% 
   summarize(elinajanodote_vuosia_mean = mean(elinajanodote_vuosia)) %>% 
   ungroup()
+
+if (tallenna_datasetit) {
+  saveRDS(object = kuolleet_12ap, file = "prepared_data/statfin_kuol_pxt_12ap_summarized.rds")
+}
 ```
 
 ## Filtteröinti
@@ -271,8 +321,8 @@ kuolleet_12ap <- px_data_frame %>%
 Muodostetaan uusi muuttuja "kuolemansyy" jota voidaan käyttää eri kuolemansyiden lukujen ryhmittelyyn visualisoinneissa.
 
 ```{r 0_yd_yleinen_filtterointi}
-statfin_ksyyt_pxt_11az <- statfin_ksyyt_pxt_11az %>% 
-  janitor::clean_names()
+statfin_ksyyt_pxt_11az <- readRDS("prepared_data/statfin_ksyyt_pxt_11az.rds")
+statfin_ksyyt_pxt_12d9 <- readRDS("prepared_data/statfin_ksyyt_pxt_12d9.rds")
 
 itsemurhat_vakivalta <- statfin_ksyyt_pxt_11az %>% 
   # filter(sukupuoli %in% c("Miehet", "Naiset"), as.numeric(vuosi) >= 2006) %>% 
@@ -415,7 +465,7 @@ p1 + p2 + p3 + plot_layout(ncol = 2, guides = "collect", axis_titles = "collect"
 
 Tässä visualisoinnissa YD-kuolemien kokonaismäärä näkyy pinoamalla erilliset kuolinsyyt yhdeksi palkiksi.
 
-```{r 1_yd_kuolemansyyt_visualisointi_stack}
+```{r 1_yd_kuolemansyyt_visualisointi_stack_luonnos, eval = FALSE}
 ggplot() +
   # geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +
   geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="stack", stat="identity") + 
@@ -444,6 +494,39 @@ ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(v
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.75, end = 0.25)
 ```
+
+```{r 1_yd_kuolemansyyt_visualisointi_stack_itsemurha, eval = TRUE}
+ggplot() +
+  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_brewer(palette = "BuPu")
+```
+
+Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
+
+```{r 1_yd_kuolemansyyt_visualisointi_stack_vakivalta, eval = TRUE}
+ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
+  geom_bar(position="stack", stat="identity", colour = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_brewer(palette = "BuPu")
+```
+
+Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
+
+```{r 1_yd_kuolemansyyt_visualisointi_stack_huumekuolema, eval = TRUE}
+ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
+  geom_bar(position="stack", stat="identity", colour = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_brewer(palette = "BuPu")
+```
+
+Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
 
 # 2. Pylväsdiagrammi, yd-kuolemansyyt sukupuolittain 2006-2024, absoluuttiset luvut
 
@@ -476,7 +559,7 @@ huumekuolemat_sp <- huumekuolemat %>%
 
 ## Visualisointi
 
-```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi}
+```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos, eval = FALSE}
 ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
@@ -504,12 +587,44 @@ ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric
        fill = "Sukupuoli") +
   scale_fill_grey(start = 0, end = 0.5)
 ```
+```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha, eval = TRUE}
+ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Sukupuoli") +
+  scale_fill_brewer(palette = "Set2")
+```
+
+Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
+
+```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_vakivalta, eval = TRUE}
+ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Sukupuoli") +
+  scale_fill_brewer(palette = "Set2")
+```
+
+Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
+
+```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_huumekuolema, eval = TRUE}
+ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Sukupuoli") +
+  scale_fill_brewer(palette = "Set2")
+```
+
+Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
 
 ## Taulukko
 
 ### Datan siivous
 
-```{r}
+```{r, eval = TRUE}
 itsemurhat_yht <- itsemurhat_vakivalta %>% 
   filter(kuolemansyy == "itsemurha") %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
@@ -544,7 +659,7 @@ yd_kuolemat_kaikki <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) %>
 
 ### Taulukon printtaus
 
-```{r}
+```{r, eval = TRUE}
 yd_kuolemat_kaikki %>% 
   rename(itsem_m = "itsemurha_Miehet", itsem_n = "itsemurha_Naiset",
          vakiv_m = "vakivalta_Miehet", vakiv_n = "vakivalta_Naiset",
@@ -581,7 +696,9 @@ if (FALSE) {
 
 Tässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuvat vaakasuunnassa pdf-tiedostoon.
 
-```{r lue_valmistelu_excel_tiedosto}
+```{r lue_valmistelu_excel_tiedosto, eval = TRUE}
+user_font_size <- 7
+
 yd_kuolemat_muokattu_itsemurhat <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx", 1) %>% 
   filter(sukupuoli %in% c("Yhteensä", "Miehet (%)", "Naiset (%)")) %>% 
   select(ika, sukupuoli, starts_with("v_"))
@@ -598,10 +715,10 @@ yd_kuolemat_muokattu_yhteensa <- xlsx::read.xlsx("yd_kuolemat_kaikki_vuosi.xlsx"
   select(ika, sukupuoli, starts_with("v_")) %>% 
   mutate(across(starts_with("v_"), as.numeric))
 
-knitr::kable(yd_kuolemat_muokattu_itsemurhat, format = "pipe", caption = "Itsemurhat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
-knitr::kable(yd_kuolemat_muokattu_huumekuolemat, format = "pipe", caption = "Huumekuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
-knitr::kable(yd_kuolemat_muokattu_vakivalta, format = "pipe", caption = "Väkivaltakuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
-knitr::kable(yd_kuolemat_muokattu_yhteensa, format = "pipe", caption = "Kaikki YD-kuolemat yhteensä", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = 2)
+knitr::kable(yd_kuolemat_muokattu_itsemurhat, format = "pipe", caption = "Itsemurhat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = user_font_size)
+knitr::kable(yd_kuolemat_muokattu_huumekuolemat, format = "pipe", caption = "Huumekuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = user_font_size)
+knitr::kable(yd_kuolemat_muokattu_vakivalta, format = "pipe", caption = "Väkivaltakuolemat", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = user_font_size)
+knitr::kable(yd_kuolemat_muokattu_yhteensa, format = "pipe", caption = "Kaikki YD-kuolemat yhteensä", row.names = FALSE, digits = 1) %>% kableExtra::kable_styling(font_size = user_font_size)
 ```
 
 Taulukot on myös mahdollista renderöidä käyttämällä gt-pakettia.
@@ -716,7 +833,7 @@ kaikki_long <- kaikki_long %>%
 
 ## Visualisointi
 
-```{r 3_yd_kuolemansyyt_vs_muut_visualisointi}
+```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_luonnos, eval = FALSE}
 ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity") + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 2006-2023",
@@ -726,8 +843,19 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
        fill = "Kuolemansyy") +
   scale_fill_grey()
 ```
+```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_final, eval = TRUE}
+ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
+  geom_bar(position="stack", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Kuolemansyy") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal()
+```
 
-# 4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt.
+Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
+
+# 4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt
 
 ## Absoluuttiset lukuarvot
 
@@ -779,7 +907,7 @@ kaikki_70 <- rbind(itsemurhat_yht_70, vakivalta_yht_70, huumekuolemat_yht_70, ka
 
 ### Visualisointi
 
-```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi}
+```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_luonnos, eval = FALSE}
 ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023",
@@ -789,6 +917,18 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
        colour = "Kuolemansyy") +
   scale_color_grey()
 ```
+
+```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_final, eval = TRUE}
+ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = kuolemansyy)) +
+  geom_line(aes(color=kuolemansyy)) + 
+  labs(x = "Vuosi",
+       y = "Kuolleita (n)",
+       colour = "Kuolemansyy") +
+  scale_colour_brewer(palette = "Dark2")
+```
+
+Kuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
+
 ## Suhteutettuna ikäluokan kokoon
 
 ### ASDR
@@ -803,9 +943,8 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
 
 Kategorisoidaan ensin 1 ikävuoden välein otetut keskiväkiluvut aiemmin käytettyihin kategorioihin 15 - 19, 20 - 24 ja 25-29.
 
-```{r}
-statfin_vaerak_pxt_11s1 <- statfin_vaerak_pxt_11s1 %>% 
-  janitor::clean_names()
+```{r, eval = TRUE}
+statfin_vaerak_pxt_11s1 <- readRDS("prepared_data/statfin_vaerak_pxt_11s1.rds")
 
 keskivakiluvut <- statfin_vaerak_pxt_11s1 %>% 
   mutate(ikaryhma = case_when(
@@ -851,11 +990,7 @@ kaikki_70_asdr <- left_join(kaikki_70, itse_laskettu_keskivakiluku, by = join_by
 
 ### Visualisointi
 
-- Yhteensä on harhaanjohtava, pitäisi olla "kaikki kuolemat" tms
-
-```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr}
-
-
+```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_luonnos, eval = FALSE}
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023 (ikävakioitu)",
@@ -866,13 +1001,26 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
   scale_color_grey()
 ```
 
-## Menetetyt elinvuodet 2006-2023
+```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final, eval = TRUE}
+ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
+  geom_line(aes(color=kuolemansyy)) + 
+  labs(x = "Vuosi",
+       y = "",
+       colour = "Kuolemansyy") +
+  scale_colour_brewer(palette = "Dark2")
+```
+
+Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2023 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
+
+# Extra: Menetetyt elinvuodet 2006-2023
 
 Koska meillä on tiedossa vuosina eri vuosina kuolleiden nuorten lukumäärät, voimme laskea kullekin ikäryhmälle menetettyjen elinvuosien summan. Koska sukupuolten välillä on eroja elinajanodotteessa, käytetään tässä jaottelua miehiin ja naisiin.
 
 Elinajanodotteita on saatavilla vain vuodesta 1986 eteenpäin ja tietoa huumekuolemista vain vuodesta 2006 eteenpäin, joten pääsääntöisesti tässä käytetään rajausta 2006-2023. Olen kuitenkin yleisen mielenkiinnon vuoksi sisällyttänyt tähän dataa itsemurhista ja väkivaltakuolemista vuodesta 1986 eteenpäin, koska näillekin vuosille voidaan laskea menetettyjen elinvuosien määrä.
 
-```{r}
+```{r menetetyt_elinvuodet, eval = TRUE}
+kuolleet_12ap <- readRDS("prepared_data/statfin_kuol_pxt_12ap_summarized.rds")
+
 itsemurhat <- itsemurhat_vakivalta %>% 
   filter(kuolemansyy == "itsemurha") %>% 
   filter(vuosi >= 1986)
@@ -899,25 +1047,48 @@ ggplot(data = menetetyt_elinvuodet_itsemurha, aes(x = as.numeric(vuosi), y = men
        caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_kuol_pxt_12ap)",
        x = "Vuosi",
        y = "Menetettyjen elinvuosien summa",
-       colour = "Ikäryhmä / sukupuoli")
+       colour = "Ikäryhmä / sukupuoli") +
+  scale_colour_manual(
+    values = c(
+      "#b2abd2", "#8073ac", "#542788",
+      "#fdb863", "#e08214", "#b35806",
+      "#a6dba0", "#5aae61", "#1b7837"
+    )
+  )
+
 
 ggplot(data = menetetyt_elinvuodet_vakivalta, aes(x = as.numeric(vuosi), y = menetetyt_elinvuodet)) +
   geom_line(aes(color=interaction(ika, sukupuoli))) + 
   labs(title = "Menetettyjen elinvuosien määrä ikäryhmittäin ja sukupuolittain",
        subtitle = "Kuolemansyy: väkivalta, 1986-2023",
-       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az,\n statfin_kuol_pxt_12ap)",
+       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_11az, statfin_kuol_pxt_12ap)",
        x = "Vuosi",
        y = "Menetettyjen elinvuosien summa",
-       colour = "Ikäryhmä / sukupuoli")
+       colour = "Ikäryhmä / sukupuoli") +
+  scale_colour_manual(
+    values = c(
+      "#b2abd2", "#8073ac", "#542788",
+      "#fdb863", "#e08214", "#b35806",
+      "#a6dba0", "#5aae61", "#1b7837"
+    )
+  )
 
 ggplot(data = menetetyt_elinvuodet_huumekuolema, aes(x = as.numeric(vuosi), y = menetetyt_elinvuodet)) +
   geom_line(aes(color=interaction(ika, sukupuoli))) + 
   labs(title = "Menetettyjen elinvuosien määrä ikäryhmittäin ja sukupuolittain",
        subtitle = "Kuolemansyy: huumekuolema, 2006-2023",
-       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_12d9,\n statfin_kuol_pxt_12ap)",
+       caption = "Lähde: Tilastokeskus / StatFin \n(Tietokantataulukot: statfin_ksyyt_pxt_12d9, statfin_kuol_pxt_12ap)",
        x = "Vuosi",
        y = "Menetettyjen elinvuosien summa",
-       colour = "Ikäryhmä / sukupuoli")
+       colour = "Ikäryhmä / sukupuoli") +
+  scale_colour_manual(
+    values = c(
+      "#b2abd2", "#8073ac", "#542788",
+      "#fdb863", "#e08214", "#b35806",
+      "#a6dba0", "#5aae61", "#1b7837"
+    )
+  )
+
 
 ```
 
