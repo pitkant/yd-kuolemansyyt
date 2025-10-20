@@ -190,9 +190,14 @@ vertailu <- dplyr::left_join(statfin_ksyyt_pxt_11be_summarized, statfin_ksyyt_px
   filter(sukupuoli == "Yhteensä")
 
 ggplot(vertailu, aes(x = as.integer(vuosi), y = erotus, group = ika)) +
-  geom_col(position = "dodge", aes(fill = ika)) +
+  geom_col(position = "dodge", aes(fill = ika), color = "black") +
   labs(title = "Erot huumekuolemissa eri tilastotaulukoiden välillä",
-       caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)")
+       caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9, statfin_ksyyt_pxt_11be)",
+       subtitle = "Erotus: statfin_ksyyt_pxt_11be - statfin_ksyyt_pxt_12d9",
+       x = "Vuosi",
+       y = "Erotus") +
+  scale_fill_brewer(palette = "BuPu") +
+  theme(legend.position = "bottom")
 ```
 
 ## Keskiväkiluku
@@ -409,31 +414,34 @@ Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen
 ```{r 1_yd_kuolemansyyt_visualisointi}
 ggplot() +
   # geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +
-  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="dodge", stat="identity") + 
+  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="dodge", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15)
+  scale_fill_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom")
 
 ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15)
+  scale_fill_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom")
 
 ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15)
+  scale_fill_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom")
 ```
 ## Visualisointi (patchwork)
 
@@ -441,59 +449,65 @@ Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen
 
 ```{r 1_yd_kuolemansyyt_visualisointi_patchwork}
 p1 <- ggplot() +
-  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="dodge", stat="identity") + 
+  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
   labs(title = "Itsemurhat", x = "Vuosi", y = "Kuolleet (n)", fill = "Ikäryhmä")
 
 p2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
   labs(title = "Väkivalta", x = "Vuosi", y = "Kuolleet (n)", fill = "Ikäryhmä")
 
 p3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
   labs(title = "Huumeet", x = "Vuosi", y = "Kuolleet (n)", fill = "Ikäryhmä")
 
-p1 + p2 + p3 + plot_layout(ncol = 2, guides = "collect", axis_titles = "collect") & theme(legend.position = "bottom")
+p1 + p2 + p3 + plot_layout(ncol = 1, guides = "collect", axis_titles = "collect") & theme(legend.position = "right")
 ```
 
 ## Visualisointi (stacked)
 
 Tässä visualisoinnissa YD-kuolemien kokonaismäärä näkyy pinoamalla erilliset kuolinsyyt yhdeksi palkiksi.
 
-```{r 1_yd_kuolemansyyt_visualisointi_stack_luonnos, eval = FALSE}
+"Kuviot julkaistaan printtilehdessä mustavalkoisena, mikä tulee ottaa huomioon kuvioita suunniteltaessa."
+
+```{r 1_yd_kuolemansyyt_visualisointi_stack_mv, eval = TRUE}
 ggplot() +
   # geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +
-  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="stack", stat="identity") + 
+  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") + 
-  scale_fill_grey(start = 0.75, end = 0.25)
+  scale_fill_grey(start = 0.75, end = 0.25) +
+  theme(legend.position = "bottom")
 
 ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="stack", stat="identity") + 
+  geom_bar(position="stack", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.75, end = 0.25)
+  scale_fill_grey(start = 0.75, end = 0.25) +
+  theme(legend.position = "bottom")
 
 ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi))) +
-  geom_bar(position="stack", stat="identity") + 
+  geom_bar(position="stack", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.75, end = 0.25)
+  scale_fill_grey(start = 0.75, end = 0.25) +
+  theme(legend.position = "bottom")
 ```
+"Kuviossa mahdollisesti käytetyt värit tulevat näkyviin artikkelin nettiversiossa." Ikäryhmien visualisointiin käytetään tässä väripalettia BuPu, joka on colorblind safe, sequential (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
 
 ```{r 1_yd_kuolemansyyt_visualisointi_stack_itsemurha, eval = TRUE}
 ggplot() +
@@ -501,7 +515,8 @@ ggplot() +
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
-  scale_fill_brewer(palette = "BuPu")
+  scale_fill_brewer(palette = "BuPu") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
@@ -512,7 +527,8 @@ ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(vuosi
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
-  scale_fill_brewer(palette = "BuPu")
+  scale_fill_brewer(palette = "BuPu") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
@@ -523,7 +539,8 @@ ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(v
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
-  scale_fill_brewer(palette = "BuPu")
+  scale_fill_brewer(palette = "BuPu") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
@@ -559,41 +576,50 @@ huumekuolemat_sp <- huumekuolemat %>%
 
 ## Visualisointi
 
-```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos, eval = FALSE}
+Mustavalkoiset kuviot, joissa on mukana title, caption ja y-akselin label:
+
+```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos, eval = TRUE}
 ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Sukupuoli") +
-  scale_fill_grey(start = 0, end = 0.5)
+  scale_fill_grey(start = 0, end = 0.5) +
+  theme(legend.position = "bottom")
 
 ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Sukupuoli") +
-  scale_fill_grey(start = 0, end = 0.5)
+  scale_fill_grey(start = 0, end = 0.5) +
+  theme(legend.position = "bottom")
 
 ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
-  geom_bar(position="dodge", stat="identity") + 
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Sukupuoli") +
-  scale_fill_grey(start = 0, end = 0.5)
+  scale_fill_grey(start = 0, end = 0.5) +
+  theme(legend.position = "bottom")
 ```
+
+Värilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha, eval = TRUE}
 ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(x = "Vuosi",
        y = "",
        fill = "Sukupuoli") +
-  scale_fill_brewer(palette = "Set2")
+  scale_fill_brewer(palette = "Set2") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
@@ -604,7 +630,8 @@ ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuo
   labs(x = "Vuosi",
        y = "",
        fill = "Sukupuoli") +
-  scale_fill_brewer(palette = "Set2")
+  scale_fill_brewer(palette = "Set2") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)
@@ -615,7 +642,8 @@ ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric
   labs(x = "Vuosi",
        y = "",
        fill = "Sukupuoli") +
-  scale_fill_brewer(palette = "Set2")
+  scale_fill_brewer(palette = "Set2") +
+  theme(legend.position = "bottom")
 ```
 
 Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
@@ -833,7 +861,9 @@ kaikki_long <- kaikki_long %>%
 
 ## Visualisointi
 
-```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_luonnos, eval = FALSE}
+Mustavalkoinen kuvio, joissa on mukana title, caption ja y-akselin label:
+
+```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_mv, eval = TRUE}
 ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity") + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 2006-2023",
@@ -841,8 +871,12 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Kuolemansyy") +
-  scale_fill_grey()
+  scale_fill_grey() +
+  theme(legend.position = "right")
 ```
+
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+
 ```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_final, eval = TRUE}
 ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", color = "black") + 
@@ -850,7 +884,8 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
        y = "",
        fill = "Kuolemansyy") +
   scale_fill_brewer(palette = "Dark2") +
-  theme_minimal()
+  theme_minimal() +
+  theme(legend.position = "right")
 ```
 
 Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
@@ -907,7 +942,9 @@ kaikki_70 <- rbind(itsemurhat_yht_70, vakivalta_yht_70, huumekuolemat_yht_70, ka
 
 ### Visualisointi
 
-```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_luonnos, eval = FALSE}
+Mustavalkoinen kuvio:
+
+```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_mv, eval = TRUE}
 ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023",
@@ -915,8 +952,11 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
        x = "Vuosi",
        y = "Kuolleita (n)",
        colour = "Kuolemansyy") +
-  scale_color_grey()
+  scale_color_grey() +
+  theme(legend.position = "right")
 ```
+
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
 
 ```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_final, eval = TRUE}
 ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = kuolemansyy)) +
@@ -924,7 +964,8 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
   labs(x = "Vuosi",
        y = "Kuolleita (n)",
        colour = "Kuolemansyy") +
-  scale_colour_brewer(palette = "Dark2")
+  scale_colour_brewer(palette = "Dark2") +
+  theme(legend.position = "right")
 ```
 
 Kuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)
@@ -990,7 +1031,9 @@ kaikki_70_asdr <- left_join(kaikki_70, itse_laskettu_keskivakiluku, by = join_by
 
 ### Visualisointi
 
-```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_luonnos, eval = FALSE}
+Mustavalkoinen:
+
+```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_mv, eval = TRUE}
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy)) + 
   labs(title = "Eri syistä kuolleet 15-29 -vuotiaat 1969-2023 (ikävakioitu)",
@@ -998,8 +1041,11 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
        x = "Vuosi",
        y = "Per 1000 samanikäistä",
        colour = "Kuolemansyy") +
-  scale_color_grey()
+  scale_color_grey() +
+  theme(legend.position = "right")
 ```
+
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
 
 ```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final, eval = TRUE}
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
@@ -1007,7 +1053,8 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
   labs(x = "Vuosi",
        y = "",
        colour = "Kuolemansyy") +
-  scale_colour_brewer(palette = "Dark2")
+  scale_colour_brewer(palette = "Dark2") +
+  theme(legend.position = "right")
 ```
 
 Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2023 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
