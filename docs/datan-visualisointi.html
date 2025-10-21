@@ -2353,8 +2353,7 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.character</span>(vuosi) <span class="sc">&gt;</span> <span class="dv">1960</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>kaikki_70_asdr <span class="ot">&lt;-</span> <span class="fu">left_join</span>(kaikki_70, itse_laskettu_keskivakiluku, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"vuosi"</span> <span class="sc">==</span> <span class="st">"vuosi"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">asdr =</span> (kuolleet_yht <span class="sc">/</span> keskivakiluku) <span class="sc">*</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">asdr =</span> (kuolleet_yht <span class="sc">/</span> keskivakiluku) <span class="sc">*</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>

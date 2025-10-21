@@ -1056,8 +1056,7 @@ itse_laskettu_keskivakiluku <- itse_laskettu_keskivakiluku %>%
   filter(as.character(vuosi) > 1960)
 
 kaikki_70_asdr <- left_join(kaikki_70, itse_laskettu_keskivakiluku, by = join_by("vuosi" == "vuosi")) %>% 
-  mutate(asdr = (kuolleet_yht / keskivakiluku) * 1000) %>% 
-  rename()
+  mutate(asdr = (kuolleet_yht / keskivakiluku) * 1000)
 ```
 
 
