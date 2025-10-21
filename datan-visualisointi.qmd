@@ -1,11 +1,10 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-20
-project:
-  type: website
-  output-dir: docs
+date: 2025-10-21
 format: 
-  html
+  html:
+    toc: true
+    toc-location: left
 execute: 
   echo: false
   warning: false

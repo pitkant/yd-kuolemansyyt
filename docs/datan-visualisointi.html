@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-10-20">
+<meta name="dcterms.date" content="2025-10-21">
 
 <title>YP YD-visualisoinnit</title>
 <style>
@@ -68,14 +68,91 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent">
+<body class="floating">
 
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#relevanttien-pakettien-lataaminen" id="toc-relevanttien-pakettien-lataaminen" class="nav-link active" data-scroll-target="#relevanttien-pakettien-lataaminen">0. Relevanttien pakettien lataaminen</a></li>
+  <li><a href="#datan-hakeminen" id="toc-datan-hakeminen" class="nav-link" data-scroll-target="#datan-hakeminen">0.1 Datan hakeminen</a>
+  <ul class="collapse">
+  <li><a href="#keskiväkiluku" id="toc-keskiväkiluku" class="nav-link" data-scroll-target="#keskiväkiluku">Keskiväkiluku</a>
+  <ul class="collapse">
+  <li><a href="#keskiväkiluvun-laskeminen-itse" id="toc-keskiväkiluvun-laskeminen-itse" class="nav-link" data-scroll-target="#keskiväkiluvun-laskeminen-itse">Keskiväkiluvun laskeminen itse</a></li>
+  <li><a href="#elinajanodote-ikävuosittain" id="toc-elinajanodote-ikävuosittain" class="nav-link" data-scroll-target="#elinajanodote-ikävuosittain">Elinajanodote ikävuosittain</a></li>
+  </ul></li>
+  <li><a href="#filtteröinti" id="toc-filtteröinti" class="nav-link" data-scroll-target="#filtteröinti">Filtteröinti</a></li>
+  </ul></li>
+  <li><a href="#x-pylväsdiagrammi-yd-kuolemansyyn-itsemurhat-huumeet-väkivalta" id="toc-x-pylväsdiagrammi-yd-kuolemansyyn-itsemurhat-huumeet-väkivalta" class="nav-link" data-scroll-target="#x-pylväsdiagrammi-yd-kuolemansyyn-itsemurhat-huumeet-väkivalta">1. 3x pylväsdiagrammi yd-kuolemansyyn (itsemurhat, huumeet, väkivalta)</a>
+  <ul class="collapse">
+  <li><a href="#filtteröinti-1" id="toc-filtteröinti-1" class="nav-link" data-scroll-target="#filtteröinti-1">Filtteröinti</a></li>
+  <li><a href="#visualisointi-geom_bar-dodge" id="toc-visualisointi-geom_bar-dodge" class="nav-link" data-scroll-target="#visualisointi-geom_bar-dodge">Visualisointi (geom_bar dodge)</a>
+  <ul class="collapse">
+  <li><a href="#mustavalkoinen" id="toc-mustavalkoinen" class="nav-link" data-scroll-target="#mustavalkoinen">Mustavalkoinen</a></li>
+  </ul></li>
+  <li><a href="#visualisointi-geom_bar-dodge-patchwork" id="toc-visualisointi-geom_bar-dodge-patchwork" class="nav-link" data-scroll-target="#visualisointi-geom_bar-dodge-patchwork">Visualisointi (geom_bar dodge + patchwork)</a>
+  <ul class="collapse">
+  <li><a href="#mustavalkoinen-1" id="toc-mustavalkoinen-1" class="nav-link" data-scroll-target="#mustavalkoinen-1">Mustavalkoinen</a></li>
+  </ul></li>
+  <li><a href="#visualisointi-geom_bar-stacked" id="toc-visualisointi-geom_bar-stacked" class="nav-link" data-scroll-target="#visualisointi-geom_bar-stacked">Visualisointi (geom_bar stacked)</a>
+  <ul class="collapse">
+  <li><a href="#mustavalkoinen-2" id="toc-mustavalkoinen-2" class="nav-link" data-scroll-target="#mustavalkoinen-2">Mustavalkoinen</a></li>
+  <li><a href="#värilliset-kuviot" id="toc-värilliset-kuviot" class="nav-link" data-scroll-target="#värilliset-kuviot">Värilliset kuviot</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#pylväsdiagrammi-yd-kuolemansyyt-sukupuolittain-2006-2024-absoluuttiset-luvut" id="toc-pylväsdiagrammi-yd-kuolemansyyt-sukupuolittain-2006-2024-absoluuttiset-luvut" class="nav-link" data-scroll-target="#pylväsdiagrammi-yd-kuolemansyyt-sukupuolittain-2006-2024-absoluuttiset-luvut">2. Pylväsdiagrammi, yd-kuolemansyyt sukupuolittain 2006-2024, absoluuttiset luvut</a>
+  <ul class="collapse">
+  <li><a href="#filtteröinti-2" id="toc-filtteröinti-2" class="nav-link" data-scroll-target="#filtteröinti-2">Filtteröinti</a></li>
+  <li><a href="#visualisointi-geom_bar-dodge-1" id="toc-visualisointi-geom_bar-dodge-1" class="nav-link" data-scroll-target="#visualisointi-geom_bar-dodge-1">Visualisointi (geom_bar dodge)</a>
+  <ul class="collapse">
+  <li><a href="#mustavalkoiset-kuviot" id="toc-mustavalkoiset-kuviot" class="nav-link" data-scroll-target="#mustavalkoiset-kuviot">Mustavalkoiset kuviot</a></li>
+  <li><a href="#värilliset-kuviot-1" id="toc-värilliset-kuviot-1" class="nav-link" data-scroll-target="#värilliset-kuviot-1">Värilliset kuviot</a></li>
+  </ul></li>
+  <li><a href="#taulukko" id="toc-taulukko" class="nav-link" data-scroll-target="#taulukko">Taulukko</a>
+  <ul class="collapse">
+  <li><a href="#datan-siivous" id="toc-datan-siivous" class="nav-link" data-scroll-target="#datan-siivous">Datan siivous</a></li>
+  <li><a href="#taulukon-printtaus" id="toc-taulukon-printtaus" class="nav-link" data-scroll-target="#taulukon-printtaus">Taulukon printtaus</a></li>
+  <li><a href="#taulukko-2-sarakkeina-vuodet" id="toc-taulukko-2-sarakkeina-vuodet" class="nav-link" data-scroll-target="#taulukko-2-sarakkeina-vuodet">Taulukko 2: Sarakkeina vuodet</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#pylväsdiagrammi-jossa-15-29-vuotiaiden-nuorten-kuolemat-2006-2024" id="toc-pylväsdiagrammi-jossa-15-29-vuotiaiden-nuorten-kuolemat-2006-2024" class="nav-link" data-scroll-target="#pylväsdiagrammi-jossa-15-29-vuotiaiden-nuorten-kuolemat-2006-2024">3. Pylväsdiagrammi, jossa 15-29-vuotiaiden nuorten kuolemat 2006-2024</a>
+  <ul class="collapse">
+  <li><a href="#filtteröinti-3" id="toc-filtteröinti-3" class="nav-link" data-scroll-target="#filtteröinti-3">Filtteröinti</a></li>
+  <li><a href="#visualisointi-geom_bar-stack" id="toc-visualisointi-geom_bar-stack" class="nav-link" data-scroll-target="#visualisointi-geom_bar-stack">Visualisointi (geom_bar stack)</a>
+  <ul class="collapse">
+  <li><a href="#kuvio-3a-mustavalkoinen-kuvio-joissa-on-mukana-title-caption-ja-y-akselin-label" id="toc-kuvio-3a-mustavalkoinen-kuvio-joissa-on-mukana-title-caption-ja-y-akselin-label" class="nav-link" data-scroll-target="#kuvio-3a-mustavalkoinen-kuvio-joissa-on-mukana-title-caption-ja-y-akselin-label">Kuvio 3a: Mustavalkoinen kuvio, joissa on mukana title, caption ja y-akselin label</a></li>
+  <li><a href="#kuvio-3b-värillinen-kuvio-ilman-labeleita" id="toc-kuvio-3b-värillinen-kuvio-ilman-labeleita" class="nav-link" data-scroll-target="#kuvio-3b-värillinen-kuvio-ilman-labeleita">Kuvio 3b: Värillinen kuvio ilman labeleita</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#viivadiagrammi-nuorten-kuolemista-1970-2024-yd-kuolemansyyt-ja-kaikki-kuolemansyyt" id="toc-viivadiagrammi-nuorten-kuolemista-1970-2024-yd-kuolemansyyt-ja-kaikki-kuolemansyyt" class="nav-link" data-scroll-target="#viivadiagrammi-nuorten-kuolemista-1970-2024-yd-kuolemansyyt-ja-kaikki-kuolemansyyt">4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt</a>
+  <ul class="collapse">
+  <li><a href="#absoluuttiset-lukuarvot" id="toc-absoluuttiset-lukuarvot" class="nav-link" data-scroll-target="#absoluuttiset-lukuarvot">Absoluuttiset lukuarvot</a>
+  <ul class="collapse">
+  <li><a href="#filtteröinti-4" id="toc-filtteröinti-4" class="nav-link" data-scroll-target="#filtteröinti-4">Filtteröinti</a></li>
+  <li><a href="#visualisointi-geom_line" id="toc-visualisointi-geom_line" class="nav-link" data-scroll-target="#visualisointi-geom_line">Visualisointi (geom_line)</a></li>
+  </ul></li>
+  <li><a href="#suhteutettuna-ikäluokan-kokoon" id="toc-suhteutettuna-ikäluokan-kokoon" class="nav-link" data-scroll-target="#suhteutettuna-ikäluokan-kokoon">Suhteutettuna ikäluokan kokoon</a>
+  <ul class="collapse">
+  <li><a href="#määritelmä-asdr" id="toc-määritelmä-asdr" class="nav-link" data-scroll-target="#määritelmä-asdr">Määritelmä: ASDR</a></li>
+  <li><a href="#visualisointi-geom_line-1" id="toc-visualisointi-geom_line-1" class="nav-link" data-scroll-target="#visualisointi-geom_line-1">Visualisointi (geom_line)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#extra-menetetyt-elinvuodet-2006-2023" id="toc-extra-menetetyt-elinvuodet-2006-2023" class="nav-link" data-scroll-target="#extra-menetetyt-elinvuodet-2006-2023">Extra: Menetetyt elinvuodet 2006-2023</a></li>
+  <li><a href="#viittaukset" id="toc-viittaukset" class="nav-link" data-scroll-target="#viittaukset">Viittaukset</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">Session info</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -92,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 20, 2025</p>
+      <p class="date">October 21, 2025</p>
     </div>
   </div>
   
