@@ -238,14 +238,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="datan-hakeminen" class="level1">
 <h1>0.1 Datan hakeminen</h1>
-<p>Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta.</p>
+<p>Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta. Pxweb-rajapinnan kuormittamisen välttämiseksi datat luetaan lähtökohtaisesti prepared_data -kansiosta, johon ne on tallennettu.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tallenna_datasetit <span class="ot">&lt;-</span> lataa_datasetit_uudelleen <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Taulukossa “12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023” (statfin_ksyyt_pxt_12d9) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat: - Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19) - Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436) - Itsemurhat huumeilla (X61, X62, X64/T400-9, T436) - Huumeiden aiheuttamat myrkytykset, tahallisuus epäselvä (Y11, Y12, Y14/T400-9, T436)</p>
+<p>Taulukossa “12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023” (<a href="https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px">statfin_ksyyt_pxt_12d9</a>) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:</p>
+<ul>
+<li>Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)</li>
+<li>Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436)</li>
+<li>Itsemurhat huumeilla (X61, X62, X64/T400-9, T436)</li>
+<li>Huumeiden aiheuttamat myrkytykset, tahallisuus epäselvä (Y11, Y12, Y14/T400-9, T436)</li>
+</ul>
 <p>Alaviitteissä mainitaan: “Luokitus perustuu Euroopan huumausaineiden ja niiden väärinkäytön seurantakeskuksen EMCDDA:n huumeluokitukseen Selection B. Luokkia on yhdistelty.”</p>
 <div class="cell">
 <details>
@@ -335,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>statfin_ksyyt_pxt_12d9 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"prepared_data/statfin_ksyyt_pxt_12d9.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa “Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli” (statfin_ksyyt_pxt_11be) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.</p>
+<p>Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa “Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli” (<a href="https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_11be.px">statfin_ksyyt_pxt_11be</a>) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -406,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="keskiväkiluku" class="level2">
 <h2 class="anchored" data-anchor-id="keskiväkiluku">Keskiväkiluku</h2>
-<p>Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.</p>
+<p>Tilastokeskuksen aineistosta “11s1 – Keskiväkiluku iän ja sukupuolen mukaan alueittain, 1981-2024” (<a href="https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vaerak/statfin_vaerak_pxt_11s1.px/">statfin_vaerak_pxt_11s1</a>) saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua, mutta valmisaineisto ladataan tässä esimerkinomaisesti muistutuksena siitä, että tällainenkin on olemassa.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -441,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>Tietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.</p>
 </blockquote>
-<p>Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.</p>
+<p>Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella. Käytetään Tilastokeskuksen aineistoa “11rc – Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024” (<a href="https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vaerak/statfin_vaerak_pxt_11rc.px/">statfin_vaerak_pxt_11rc</a>).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -492,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \frac{56.2 + 55.23 + 54.26 + 53.31 + 52.38}{5} = 54.3
 \]</span></p>
 </blockquote>
-<p>Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne.</p>
+<p>Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne. Käytetään Tilastokeskuksen aineistoa “12ap – Kuolleisuus- ja eloonjäämislukuja iän ja sukupuolen mukaan, 1986-2024” (<a href="https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__kuol/statfin_kuol_pxt_12ap.px">statfin_kuol_pxt_12ap</a>).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>

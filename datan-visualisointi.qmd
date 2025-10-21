@@ -39,13 +39,14 @@ library(RColorBrewer)
 
 # 0.1 Datan hakeminen
 
-Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta.
+Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta. Pxweb-rajapinnan kuormittamisen välttämiseksi datat luetaan lähtökohtaisesti prepared_data -kansiosta, johon ne on tallennettu.
 
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
 ```
 
-Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023" (statfin_ksyyt_pxt_12d9) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
+Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023" ([statfin_ksyyt_pxt_12d9](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px)) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
+
 - Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)
 - Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436)
 - Itsemurhat huumeilla (X61, X62, X64/T400-9, T436)
@@ -138,7 +139,7 @@ statfin_ksyyt_pxt_12d9 <- readRDS("prepared_data/statfin_ksyyt_pxt_12d9.rds")
 ```
 
 
-Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa "Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli" (statfin_ksyyt_pxt_11be) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.
+Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa "Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli" ([statfin_ksyyt_pxt_11be](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_11be.px)) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.
 
 ```{r, eval = lataa_datasetit_uudelleen}
 # PXWEB query: Huumausainekuolemat ICD-10 -koodeilla, ilman itsemurhia
@@ -204,7 +205,7 @@ ggplot(vertailu, aes(x = as.integer(vuosi), y = erotus, group = ika)) +
 
 ## Keskiväkiluku
 
-Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.
+Tilastokeskuksen aineistosta "11s1 -- Keskiväkiluku iän ja sukupuolen mukaan alueittain, 1981-2024" ([statfin_vaerak_pxt_11s1](https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vaerak/statfin_vaerak_pxt_11s1.px/)) saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua, mutta valmisaineisto ladataan tässä esimerkinomaisesti muistutuksena siitä, että tällainenkin on olemassa.
 
 ```{r vaestorakenne_keskivakiluku, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
@@ -238,7 +239,7 @@ if (tallenna_datasetit) {
 
 > Tietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.
 
-Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.
+Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella. Käytetään Tilastokeskuksen aineistoa "11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024" ([statfin_vaerak_pxt_11rc](https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__vaerak/statfin_vaerak_pxt_11rc.px/)).
 
 ```{r vaestorakenne_keskivakiluku_laskeminen_itse, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
@@ -286,7 +287,7 @@ Tässä haetaan Tilastokeskuksen tietokannasta elinajanodote vuosina 1-v -tarkku
 \frac{56.2 + 55.23 + 54.26 + 53.31 + 52.38}{5} = 54.3
 >$$
 
-Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne.
+Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne. Käytetään Tilastokeskuksen aineistoa "12ap -- Kuolleisuus- ja eloonjäämislukuja iän ja sukupuolen mukaan, 1986-2024" ([statfin_kuol_pxt_12ap](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__kuol/statfin_kuol_pxt_12ap.px)).
 
 ```{r elinajanodotteet, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
