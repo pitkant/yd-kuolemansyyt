@@ -518,7 +518,7 @@ ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_23, x=as.numeric(v
 ```
 ### Värilliset kuviot
 
-"Kuviossa mahdollisesti käytetyt värit tulevat näkyviin artikkelin nettiversiossa." Ikäryhmien visualisointiin käytetään tässä väripalettia BuPu, joka on colorblind safe, sequential (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+"Kuviossa mahdollisesti käytetyt värit tulevat näkyviin artikkelin nettiversiossa." Ikäryhmien visualisointiin käytetään tässä väripalettia BuPu, joka on colorblind safe, sequential (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 #### Kuvio 1b 1: Itsemurhat ikäryhmittäin, värillinen
 
@@ -635,7 +635,7 @@ ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric
 
 #### Kuvio 2b 1: Itsemurhat sukupuolittain, värillinen
 
-Värilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+Värilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha, eval = TRUE}
 ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_23_sp, x=as.numeric(vuosi))) +
@@ -906,7 +906,7 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
 
 ### Kuvio 3b: Värillinen kuvio ilman labeleita
 
-Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 ```{r 3_yd_kuolemansyyt_vs_muut_visualisointi_final, eval = TRUE}
 ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
@@ -987,7 +987,7 @@ ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = ku
   theme(legend.position = "right")
 ```
 
-Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 ```{r 4_yd_kuolemansyyt_vs_muut_1969_visualisointi_final, eval = TRUE}
 ggplot(data = kaikki_70, aes(x = as.numeric(vuosi), y = kuolleet_yht, group = kuolemansyy)) +
@@ -1078,7 +1078,7 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
 
 #### Värillinen
 
-Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](colorbrewer2.org)).
+Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 ```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final, eval = TRUE}
 ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
@@ -1187,6 +1187,16 @@ print(citation("tidyr"), bibtex = FALSE)
 print(citation("janitor"), bibtex = FALSE)
 
 print(citation("patchwork"), bibtex = FALSE)
+
+print(citation("xlsx"), bibtex = FALSE)
+
+print(citation("gt"), bibtex = FALSE)
+
+print(citation("knitr"), bibtex = FALSE)
+
+print(citation("kableExtra"), bibtex = FALSE)
+
+print(citation("RColorBrewer"), bibtex = FALSE)
 ```
 
 
