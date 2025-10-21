@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "datan-visualisointi.html",
+    "href": "datan-visualisointi.html",
+    "title": "YP YD-visualisoinnit",
+    "section": "",
+    "text": "Tilastotietojen lataamisessa Tilastokeskuksen StatFin-tietokannasta käytetään pxweb-pakettia. Paketti mahdollistaa hakujen tekemisen tekstipohjaisesta käyttöliittymästä, jolloin haut ovat tallennettavissa, helposti toistettavissa ja muokattavissa suoraan R:stä. pxweb-paketti toimii monien eri pxweb-tietokantojen kanssa eri maissa. pxweb-paketti on kehitetty osana rOpenGov -pakettiekosysteemiä.\nDatan käsittelyyn (data wrangling) käytetään tidyverseen kuuluvia ggplot2-, dplyr- ja tidyr-paketteja.\nDatasettien nimien siivoamiseen käytetään janitor-pakettia.\nKuvien yhdistämiseksi paneelikuviksi hyödynnetään patchwork-pakettia."
+  },
+  {
+    "objectID": "datan-visualisointi.html#keskiväkiluku",
+    "href": "datan-visualisointi.html#keskiväkiluku",
+    "title": "YP YD-visualisoinnit",
+    "section": "Keskiväkiluku",
+    "text": "Keskiväkiluku\nTilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.\n\nKeskiväkiluvun laskeminen itse\nTilastokeskuksen määritelmän mukaan:\n\nTietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.\n\nEli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.\nMuodostetaan 15-29 -vuotiaiden ryhmä. Hyödynnetään dplyr-paketista löytyviä window function -funktioita eli lag-funktiota, saadaan valittua jokaiselle vuodelle sitä seuraavan vuoden luku (taulukko on järjestetty nousevaan järjestykseen eli ensimmäisenä on vanhin vuosi ja viimeisenä uusin vuosi, 2024).\n\n\nElinajanodote ikävuosittain\nTässä haetaan Tilastokeskuksen tietokannasta elinajanodote vuosina 1-v -tarkkuudella, lasketaan keskimääräinen elinajanodote ikäryhmittäin ilman painokerrointa. Esim. vuonna 1986 15-19 -vuotiaiden miesten keskimääräinen elinajanodote olisi\n\n\\[\n\\frac{56.2 + 55.23 + 54.26 + 53.31 + 52.38}{5} = 54.3\n\\]\n\nElinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne."
+  },
+  {
+    "objectID": "datan-visualisointi.html#filtteröinti",
+    "href": "datan-visualisointi.html#filtteröinti",
+    "title": "YP YD-visualisoinnit",
+    "section": "Filtteröinti",
+    "text": "Filtteröinti\njanitor-paketin clean_names()-funktiolla muutetaan suomenkieliset muuttujanimet helpommin käsiteltäviksi ASCII-nimiksi, joissa poistetaan isot kirjaimet, välilyönnit korvataan _-merkillä, ääkköset poistetaan ym.\nMuodostetaan uusi muuttuja “kuolemansyy” jota voidaan käyttää eri kuolemansyiden lukujen ryhmittelyyn visualisoinneissa."
+  },
+  {
+    "objectID": "datan-visualisointi.html#filtteröinti-1",
+    "href": "datan-visualisointi.html#filtteröinti-1",
+    "title": "YP YD-visualisoinnit",
+    "section": "Filtteröinti",
+    "text": "Filtteröinti\nMuutetaan ika-muuttujan character-arvot faktoreiksi, jolloin voidaan määritellä manuaalisesti niiden järjestys. Normaalisti muuttujat visualisoitaisiin aakkosjärjestyksessä (alfanumeerisessa järjestyksessä), jolloin numerot tulisivat ennen tekstimuuttujia. Haluamme kuitenkin tässä (?), että “Yhteensä” on ennen numeroita."
+  },
+  {
+    "objectID": "datan-visualisointi.html#visualisointi-geom_bar-dodge",
+    "href": "datan-visualisointi.html#visualisointi-geom_bar-dodge",
+    "title": "YP YD-visualisoinnit",
+    "section": "Visualisointi (geom_bar dodge)",
+    "text": "Visualisointi (geom_bar dodge)\n\nMustavalkoinen\nTässä visualisoinnissa esitetään erikseen eri kuolinsyiden Yhteensä-määrä ja erilliset kuolinsyyt omina palkkeinaan.\nHyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen."
+  },
+  {
+    "objectID": "datan-visualisointi.html#visualisointi-geom_bar-dodge-patchwork",
+    "href": "datan-visualisointi.html#visualisointi-geom_bar-dodge-patchwork",
+    "title": "YP YD-visualisoinnit",
+    "section": "Visualisointi (geom_bar dodge + patchwork)",
+    "text": "Visualisointi (geom_bar dodge + patchwork)\n\nMustavalkoinen\nHyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen."
+  },
+  {
+    "objectID": "datan-visualisointi.html#visualisointi-geom_bar-stacked",
+    "href": "datan-visualisointi.html#visualisointi-geom_bar-stacked",
+    "title": "YP YD-visualisoinnit",
+    "section": "Visualisointi (geom_bar stacked)",
+    "text": "Visualisointi (geom_bar stacked)\n\nMustavalkoinen\n\nKuvio 1a 1-3: YD-kuolemat ikäryhmittäin\nTässä visualisoinnissa YD-kuolemien kokonaismäärä näkyy pinoamalla erilliset kuolinsyyt yhdeksi palkiksi.\n“Kuviot julkaistaan printtilehdessä mustavalkoisena, mikä tulee ottaa huomioon kuvioita suunniteltaessa.”\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVärilliset kuviot\n“Kuviossa mahdollisesti käytetyt värit tulevat näkyviin artikkelin nettiversiossa.” Ikäryhmien visualisointiin käytetään tässä väripalettia BuPu, joka on colorblind safe, sequential (ks. lisätietoja ja lisää paletteja: colorbrewer2.org).\n\nKuvio 1b 1: Itsemurhat ikäryhmittäin, värillinen\n\n\n\n\n\nKuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)\n\n\nKuvio 1b 2: Väkivaltakuolemat ikäryhmittäin, värillinen\n\n\n\n\n\nKuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)\n\n\nKuvio 1b 3: Huumekuolemat ikäryhmittäin, värillinen\n\n\n\n\n\nKuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)"
+  },
+  {
+    "objectID": "datan-visualisointi.html#filtteröinti-2",
+    "href": "datan-visualisointi.html#filtteröinti-2",
+    "title": "YP YD-visualisoinnit",
+    "section": "Filtteröinti",
+    "text": "Filtteröinti"
+  },
+  {
+    "objectID": "datan-visualisointi.html#visualisointi-geom_bar-dodge-1",
+    "href": "datan-visualisointi.html#visualisointi-geom_bar-dodge-1",
+    "title": "YP YD-visualisoinnit",
+    "section": "Visualisointi (geom_bar dodge)",
+    "text": "Visualisointi (geom_bar dodge)\n\nMustavalkoiset kuviot\n\nKuviot 2a 1-3: YD-kuolemat sukupuolittain, mustavalkoinen\nMustavalkoiset kuviot, joissa on mukana title, caption ja y-akselin label:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVärilliset kuviot\n\nKuvio 2b 1: Itsemurhat sukupuolittain, värillinen\nVärilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: colorbrewer2.org).\n\n\n\n\n\nKuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)\n\n\nKuvio 2b 2: Väkivaltakuolemat sukupuolittain, värillinen\n\n\n\n\n\nKuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)\n\n\nKuvio 2b 3: Huumekuolemat sukupuolittain, värillinen\n\n\n\n\n\nKuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)"
+  },
+  {
+    "objectID": "datan-visualisointi.html#taulukko",
+    "href": "datan-visualisointi.html#taulukko",
+    "title": "YP YD-visualisoinnit",
+    "section": "Taulukko",
+    "text": "Taulukko\n\nDatan siivous\n\n\nTaulukon printtaus\n\n\n# A tibble: 18 × 9\n# Rowwise: \n   vuosi itsem_m itsem_n huume_m huume_n vakiv_m vakiv_n yht_m yht_n\n   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1 2006      158      38      47       7      16       4   221    49\n 2 2007      141      43      47       9      11      11   199    63\n 3 2008      135      40      45      11      17      11   197    62\n 4 2009      149      49      38      16      14       7   201    72\n 5 2010      164      49      38      12      15       5   217    66\n 6 2011      143      39      60      15      14       6   217    60\n 7 2012      135      46      52      14       9       5   196    65\n 8 2013      135      48      44      15       6       4   185    67\n 9 2014      124      35      46       9      10       5   180    49\n10 2015      108      28      35       5       5       3   148    36\n11 2016      110      53      50       8       8       1   168    62\n12 2017      134      45      48      12       6       7   188    64\n13 2018      122      45      72      23       5       4   199    72\n14 2019      129      43      65      26       9       4   203    73\n15 2020       98      49      98      19      14       3   210    71\n16 2021       82      43      77      23      11       3   170    69\n17 2022      106      36      61      21      10       8   177    65\n18 2023      112      58     101      23       9       7   222    88\n\n\n\n\nTaulukko 2: Sarakkeina vuodet\nTaulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä. Tämä code chunk on laitettu eval = FALSE koska emme halua, että tämän dokumentin jokainen renderöinti ylikirjoittaa käsin tehdyt muutokset!\nTässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuisivat paremmin vaakasuunnassa pdf-tiedostoon, mutta selkeyden vuoksi ei kuitenkaan ihan niin pieneksi, että ne mahtuisivat pystysuunnassa olevalle A4-paperille.\n\n\n\nItsemurhat\n\n\nika\nsukupuoli\nv_2006\nv_2007\nv_2008\nv_2009\nv_2010\nv_2011\nv_2012\nv_2013\nv_2014\nv_2015\nv_2016\nv_2017\nv_2018\nv_2019\nv_2020\nv_2021\nv_2022\nv_2023\n\n\n\n\n15 - 19\nYhteensä\n47.0\n39.0\n37.0\n36.0\n39.0\n43.0\n44.0\n32.0\n28.0\n17.0\n23.0\n32.0\n30.0\n34.0\n32.0\n28.0\n24.0\n45.0\n\n\n15 - 19\nMiehet (%)\n0.8\n0.8\n0.6\n0.8\n0.8\n0.8\n0.7\n0.6\n0.7\n0.9\n0.6\n0.8\n0.7\n0.7\n0.6\n0.6\n0.6\n0.5\n\n\n15 - 19\nNaiset (%)\n0.2\n0.2\n0.4\n0.2\n0.2\n0.2\n0.3\n0.4\n0.3\n0.1\n0.4\n0.2\n0.3\n0.3\n0.4\n0.4\n0.4\n0.5\n\n\n20 - 24\nYhteensä\n80.0\n81.0\n70.0\n81.0\n96.0\n73.0\n73.0\n67.0\n57.0\n54.0\n78.0\n70.0\n63.0\n71.0\n49.0\n48.0\n60.0\n67.0\n\n\n20 - 24\nMiehet (%)\n0.9\n0.7\n0.8\n0.8\n0.8\n0.8\n0.8\n0.7\n0.8\n0.8\n0.6\n0.7\n0.7\n0.7\n0.7\n0.7\n0.8\n0.7\n\n\n20 - 24\nNaiset (%)\n0.1\n0.3\n0.2\n0.2\n0.2\n0.2\n0.2\n0.3\n0.2\n0.2\n0.4\n0.3\n0.3\n0.3\n0.3\n0.3\n0.2\n0.3\n\n\n25 - 29\nYhteensä\n69.0\n64.0\n68.0\n81.0\n78.0\n66.0\n64.0\n84.0\n74.0\n65.0\n62.0\n77.0\n74.0\n67.0\n66.0\n49.0\n58.0\n58.0\n\n\n25 - 29\nMiehet (%)\n0.7\n0.8\n0.8\n0.7\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.7\n0.7\n0.8\n0.7\n\n\n25 - 29\nNaiset (%)\n0.3\n0.2\n0.2\n0.3\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.3\n0.3\n0.2\n0.3\n\n\n\n\n\n\n\n\nHuumekuolemat\n\n\nika\nsukupuoli\nv_2006\nv_2007\nv_2008\nv_2009\nv_2010\nv_2011\nv_2012\nv_2013\nv_2014\nv_2015\nv_2016\nv_2017\nv_2018\nv_2019\nv_2020\nv_2021\nv_2022\nv_2023\n\n\n\n\n15 - 19\nYhteensä\n10.0\n6.0\n7.0\n5.0\n2.0\n5.0\n8.0\n0.0\n4.0\n3.0\n4.0\n12.0\n20.0\n17.0\n26.0\n22.0\n18.0\n26.0\n\n\n15 - 19\nMiehet (%)\n0.9\n1.0\n1.0\n0.6\n1.0\n1.0\n0.6\nNA\n1.0\n0.7\n1.0\n0.7\n0.7\n0.6\n0.7\n0.8\n0.7\n0.7\n\n\n15 - 19\nNaiset (%)\n0.1\n0.0\n0.0\n0.4\n0.0\n0.0\n0.4\nNA\n0.0\n0.3\n0.0\n0.3\n0.3\n0.4\n0.3\n0.2\n0.3\n0.3\n\n\n20 - 24\nYhteensä\n26.0\n22.0\n25.0\n20.0\n26.0\n27.0\n23.0\n28.0\n18.0\n13.0\n22.0\n25.0\n34.0\n37.0\n46.0\n38.0\n33.0\n65.0\n\n\n20 - 24\nMiehet (%)\n0.8\n0.8\n0.7\n0.5\n0.7\n0.7\n0.8\n0.7\n0.8\n1.0\n0.8\n0.8\n0.8\n0.7\n0.9\n0.8\n0.8\n0.8\n\n\n20 - 24\nNaiset (%)\n0.2\n0.2\n0.3\n0.5\n0.3\n0.3\n0.2\n0.3\n0.2\n0.0\n0.2\n0.2\n0.2\n0.3\n0.1\n0.2\n0.2\n0.2\n\n\n25 - 29\nYhteensä\n18.0\n28.0\n24.0\n29.0\n22.0\n43.0\n35.0\n31.0\n33.0\n24.0\n32.0\n23.0\n41.0\n37.0\n45.0\n40.0\n31.0\n33.0\n\n\n25 - 29\nMiehet (%)\n0.9\n0.8\n0.9\n0.9\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.9\n0.9\n0.8\n0.8\n0.8\n0.8\n0.8\n0.9\n\n\n25 - 29\nNaiset (%)\n0.1\n0.2\n0.1\n0.1\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.1\n0.1\n0.2\n0.2\n0.2\n0.2\n0.2\n0.1\n\n\n\n\n\n\n\n\nVäkivaltakuolemat\n\n\nika\nsukupuoli\nv_2006\nv_2007\nv_2008\nv_2009\nv_2010\nv_2011\nv_2012\nv_2013\nv_2014\nv_2015\nv_2016\nv_2017\nv_2018\nv_2019\nv_2020\nv_2021\nv_2022\nv_2023\n\n\n\n\n15 - 19\nYhteensä\n3.0\n10.0\n2.0\n4.0\n0.0\n7.0\n5.0\n5.0\n3.0\n3\n1.0\n6.0\n1.0\n1.0\n5.0\n2.0\n4.0\n3.0\n\n\n15 - 19\nMiehet (%)\n1.0\n0.7\n0.5\n0.8\nNA\n0.6\n0.4\n0.6\n1.0\n0\n1.0\n0.3\n0.0\n1.0\n1.0\n1.0\n0.5\n0.3\n\n\n15 - 19\nNaiset (%)\n0.0\n0.3\n0.5\n0.2\nNA\n0.4\n0.6\n0.4\n0.0\n1\n0.0\n0.7\n1.0\n0.0\n0.0\n0.0\n0.5\n0.7\n\n\n20 - 24\nYhteensä\n8.0\n4.0\n16.0\n7.0\n7.0\n4.0\n4.0\n2.0\n2.0\n1\n3.0\n3.0\n4.0\n7.0\n6.0\n4.0\n8.0\n2.0\n\n\n20 - 24\nMiehet (%)\n0.9\n0.2\n0.6\n0.4\n0.9\n0.8\n0.8\n1.0\n0.5\n1\n1.0\n0.7\n0.8\n0.7\n0.8\n0.8\n0.5\n1.0\n\n\n20 - 24\nNaiset (%)\n0.1\n0.8\n0.4\n0.6\n0.1\n0.2\n0.2\n0.0\n0.5\n0\n0.0\n0.3\n0.2\n0.3\n0.2\n0.2\n0.5\n0.0\n\n\n25 - 29\nYhteensä\n9.0\n8.0\n10.0\n10.0\n13.0\n9.0\n5.0\n3.0\n10.0\n4\n5.0\n4.0\n4.0\n5.0\n6.0\n8.0\n6.0\n11.0\n\n\n25 - 29\nMiehet (%)\n0.7\n0.4\n0.7\n0.8\n0.7\n0.8\n0.8\n0.3\n0.6\n1\n0.8\n0.5\n0.5\n0.6\n0.7\n0.8\n0.7\n0.5\n\n\n25 - 29\nNaiset (%)\n0.3\n0.6\n0.3\n0.2\n0.3\n0.2\n0.2\n0.7\n0.4\n0\n0.2\n0.5\n0.5\n0.4\n0.3\n0.2\n0.3\n0.5\n\n\n\n\n\n\n\n\nKaikki YD-kuolemat yhteensä\n\n\nika\nsukupuoli\nv_2006\nv_2007\nv_2008\nv_2009\nv_2010\nv_2011\nv_2012\nv_2013\nv_2014\nv_2015\nv_2016\nv_2017\nv_2018\nv_2019\nv_2020\nv_2021\nv_2022\nv_2023\n\n\n\n\n15 - 19\nYhteensä\n60.0\n55.0\n46.0\n45.0\n41\n55.0\n57.0\n37.0\n35.0\n23.0\n28.0\n50.0\n51.0\n52.0\n63.0\n52.0\n46.0\n74.0\n\n\n15 - 19\nMiehet (%)\n0.8\n0.8\n0.7\n0.7\nNA\n0.8\n0.6\n0.6\n0.8\n0.7\n0.6\n0.7\n0.7\n0.7\n0.7\n0.7\n0.6\n0.6\n\n\n15 - 19\nNaiset (%)\n0.1\n0.2\n0.3\n0.3\nNA\n0.2\n0.4\n0.4\n0.2\n0.3\n0.4\n0.3\n0.3\n0.3\n0.3\n0.3\n0.4\n0.4\n\n\n20 - 24\nYhteensä\n114.0\n107.0\n111.0\n108.0\n129\n104.0\n100.0\n97.0\n77.0\n68.0\n103.0\n98.0\n101.0\n115.0\n101.0\n90.0\n101.0\n134.0\n\n\n20 - 24\nMiehet (%)\n0.9\n0.7\n0.8\n0.7\nNA\n0.8\n0.8\n0.7\n0.8\n0.9\n0.6\n0.7\n0.7\n0.7\n0.8\n0.7\n0.8\n0.7\n\n\n20 - 24\nNaiset (%)\n0.1\n0.3\n0.2\n0.3\nNA\n0.2\n0.2\n0.3\n0.2\n0.1\n0.4\n0.3\n0.3\n0.3\n0.2\n0.3\n0.2\n0.3\n\n\n25 - 29\nYhteensä\n96.0\n100.0\n102.0\n120.0\n113\n118.0\n104.0\n118.0\n117.0\n93.0\n99.0\n104.0\n119.0\n109.0\n117.0\n97.0\n95.0\n102.0\n\n\n25 - 29\nMiehet (%)\n0.8\n0.8\n0.8\n0.8\nNA\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.8\n0.7\n0.8\n0.8\n\n\n25 - 29\nNaiset (%)\n0.2\n0.2\n0.2\n0.2\nNA\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.2\n0.3\n0.2\n0.2\n\n\n\n\n\n\n\nTaulukot on myös mahdollista renderöidä käyttämällä gt-pakettia."
+  },
+  {
+    "objectID": "datan-visualisointi.html#filtteröinti-3",
+    "href": "datan-visualisointi.html#filtteröinti-3",
+    "title": "YP YD-visualisoinnit",
+    "section": "Filtteröinti",
+    "text": "Filtteröinti"
+  },
+  {
+    "objectID": "datan-visualisointi.html#visualisointi-geom_bar-stack",
+    "href": "datan-visualisointi.html#visualisointi-geom_bar-stack",
+    "title": "YP YD-visualisoinnit",
+    "section": "Visualisointi (geom_bar stack)",
+    "text": "Visualisointi (geom_bar stack)\n\nKuvio 3a: Mustavalkoinen kuvio, joissa on mukana title, caption ja y-akselin label\n\n\n\n\n\n\n\nKuvio 3b: Värillinen kuvio ilman labeleita\nKuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: colorbrewer2.org).\n\n\n\n\n\nKuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)"
+  },
+  {
+    "objectID": "datan-visualisointi.html#absoluuttiset-lukuarvot",
+    "href": "datan-visualisointi.html#absoluuttiset-lukuarvot",
+    "title": "YP YD-visualisoinnit",
+    "section": "Absoluuttiset lukuarvot",
+    "text": "Absoluuttiset lukuarvot\n\nFiltteröinti\nVerrattuna aiempiin vaiheisiin, tässä on pudotettu pois vuoden perusteella filtteröinti. Toisin sanottuna mukaan otetaan kaikki havainnot aineiston alkupisteestä asti. Huumekuolemat-aineisto alkaa vasta vuodesta 2006.\n\n\nVisualisointi (geom_line)\nMustavalkoinen kuvio:\n\n\n\n\n\nKuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: colorbrewer2.org).\n\n\n\n\n\nKuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)"
+  },
+  {
+    "objectID": "datan-visualisointi.html#suhteutettuna-ikäluokan-kokoon",
+    "href": "datan-visualisointi.html#suhteutettuna-ikäluokan-kokoon",
+    "title": "YP YD-visualisoinnit",
+    "section": "Suhteutettuna ikäluokan kokoon",
+    "text": "Suhteutettuna ikäluokan kokoon\n\nMääritelmä: ASDR\n\nIkäryhmittäinen kuolleisuusluku (Age Specific Death Rate, ASDR) vastaa ikäryhmittäistä hedelmällisyyslukua niin hyvien kuin huonenkin ominaisuuksiensa osalta. Se on täsmällinen mittaluku, mutta se pilkkoo tiedon kuolleisuudesta niin moneen pieneen palaseen, että kokonaiskuvaa on vaikea saada. Esimerkiksi 25-29-vuotiaille ikäryhmittäinen kuolleisuusluku lasketaan seuraavanlaisessa kaavalla:\n\\[\nASDR = \\frac{\\text{25-29 vuotiaana kuolleet vuonna A}}{\\text{25-29-vuotiaiden keskiväkiluku vuonna A}} \\times 1000\n\\]\n(Suomen väestö -teos)\n\nKategorisoidaan ensin 1 ikävuoden välein otetut keskiväkiluvut aiemmin käytettyihin kategorioihin 15 - 19, 20 - 24 ja 25-29.\nLasketaan sitten kuolleiden määrän ja keskiväkiluvun suhteesta saatava ASDR.\nOngelmallista ylemmässä on se, että keskiväkiluvut ulottuvat vain vuoteen 1981 asti. Käytetään siis itse laskettua keskiväkilukua.\n\n\nVisualisointi (geom_line)\n\nMustavalkoinen\n\n\n\n\n\n\n\nVärillinen\nKuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: colorbrewer2.org).\n\n\n\n\n\nKuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2023 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc – Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)"
+  }
+]

@@ -1,9 +1,11 @@
 ---
 title: "YP YD-visualisoinnit"
 date: 2025-10-20
+project:
+  type: website
+  output-dir: docs
 format: 
-  pdf:
-    df-print: kable
+  html
 execute: 
   echo: false
   warning: false

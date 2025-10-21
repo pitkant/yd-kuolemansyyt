@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-20">
+
+<title>YP YD-visualisoinnit</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">YP YD-visualisoinnit</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 20, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="relevanttien-pakettien-lataaminen" class="level1">
+<h1>0. Relevanttien pakettien lataaminen</h1>
+<p>Tilastotietojen lataamisessa Tilastokeskuksen StatFin-tietokannasta käytetään <a href="https://ropengov.github.io/pxweb/">pxweb-pakettia</a>. Paketti mahdollistaa hakujen tekemisen tekstipohjaisesta käyttöliittymästä, jolloin haut ovat tallennettavissa, helposti toistettavissa ja muokattavissa suoraan R:stä. <code>pxweb</code>-paketti toimii monien eri pxweb-tietokantojen kanssa eri maissa. <code>pxweb</code>-paketti on kehitetty osana <a href="https://ropengov.org">rOpenGov</a> -pakettiekosysteemiä.</p>
+<p>Datan käsittelyyn (data wrangling) käytetään <a href="https://www.tidyverse.org">tidyverseen</a> kuuluvia <code>ggplot2</code>-, <code>dplyr</code>- ja <code>tidyr</code>-paketteja.</p>
+<p>Datasettien nimien siivoamiseen käytetään <code>janitor</code>-pakettia.</p>
+<p>Kuvien yhdistämiseksi paneelikuviksi hyödynnetään <code>patchwork</code>-pakettia.</p>
+</section>
+<section id="datan-hakeminen" class="level1">
+<h1>0.1 Datan hakeminen</h1>
+<p>Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinnasta vai luetaanko ne lokaalista kansiosta.</p>
+<p>Taulukossa “12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023” (statfin_ksyyt_pxt_12d9) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat: - Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19) - Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436) - Itsemurhat huumeilla (X61, X62, X64/T400-9, T436) - Huumeiden aiheuttamat myrkytykset, tahallisuus epäselvä (Y11, Y12, Y14/T400-9, T436)</p>
+<p>Alaviitteissä mainitaan: “Luokitus perustuu Euroopan huumausaineiden ja niiden väärinkäytön seurantakeskuksen EMCDDA:n huumeluokitukseen Selection B. Luokkia on yhdistelty.”</p>
+<p>Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää muita tietokantataulukoita. Taulukossa “Kuolleet muuttujina Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso), Ikä, Vuosi, Tiedot ja Sukupuoli” (statfin_ksyyt_pxt_11be) on mahdollista valmita em. ICD10-koodien perusteella tietoja vuodesta 1998 alkaen.</p>
+<p>Luvut ovat kuitenkin hieman erilaisia verrattuna taulukon statfin_ksyyt_pxt_12d9 Yhteensä-lukuihin. Esimerkiksi vuonna 2006 saadaan taulukosta statfin_ksyyt_pxt_11be yhteensä 55 huumekuolemaa, kun taulukossa statfin_ksyyt_pxt_12d9 niitä on 54. Erot ovat joinakin vuosina melko suuria; esimerkiksi vuonna 2010 25 - 29 -vuotiaiden ikäryhmässä erotus eri tilastointitapojen välillä on 11 kuolemantapausta ja vuonna 2018 -6 kuolemantapausta.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="keskiväkiluku" class="level2">
+<h2 class="anchored" data-anchor-id="keskiväkiluku">Keskiväkiluku</h2>
+<p>Tilastokeskuksen Keskiväkiluku-aineistosta saadaan tietoja vain vuoteen 1981 asti. Tästä johtuen myöhemmin tässä työkirjassa käytetään itse laskettua keskiväkilukua.</p>
+<section id="keskiväkiluvun-laskeminen-itse" class="level3">
+<h3 class="anchored" data-anchor-id="keskiväkiluvun-laskeminen-itse">Keskiväkiluvun laskeminen itse</h3>
+<p><a href="https://stat.fi/meta/kas/keskivakiluku.html">Tilastokeskuksen määritelmän</a> mukaan:</p>
+<blockquote class="blockquote">
+<p>Tietyn vuoden keskiväkiluku on kahden peräkkäisen vuoden väkilukujen keskiarvo. Kun tilastovuodelle lasketaan jotakin ilmiöta kuvaava suhdeluku, yleensä ko. ilmiön tapahtumien määrä suhteutetaan juuri tapahtumalle alttiina olevan väestön tai väestön osan keskiväkilukuun. Nämä väestöllisiä ilmiöitä kuvaavat luvut ilmoitetaan yleensä promilleina eli em. jakolaskun tulos kerrotaan tuhannella.</p>
+</blockquote>
+<p>Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku ja vuoden 2023 väkiluku ja jakamalla tämä kahdella.</p>
+<p>Muodostetaan 15-29 -vuotiaiden ryhmä. Hyödynnetään <code>dplyr</code>-paketista löytyviä <a href="https://dplyr.tidyverse.org/articles/window-functions.html">window function</a> -funktioita eli lag-funktiota, saadaan valittua jokaiselle vuodelle sitä seuraavan vuoden luku (taulukko on järjestetty nousevaan järjestykseen eli ensimmäisenä on vanhin vuosi ja viimeisenä uusin vuosi, 2024).</p>
+</section>
+<section id="elinajanodote-ikävuosittain" class="level3">
+<h3 class="anchored" data-anchor-id="elinajanodote-ikävuosittain">Elinajanodote ikävuosittain</h3>
+<p>Tässä haetaan Tilastokeskuksen tietokannasta elinajanodote vuosina 1-v -tarkkuudella, lasketaan keskimääräinen elinajanodote ikäryhmittäin ilman painokerrointa. Esim. vuonna 1986 15-19 -vuotiaiden miesten keskimääräinen elinajanodote olisi</p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+\frac{56.2 + 55.23 + 54.26 + 53.31 + 52.38}{5} = 54.3
+\]</span></p>
+</blockquote>
+<p>Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan, eli vuonna 1986 15-vuotiaiden elinajanodote oli 56.2 vuotta, 16-vuotiaiden 55.23 vuotta jne.</p>
+</section>
+</section>
+<section id="filtteröinti" class="level2">
+<h2 class="anchored" data-anchor-id="filtteröinti">Filtteröinti</h2>
+<p><code>janitor</code>-paketin <code>clean_names()</code>-funktiolla muutetaan suomenkieliset muuttujanimet helpommin käsiteltäviksi ASCII-nimiksi, joissa poistetaan isot kirjaimet, välilyönnit korvataan _-merkillä, ääkköset poistetaan ym.</p>
+<p>Muodostetaan uusi muuttuja “kuolemansyy” jota voidaan käyttää eri kuolemansyiden lukujen ryhmittelyyn visualisoinneissa.</p>
+</section>
+</section>
+<section id="x-pylväsdiagrammi-yd-kuolemansyyn-itsemurhat-huumeet-väkivalta" class="level1">
+<h1>1. 3x pylväsdiagrammi yd-kuolemansyyn (itsemurhat, huumeet, väkivalta)</h1>
+<section id="filtteröinti-1" class="level2">
+<h2 class="anchored" data-anchor-id="filtteröinti-1">Filtteröinti</h2>
+<p>Muutetaan ika-muuttujan character-arvot faktoreiksi, jolloin voidaan määritellä manuaalisesti niiden järjestys. Normaalisti muuttujat visualisoitaisiin aakkosjärjestyksessä (alfanumeerisessa järjestyksessä), jolloin numerot tulisivat ennen tekstimuuttujia. Haluamme kuitenkin tässä (?), että “Yhteensä” on ennen numeroita.</p>
+</section>
+<section id="visualisointi-geom_bar-dodge" class="level2">
+<h2 class="anchored" data-anchor-id="visualisointi-geom_bar-dodge">Visualisointi (geom_bar dodge)</h2>
+<section id="mustavalkoinen" class="level3">
+<h3 class="anchored" data-anchor-id="mustavalkoinen">Mustavalkoinen</h3>
+<p>Tässä visualisoinnissa esitetään erikseen eri kuolinsyiden Yhteensä-määrä ja erilliset kuolinsyyt omina palkkeinaan.</p>
+<p>Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="visualisointi-geom_bar-dodge-patchwork" class="level2">
+<h2 class="anchored" data-anchor-id="visualisointi-geom_bar-dodge-patchwork">Visualisointi (geom_bar dodge + patchwork)</h2>
+<section id="mustavalkoinen-1" class="level3">
+<h3 class="anchored" data-anchor-id="mustavalkoinen-1">Mustavalkoinen</h3>
+<p>Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_patchwork-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="visualisointi-geom_bar-stacked" class="level2">
+<h2 class="anchored" data-anchor-id="visualisointi-geom_bar-stacked">Visualisointi (geom_bar stacked)</h2>
+<section id="mustavalkoinen-2" class="level3">
+<h3 class="anchored" data-anchor-id="mustavalkoinen-2">Mustavalkoinen</h3>
+<section id="kuvio-1a-1-3-yd-kuolemat-ikäryhmittäin" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-1a-1-3-yd-kuolemat-ikäryhmittäin">Kuvio 1a 1-3: YD-kuolemat ikäryhmittäin</h4>
+<p>Tässä visualisoinnissa YD-kuolemien kokonaismäärä näkyy pinoamalla erilliset kuolinsyyt yhdeksi palkiksi.</p>
+<p>“Kuviot julkaistaan printtilehdessä mustavalkoisena, mikä tulee ottaa huomioon kuvioita suunniteltaessa.”</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_mv-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_mv-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_mv-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="värilliset-kuviot" class="level3">
+<h3 class="anchored" data-anchor-id="värilliset-kuviot">Värilliset kuviot</h3>
+<p>“Kuviossa mahdollisesti käytetyt värit tulevat näkyviin artikkelin nettiversiossa.” Ikäryhmien visualisointiin käytetään tässä väripalettia BuPu, joka on colorblind safe, sequential (ks. lisätietoja ja lisää paletteja: <a href="colorbrewer2.org">colorbrewer2.org</a>).</p>
+<section id="kuvio-1b-1-itsemurhat-ikäryhmittäin-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-1b-1-itsemurhat-ikäryhmittäin-värillinen">Kuvio 1b 1: Itsemurhat ikäryhmittäin, värillinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_itsemurha-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+</section>
+<section id="kuvio-1b-2-väkivaltakuolemat-ikäryhmittäin-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-1b-2-väkivaltakuolemat-ikäryhmittäin-värillinen">Kuvio 1b 2: Väkivaltakuolemat ikäryhmittäin, värillinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_vakivalta-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+</section>
+<section id="kuvio-1b-3-huumekuolemat-ikäryhmittäin-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-1b-3-huumekuolemat-ikäryhmittäin-värillinen">Kuvio 1b 3: Huumekuolemat ikäryhmittäin, värillinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_huumekuolema-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+</section>
+</section>
+</section>
+</section>
+<section id="pylväsdiagrammi-yd-kuolemansyyt-sukupuolittain-2006-2024-absoluuttiset-luvut" class="level1">
+<h1>2. Pylväsdiagrammi, yd-kuolemansyyt sukupuolittain 2006-2024, absoluuttiset luvut</h1>
+<section id="filtteröinti-2" class="level2">
+<h2 class="anchored" data-anchor-id="filtteröinti-2">Filtteröinti</h2>
+</section>
+<section id="visualisointi-geom_bar-dodge-1" class="level2">
+<h2 class="anchored" data-anchor-id="visualisointi-geom_bar-dodge-1">Visualisointi (geom_bar dodge)</h2>
+<section id="mustavalkoiset-kuviot" class="level3">
+<h3 class="anchored" data-anchor-id="mustavalkoiset-kuviot">Mustavalkoiset kuviot</h3>
+<section id="kuviot-2a-1-3-yd-kuolemat-sukupuolittain-mustavalkoinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuviot-2a-1-3-yd-kuolemat-sukupuolittain-mustavalkoinen">Kuviot 2a 1-3: YD-kuolemat sukupuolittain, mustavalkoinen</h4>
+<p>Mustavalkoiset kuviot, joissa on mukana title, caption ja y-akselin label:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="värilliset-kuviot-1" class="level3">
+<h3 class="anchored" data-anchor-id="värilliset-kuviot-1">Värilliset kuviot</h3>
+<section id="kuvio-2b-1-itsemurhat-sukupuolittain-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-2b-1-itsemurhat-sukupuolittain-värillinen">Kuvio 2b 1: Itsemurhat sukupuolittain, värillinen</h4>
+<p>Värilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: <a href="colorbrewer2.org">colorbrewer2.org</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+</section>
+<section id="kuvio-2b-2-väkivaltakuolemat-sukupuolittain-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-2b-2-väkivaltakuolemat-sukupuolittain-värillinen">Kuvio 2b 2: Väkivaltakuolemat sukupuolittain, värillinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_vakivalta-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+</section>
+<section id="kuvio-2b-3-huumekuolemat-sukupuolittain-värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="kuvio-2b-3-huumekuolemat-sukupuolittain-värillinen">Kuvio 2b 3: Huumekuolemat sukupuolittain, värillinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_huumekuolema-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+</section>
+</section>
+</section>
+<section id="taulukko" class="level2">
+<h2 class="anchored" data-anchor-id="taulukko">Taulukko</h2>
+<section id="datan-siivous" class="level3">
+<h3 class="anchored" data-anchor-id="datan-siivous">Datan siivous</h3>
+</section>
+<section id="taulukon-printtaus" class="level3">
+<h3 class="anchored" data-anchor-id="taulukon-printtaus">Taulukon printtaus</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 9
+# Rowwise: 
+   vuosi itsem_m itsem_n huume_m huume_n vakiv_m vakiv_n yht_m yht_n
+   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2006      158      38      47       7      16       4   221    49
+ 2 2007      141      43      47       9      11      11   199    63
+ 3 2008      135      40      45      11      17      11   197    62
+ 4 2009      149      49      38      16      14       7   201    72
+ 5 2010      164      49      38      12      15       5   217    66
+ 6 2011      143      39      60      15      14       6   217    60
+ 7 2012      135      46      52      14       9       5   196    65
+ 8 2013      135      48      44      15       6       4   185    67
+ 9 2014      124      35      46       9      10       5   180    49
+10 2015      108      28      35       5       5       3   148    36
+11 2016      110      53      50       8       8       1   168    62
+12 2017      134      45      48      12       6       7   188    64
+13 2018      122      45      72      23       5       4   199    72
+14 2019      129      43      65      26       9       4   203    73
+15 2020       98      49      98      19      14       3   210    71
+16 2021       82      43      77      23      11       3   170    69
+17 2022      106      36      61      21      10       8   177    65
+18 2023      112      58     101      23       9       7   222    88</code></pre>
+</div>
+</div>
+</section>
+<section id="taulukko-2-sarakkeina-vuodet" class="level3">
+<h3 class="anchored" data-anchor-id="taulukko-2-sarakkeina-vuodet">Taulukko 2: Sarakkeina vuodet</h3>
+<p>Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä. Tämä code chunk on laitettu eval = FALSE koska emme halua, että tämän dokumentin jokainen renderöinti ylikirjoittaa käsin tehdyt muutokset!</p>
+<p>Tässä välissä muokkauksia on tehty Excel-tiedostossa, jonka jälkeen se luetaan taas R:ään. Fontti on asetettu seuraavissa taulukoissa pieneksi jotta ne mahtuisivat paremmin vaakasuunnassa pdf-tiedostoon, mutta selkeyden vuoksi ei kuitenkaan ihan niin pieneksi, että ne mahtuisivat pystysuunnassa olevalle A4-paperille.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Itsemurhat</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">ika</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sukupuoli</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2006</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2007</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2008</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2009</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2011</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2012</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2013</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2014</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2015</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2016</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2017</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2018</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2019</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2020</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">47.0</td>
+<td style="text-align: right;">39.0</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">36.0</td>
+<td style="text-align: right;">39.0</td>
+<td style="text-align: right;">43.0</td>
+<td style="text-align: right;">44.0</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">28.0</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">23.0</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">30.0</td>
+<td style="text-align: right;">34.0</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">28.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">45.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">80.0</td>
+<td style="text-align: right;">81.0</td>
+<td style="text-align: right;">70.0</td>
+<td style="text-align: right;">81.0</td>
+<td style="text-align: right;">96.0</td>
+<td style="text-align: right;">73.0</td>
+<td style="text-align: right;">73.0</td>
+<td style="text-align: right;">67.0</td>
+<td style="text-align: right;">57.0</td>
+<td style="text-align: right;">54.0</td>
+<td style="text-align: right;">78.0</td>
+<td style="text-align: right;">70.0</td>
+<td style="text-align: right;">63.0</td>
+<td style="text-align: right;">71.0</td>
+<td style="text-align: right;">49.0</td>
+<td style="text-align: right;">48.0</td>
+<td style="text-align: right;">60.0</td>
+<td style="text-align: right;">67.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">69.0</td>
+<td style="text-align: right;">64.0</td>
+<td style="text-align: right;">68.0</td>
+<td style="text-align: right;">81.0</td>
+<td style="text-align: right;">78.0</td>
+<td style="text-align: right;">66.0</td>
+<td style="text-align: right;">64.0</td>
+<td style="text-align: right;">84.0</td>
+<td style="text-align: right;">74.0</td>
+<td style="text-align: right;">65.0</td>
+<td style="text-align: right;">62.0</td>
+<td style="text-align: right;">77.0</td>
+<td style="text-align: right;">74.0</td>
+<td style="text-align: right;">67.0</td>
+<td style="text-align: right;">66.0</td>
+<td style="text-align: right;">49.0</td>
+<td style="text-align: right;">58.0</td>
+<td style="text-align: right;">58.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Huumekuolemat</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">ika</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sukupuoli</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2006</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2007</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2008</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2009</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2011</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2012</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2013</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2014</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2015</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2016</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2017</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2018</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2019</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2020</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">12.0</td>
+<td style="text-align: right;">20.0</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">26.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">20.0</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: right;">27.0</td>
+<td style="text-align: right;">23.0</td>
+<td style="text-align: right;">28.0</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">13.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">34.0</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">46.0</td>
+<td style="text-align: right;">38.0</td>
+<td style="text-align: right;">33.0</td>
+<td style="text-align: right;">65.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">28.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">43.0</td>
+<td style="text-align: right;">35.0</td>
+<td style="text-align: right;">31.0</td>
+<td style="text-align: right;">33.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">23.0</td>
+<td style="text-align: right;">41.0</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">45.0</td>
+<td style="text-align: right;">40.0</td>
+<td style="text-align: right;">31.0</td>
+<td style="text-align: right;">33.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Väkivaltakuolemat</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">ika</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sukupuoli</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2006</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2007</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2008</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2009</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2011</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2012</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2013</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2014</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2015</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2016</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2017</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2018</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2019</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2020</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">16.0</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">13.0</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">11.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Kaikki YD-kuolemat yhteensä</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">ika</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sukupuoli</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2006</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2007</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2008</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2009</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2011</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2012</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2013</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2014</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2015</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2016</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2017</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2018</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2019</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2020</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">v_2023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">60.0</td>
+<td style="text-align: right;">55.0</td>
+<td style="text-align: right;">46.0</td>
+<td style="text-align: right;">45.0</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">55.0</td>
+<td style="text-align: right;">57.0</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">35.0</td>
+<td style="text-align: right;">23.0</td>
+<td style="text-align: right;">28.0</td>
+<td style="text-align: right;">50.0</td>
+<td style="text-align: right;">51.0</td>
+<td style="text-align: right;">52.0</td>
+<td style="text-align: right;">63.0</td>
+<td style="text-align: right;">52.0</td>
+<td style="text-align: right;">46.0</td>
+<td style="text-align: right;">74.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15 - 19</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">114.0</td>
+<td style="text-align: right;">107.0</td>
+<td style="text-align: right;">111.0</td>
+<td style="text-align: right;">108.0</td>
+<td style="text-align: right;">129</td>
+<td style="text-align: right;">104.0</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">97.0</td>
+<td style="text-align: right;">77.0</td>
+<td style="text-align: right;">68.0</td>
+<td style="text-align: right;">103.0</td>
+<td style="text-align: right;">98.0</td>
+<td style="text-align: right;">101.0</td>
+<td style="text-align: right;">115.0</td>
+<td style="text-align: right;">101.0</td>
+<td style="text-align: right;">90.0</td>
+<td style="text-align: right;">101.0</td>
+<td style="text-align: right;">134.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 - 24</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Yhteensä</td>
+<td style="text-align: right;">96.0</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">102.0</td>
+<td style="text-align: right;">120.0</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">118.0</td>
+<td style="text-align: right;">104.0</td>
+<td style="text-align: right;">118.0</td>
+<td style="text-align: right;">117.0</td>
+<td style="text-align: right;">93.0</td>
+<td style="text-align: right;">99.0</td>
+<td style="text-align: right;">104.0</td>
+<td style="text-align: right;">119.0</td>
+<td style="text-align: right;">109.0</td>
+<td style="text-align: right;">117.0</td>
+<td style="text-align: right;">97.0</td>
+<td style="text-align: right;">95.0</td>
+<td style="text-align: right;">102.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Miehet (%)</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 - 29</td>
+<td style="text-align: left;">Naiset (%)</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Taulukot on myös mahdollista renderöidä käyttämällä gt-pakettia.</p>
+</section>
+</section>
+</section>
+<section id="pylväsdiagrammi-jossa-15-29-vuotiaiden-nuorten-kuolemat-2006-2024" class="level1">
+<h1>3. Pylväsdiagrammi, jossa 15-29-vuotiaiden nuorten kuolemat 2006-2024</h1>
+<section id="filtteröinti-3" class="level2">
+<h2 class="anchored" data-anchor-id="filtteröinti-3">Filtteröinti</h2>
+</section>
+<section id="visualisointi-geom_bar-stack" class="level2">
+<h2 class="anchored" data-anchor-id="visualisointi-geom_bar-stack">Visualisointi (geom_bar stack)</h2>
+<section id="kuvio-3a-mustavalkoinen-kuvio-joissa-on-mukana-title-caption-ja-y-akselin-label" class="level3">
+<h3 class="anchored" data-anchor-id="kuvio-3a-mustavalkoinen-kuvio-joissa-on-mukana-title-caption-ja-y-akselin-label">Kuvio 3a: Mustavalkoinen kuvio, joissa on mukana title, caption ja y-akselin label</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/3_yd_kuolemansyyt_vs_muut_visualisointi_mv-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="kuvio-3b-värillinen-kuvio-ilman-labeleita" class="level3">
+<h3 class="anchored" data-anchor-id="kuvio-3b-värillinen-kuvio-ilman-labeleita">Kuvio 3b: Värillinen kuvio ilman labeleita</h3>
+<p>Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: <a href="colorbrewer2.org">colorbrewer2.org</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/3_yd_kuolemansyyt_vs_muut_visualisointi_final-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+</section>
+</section>
+</section>
+<section id="viivadiagrammi-nuorten-kuolemista-1970-2024-yd-kuolemansyyt-ja-kaikki-kuolemansyyt" class="level1">
+<h1>4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt</h1>
+<section id="absoluuttiset-lukuarvot" class="level2">
+<h2 class="anchored" data-anchor-id="absoluuttiset-lukuarvot">Absoluuttiset lukuarvot</h2>
+<section id="filtteröinti-4" class="level3">
+<h3 class="anchored" data-anchor-id="filtteröinti-4">Filtteröinti</h3>
+<p>Verrattuna aiempiin vaiheisiin, tässä on pudotettu pois vuoden perusteella filtteröinti. Toisin sanottuna mukaan otetaan kaikki havainnot aineiston alkupisteestä asti. Huumekuolemat-aineisto alkaa vasta vuodesta 2006.</p>
+</section>
+<section id="visualisointi-geom_line" class="level3">
+<h3 class="anchored" data-anchor-id="visualisointi-geom_line">Visualisointi (geom_line)</h3>
+<p>Mustavalkoinen kuvio:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1969_visualisointi_mv-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: <a href="colorbrewer2.org">colorbrewer2.org</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1969_visualisointi_final-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+</section>
+</section>
+<section id="suhteutettuna-ikäluokan-kokoon" class="level2">
+<h2 class="anchored" data-anchor-id="suhteutettuna-ikäluokan-kokoon">Suhteutettuna ikäluokan kokoon</h2>
+<section id="määritelmä-asdr" class="level3">
+<h3 class="anchored" data-anchor-id="määritelmä-asdr">Määritelmä: ASDR</h3>
+<blockquote class="blockquote">
+<p>Ikäryhmittäinen kuolleisuusluku (Age Specific Death Rate, ASDR) vastaa ikäryhmittäistä hedelmällisyyslukua niin hyvien kuin huonenkin ominaisuuksiensa osalta. Se on täsmällinen mittaluku, mutta se pilkkoo tiedon kuolleisuudesta niin moneen pieneen palaseen, että kokonaiskuvaa on vaikea saada. Esimerkiksi 25-29-vuotiaille ikäryhmittäinen kuolleisuusluku lasketaan seuraavanlaisessa kaavalla:</p>
+<p><span class="math display">\[
+ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden keskiväkiluku vuonna A}} \times 1000
+\]</span></p>
+<p>(Suomen väestö -teos)</p>
+</blockquote>
+<p>Kategorisoidaan ensin 1 ikävuoden välein otetut keskiväkiluvut aiemmin käytettyihin kategorioihin 15 - 19, 20 - 24 ja 25-29.</p>
+<p>Lasketaan sitten kuolleiden määrän ja keskiväkiluvun suhteesta saatava ASDR.</p>
+<p>Ongelmallista ylemmässä on se, että keskiväkiluvut ulottuvat vain vuoteen 1981 asti. Käytetään siis itse laskettua keskiväkilukua.</p>
+</section>
+<section id="visualisointi-geom_line-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualisointi-geom_line-1">Visualisointi (geom_line)</h3>
+<section id="mustavalkoinen-3" class="level4">
+<h4 class="anchored" data-anchor-id="mustavalkoinen-3">Mustavalkoinen</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_mv-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="värillinen" class="level4">
+<h4 class="anchored" data-anchor-id="värillinen">Värillinen</h4>
+<p>Kuolemansyiden visualisointiin käytetään tässä väripalettia Dark2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: <a href="colorbrewer2.org">colorbrewer2.org</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2023 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc – Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)</p>
+</section>
+</section>
+</section>
+</section>
+<section id="extra-menetetyt-elinvuodet-2006-2023" class="level1">
+<h1>Extra: Menetetyt elinvuodet 2006-2023</h1>
+<p>Koska meillä on tiedossa vuosina eri vuosina kuolleiden nuorten lukumäärät, voimme laskea kullekin ikäryhmälle menetettyjen elinvuosien summan. Koska sukupuolten välillä on eroja elinajanodotteessa, käytetään tässä jaottelua miehiin ja naisiin.</p>
+<p>Elinajanodotteita on saatavilla vain vuodesta 1986 eteenpäin ja tietoa huumekuolemista vain vuodesta 2006 eteenpäin, joten pääsääntöisesti tässä käytetään rajausta 2006-2023. Olen kuitenkin yleisen mielenkiinnon vuoksi sisällyttänyt tähän dataa itsemurhista ja väkivaltakuolemista vuodesta 1986 eteenpäin, koska näillekin vuosille voidaan laskea menetettyjen elinvuosien määrä.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/menetetyt_elinvuodet-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/menetetyt_elinvuodet-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="datan-visualisointi_files/figure-html/menetetyt_elinvuodet-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="viittaukset" class="level1">
+<h1>Viittaukset</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Kindly cite the pxweb R package as follows:
+
+Kindly cite the 'pxweb' R package as follows:
+
+  Magnusson M, Kainu M, Huovari J, Lahti L (2025). _pxweb: R Interface
+  to PXWEB APIs_. doi:10.32614/CRAN.package.pxweb
+  &lt;https://doi.org/10.32614/CRAN.package.pxweb&gt;, R package version
+  0.17.1, &lt;https://github.com/rOpenGov/pxweb&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite ggplot2 in publications, please use
+
+  H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York, 2016.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'dplyr' in publications use:
+
+  Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A
+  Grammar of Data Manipulation_. doi:10.32614/CRAN.package.dplyr
+  &lt;https://doi.org/10.32614/CRAN.package.dplyr&gt;, R package version
+  1.1.4, &lt;https://CRAN.R-project.org/package=dplyr&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'tidyr' in publications use:
+
+  Wickham H, Vaughan D, Girlich M (2024). _tidyr: Tidy Messy Data_.
+  doi:10.32614/CRAN.package.tidyr
+  &lt;https://doi.org/10.32614/CRAN.package.tidyr&gt;, R package version
+  1.3.1, &lt;https://CRAN.R-project.org/package=tidyr&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'janitor' in publications use:
+
+  Firke S (2024). _janitor: Simple Tools for Examining and Cleaning
+  Dirty Data_. doi:10.32614/CRAN.package.janitor
+  &lt;https://doi.org/10.32614/CRAN.package.janitor&gt;, R package version
+  2.2.1, &lt;https://CRAN.R-project.org/package=janitor&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'patchwork' in publications use:
+
+  Pedersen T (2025). _patchwork: The Composer of Plots_.
+  doi:10.32614/CRAN.package.patchwork
+  &lt;https://doi.org/10.32614/CRAN.package.patchwork&gt;, R package version
+  1.3.1, &lt;https://CRAN.R-project.org/package=patchwork&gt;.</code></pre>
+</div>
+</div>
+</section>
+<section id="session-info" class="level1">
+<h1>Session info</h1>
+<p>Tällä varmistetaan se, että tieto pakettien versioista tulee kirjattua johonkin.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.5.1 (2025-06-13)
+Platform: aarch64-apple-darwin20
+Running under: macOS Tahoe 26.0.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+
+locale:
+[1] fi_FI.UTF-8/fi_FI.UTF-8/fi_FI.UTF-8/C/fi_FI.UTF-8/fi_FI.UTF-8
+
+time zone: Europe/Helsinki
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] RColorBrewer_1.1-3 kableExtra_1.4.0   knitr_1.50         gt_1.1.0          
+ [5] xlsx_0.6.5         patchwork_1.3.1    janitor_2.2.1      tidyr_1.3.1       
+ [9] dplyr_1.1.4        ggplot2_3.5.2      pxweb_0.17.1      
+
+loaded via a namespace (and not attached):
+ [1] xlsxjars_0.9.0    utf8_1.2.6        generics_0.1.4    xml2_1.4.0       
+ [5] stringi_1.8.7     digest_0.6.37     magrittr_2.0.4    evaluate_1.0.5   
+ [9] grid_4.5.1        timechange_0.3.0  fastmap_1.2.0     jsonlite_2.0.0   
+[13] purrr_1.1.0       viridisLite_0.4.2 scales_1.4.0      textshaping_1.0.3
+[17] cli_3.6.5         rlang_1.1.6       withr_3.0.2       yaml_2.3.10      
+[21] tools_4.5.1       vctrs_0.6.5       R6_2.6.1          lifecycle_1.0.4  
+[25] lubridate_1.9.4   snakecase_0.11.1  stringr_1.5.2     fs_1.6.6         
+[29] htmlwidgets_1.6.4 pkgconfig_2.0.3   rJava_1.0-11      pillar_1.11.1    
+[33] gtable_0.3.6      glue_1.8.0        systemfonts_1.2.3 xfun_0.53        
+[37] tibble_3.3.0      tidyselect_1.2.1  rstudioapi_0.17.1 farver_2.1.2     
+[41] htmltools_0.5.8.1 rmarkdown_2.29    svglite_2.2.1     labeling_0.4.3   
+[45] compiler_4.5.1   </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
