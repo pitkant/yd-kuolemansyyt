@@ -5,8 +5,9 @@ format:
   html:
     toc: true
     toc-location: left
+    code-fold: true
 execute: 
-  echo: false
+  echo: true
   warning: false
   error: false
 ---
