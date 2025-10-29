@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-21
+date: 2025-10-29
 format: 
   html:
     toc: true
@@ -43,6 +43,7 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
+kirjoita_data_excel_tiedostoihin <- FALSE
 ```
 
 Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024" ([statfin_ksyyt_pxt_12d9](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px)) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
@@ -448,6 +449,69 @@ ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric
   scale_fill_grey(start = 0.7, end = 0.15) +
   theme(legend.position = "bottom")
 ```
+### Kuviot 1-3: Datan tallennus exceliin
+
+Data kannattaa tallentaa ensin vähän leveämpään muotoon
+
+```{r, eval = kirjoita_data_excel_tiedostoihin}
+itsemurhat_ikaryhmat_2_wide <- itsemurhat_ikaryhmat_2 %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  mutate(ika = case_when(
+    ika == "15 - 19" ~ "15_19",
+    ika == "20 - 24" ~ "20_24",
+    ika == "25 - 29" ~ "25_29",
+    ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
+    .default = as.character(ika)
+  )) %>% 
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+
+vakivalta_ikaryhmat_2_wide <- vakivalta_ikaryhmat_2 %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  mutate(ika = case_when(
+    ika == "15 - 19" ~ "15_19",
+    ika == "20 - 24" ~ "20_24",
+    ika == "25 - 29" ~ "25_29",
+    ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
+    .default = as.character(ika)
+  )) %>% 
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+
+huumekuolemat_ikaryhmat_2_wide <- huumekuolemat_ikaryhmat_2 %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  mutate(ika = case_when(
+    ika == "15 - 19" ~ "15_19",
+    ika == "20 - 24" ~ "20_24",
+    ika == "25 - 29" ~ "25_29",
+    ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
+    .default = as.character(ika)
+  )) %>% 
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+
+
+library("xlsx")
+
+
+
+if (kirjoita_data_excel_tiedostoihin) {
+  write.xlsx(itsemurhat_ikaryhmat_2_wide,
+           file = "/Users/pyrykantanen/Github/yd-kuolemansyyt/prepared_data/yd_artikkeli_kuviot.xlsx",
+           sheetName = "Kuvio_1_itsemurha",
+           append = FALSE)
+  
+  write.xlsx(huumekuolemat_ikaryhmat_2_wide,
+           file = "/Users/pyrykantanen/Github/yd-kuolemansyyt/prepared_data/yd_artikkeli_kuviot.xlsx",
+           sheetName = "Kuvio_2_huumekuolemat", 
+           append = TRUE)
+
+  write.xlsx(vakivalta_ikaryhmat_2_wide,
+             file = "/Users/pyrykantanen/Github/yd-kuolemansyyt/prepared_data/yd_artikkeli_kuviot.xlsx",
+             sheetName = "Kuvio_3_vakivalta", 
+             append = TRUE)
+
+}
+```
+
+
 ## Visualisointi (geom_bar dodge + patchwork)
 
 ### Mustavalkoinen
@@ -923,6 +987,87 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
 
 Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2024. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024)
 
+# Artikkelin Kuvio 4: YD-kuolemansyyt yhdessä ja muut kuolemansyyt
+
+Lopullisen artikkelin version mukaisesti:
+
+```{r 3b_yd_kuolemansyyt_vs_muut_filtterointi}
+itsemurhat_yht <- itsemurhat_vakivalta %>% 
+  filter(kuolemansyy == "itsemurha") %>% 
+  filter(as.numeric(vuosi) >= 2006) %>%
+  filter(sukupuoli %in% c("Yhteensä")) %>% 
+  group_by(vuosi, sukupuoli, kuolemansyy) %>% 
+  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  ungroup()
+
+vakivalta_yht <- itsemurhat_vakivalta %>% 
+  filter(kuolemansyy == "vakivalta") %>% 
+  filter(as.numeric(vuosi) >= 2006) %>%
+  filter(sukupuoli %in% c("Yhteensä")) %>% 
+  group_by(vuosi, sukupuoli, kuolemansyy) %>% 
+  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  ungroup()
+
+kaikki_muut_yht <- itsemurhat_vakivalta %>% 
+  filter(kuolemansyy == "muut") %>% 
+  filter(as.numeric(vuosi) >= 2006) %>%
+  filter(sukupuoli %in% "Yhteensä") %>% 
+  group_by(vuosi, sukupuoli, kuolemansyy) %>% 
+  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  ungroup()
+
+huumekuolemat_yht <- huumekuolemat %>% 
+  filter(sukupuoli %in% c("Yhteensä")) %>% 
+  filter(as.numeric(vuosi) >= 2006) %>%
+  group_by(vuosi, sukupuoli, kuolemansyy) %>% 
+  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  ungroup()
+
+kaikki <- rbind(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht, kaikki_muut_yht)
+
+kaikki_wide <- kaikki %>% 
+  pivot_wider(names_from = kuolemansyy, values_from = kuolleet_06_24_yht) %>% 
+  mutate(muut = muut - itsemurha - vakivalta - huumekuolema) %>% 
+  mutate(yd_kuolemansyy = itsemurha + vakivalta + huumekuolema)
+
+kaikki_long <- kaikki_wide %>% 
+  pivot_longer(!c(vuosi, sukupuoli), names_to = "kuolemansyy") %>% 
+  filter(kuolemansyy %in% c("muut", "yd_kuolemansyy"))  %>% 
+  mutate(kuolemansyy = factor(kuolemansyy, levels=c("muut", "yd_kuolemansyy")))
+
+kaikki_long <- kaikki_long %>% 
+  mutate(kuolemansyy = factor(kuolemansyy, levels=c("muut", "yd_kuolemansyy"), labels = c("Kaikki kuolemansyyt \n(pl. YD-syyt)", "YD-kuolemansyyt")))
+
+```
+
+```{r 3b_yd_kuolemansyyt_vs_muut_visualisointi_final, eval = TRUE}
+ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
+  geom_bar(position="stack", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Kuolemansyy") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+### Kuvio 4: Datan tallennus exceliin
+
+```{r, eval = kirjoita_data_excel_tiedostoihin}
+library("xlsx")
+
+kaikki_wide_exceliin <- kaikki_wide %>% 
+  dplyr::select(vuosi, muut, yd_kuolemansyy)
+
+if (kirjoita_data_excel_tiedostoihin) {
+  write.xlsx(kaikki_wide_exceliin,
+           file = "prepared_data/yd_artikkeli_kuviot.xlsx",
+           sheetName = "Kuvio_4_yd_yhteensa", 
+           append = TRUE)
+}
+```
+
+
 # 4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt
 
 ## Absoluuttiset lukuarvot
@@ -1092,6 +1237,23 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
 ```
 
 Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2024 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
+
+### Kuvio 5: Datan tallennus exceliin
+
+```{r, eval = kirjoita_data_excel_tiedostoihin}
+library("xlsx")
+
+kaikki_70_asdr_wide <- kaikki_70_asdr %>% 
+  dplyr::select(vuosi, kuolemansyy, asdr) %>% 
+  tidyr::pivot_wider(names_from = kuolemansyy, values_from = asdr)
+
+if (kirjoita_data_excel_tiedostoihin) {
+  write.xlsx(kaikki_70_asdr_wide,
+           file = "prepared_data/yd_artikkeli_kuviot.xlsx",
+           sheetName = "Kuvio_5_asdr", 
+           append = TRUE)
+}
+```
 
 # Extra: Menetetyt elinvuodet 2006-2024
 
