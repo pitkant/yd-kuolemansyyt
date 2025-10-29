@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#visualisointi-geom_line-1" id="toc-visualisointi-geom_line-1" class="nav-link" data-scroll-target="#visualisointi-geom_line-1">Visualisointi (geom_line)</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#extra-menetetyt-elinvuodet-2006-2023" id="toc-extra-menetetyt-elinvuodet-2006-2023" class="nav-link" data-scroll-target="#extra-menetetyt-elinvuodet-2006-2023">Extra: Menetetyt elinvuodet 2006-2023</a></li>
+  <li><a href="#extra-menetetyt-elinvuodet-2006-2024" id="toc-extra-menetetyt-elinvuodet-2006-2024" class="nav-link" data-scroll-target="#extra-menetetyt-elinvuodet-2006-2024">Extra: Menetetyt elinvuodet 2006-2024</a></li>
   <li><a href="#viittaukset" id="toc-viittaukset" class="nav-link" data-scroll-target="#viittaukset">Viittaukset</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">Session info</a></li>
   </ul>
@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tallenna_datasetit <span class="ot">&lt;-</span> lataa_datasetit_uudelleen <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Taulukossa “12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023” (<a href="https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px">statfin_ksyyt_pxt_12d9</a>) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:</p>
+<p>Taulukossa “12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024” (<a href="https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px">statfin_ksyyt_pxt_12d9</a>) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:</p>
 <ul>
 <li>Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)</li>
 <li>Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436)</li>
@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="st">"Tilaston peruskuolemansyy (aikasarjaluokitus)"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>, <span class="st">"50"</span>,<span class="st">"51"</span>),</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1969</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1969</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm"</span>))</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>px_data <span class="ot">&lt;-</span> </span>
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">"Y11"</span>, <span class="st">"Y12"</span>, <span class="st">"Y14"</span>),</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm"</span>))</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Huumausainekuolemat ICD-10 -koodeilla, ilman itsemurhia</span></span>
@@ -293,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">"Y11"</span>, <span class="st">"Y12"</span>, <span class="st">"Y14"</span>),</span>
 <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm"</span>))</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>px_data <span class="ot">&lt;-</span> </span>
@@ -311,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="st">"Huume (B-luokitus)"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>),</span>
 <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">2006</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">2006</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm15"</span>))</span>
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>px_data <span class="ot">&lt;-</span> </span>
@@ -353,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">"Y11"</span>, <span class="st">"Y12"</span>, <span class="st">"Y14"</span>),</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm"</span>))</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># PXWEB query </span></span>
@@ -365,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">"Y11"</span>, <span class="st">"Y12"</span>, <span class="st">"Y14"</span>),</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Ikä"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"15-19"</span>,<span class="st">"20-24"</span>,<span class="st">"25-29"</span>),</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Sukupuoli"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"SSS"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>),</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2023</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Vuosi"</span><span class="ot">=</span><span class="fu">as.character</span>(<span class="dv">1998</span><span class="sc">:</span><span class="dv">2024</span>),</span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tiedot"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"ksyylkm"</span>))</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Download data </span></span>
@@ -550,14 +550,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(sukupuoli %in% c("Miehet", "Naiset"), as.numeric(vuosi) &gt;= 2006) %&gt;% </span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(!(tilaston_peruskuolemansyy_aikasarjaluokitus %in% "00-54 Yhteensä")) %&gt;% </span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tilaston_peruskuolemansyy_aikasarjaluokitus, vuosi, ika, sukupuoli) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23 =</span> <span class="fu">sum</span>(kuolleet)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet)) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kuolemansyy =</span> <span class="fu">case_when</span>(</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    tilaston_peruskuolemansyy_aikasarjaluokitus <span class="sc">==</span> <span class="st">"50 Itsemurhat (X60-X84, Y870)"</span> <span class="sc">~</span> <span class="st">"itsemurha"</span>,</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    tilaston_peruskuolemansyy_aikasarjaluokitus <span class="sc">==</span> <span class="st">"51 Murha, tappo tai muu tahallinen pahoinpitely (X85-Y09, Y871)"</span> <span class="sc">~</span> <span class="st">"vakivalta"</span>,</span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"muut"</span></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_23, kuolemansyy)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>statfin_ksyyt_pxt_12d9 <span class="ot">&lt;-</span> statfin_ksyyt_pxt_12d9 <span class="sc">%&gt;%</span> </span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
@@ -565,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>huumekuolemat <span class="ot">&lt;-</span> statfin_ksyyt_pxt_12d9 <span class="sc">%&gt;%</span> </span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(sukupuoli %in% c("Miehet", "Naiset"), as.numeric(vuosi) &gt;= 2006) %&gt;% </span></span>
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, ika, sukupuoli) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23 =</span> <span class="fu">sum</span>(huumeisiin_kuolleet_b_luokitus, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(huumeisiin_kuolleet_b_luokitus, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kuolemansyy =</span> <span class="st">"huumekuolema"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -595,21 +595,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>itsemurhat_ikaryhmat_total <span class="ot">&lt;-</span> itsemurhat_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23 =</span> <span class="fu">sum</span>(kuolleet_06_23)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_23, kuolemansyy)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>vakivalta_ikaryhmat_total <span class="ot">&lt;-</span> vakivalta_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23 =</span> <span class="fu">sum</span>(kuolleet_06_23)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_23, kuolemansyy)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>huumekuolemat_ikaryhmat_total <span class="ot">&lt;-</span> huumekuolemat_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23 =</span> <span class="fu">sum</span>(kuolleet_06_23)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_23, kuolemansyy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Muutetaan ika-muuttujan character-arvot faktoreiksi, jolloin voidaan määritellä manuaalisesti niiden järjestys. Normaalisti muuttujat visualisoitaisiin aakkosjärjestyksessä (alfanumeerisessa järjestyksessä), jolloin numerot tulisivat ennen tekstimuuttujia. Haluamme kuitenkin tässä (?), että “Yhteensä” on ennen numeroita.</p>
@@ -638,8 +638,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -652,9 +652,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -667,9 +667,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)"</span>,</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -692,18 +692,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">200</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.7</span>, <span class="at">end =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhat"</span>, <span class="at">x =</span> <span class="st">"Vuosi"</span>, <span class="at">y =</span> <span class="st">"Kuolleet (n)"</span>, <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">200</span>) <span class="sc">+</span></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.7</span>, <span class="at">end =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivalta"</span>, <span class="at">x =</span> <span class="st">"Vuosi"</span>, <span class="at">y =</span> <span class="st">"Kuolleet (n)"</span>, <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>)</span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">200</span>) <span class="sc">+</span></span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.7</span>, <span class="at">end =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
@@ -730,8 +730,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -744,9 +744,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -759,9 +759,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)"</span>,</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -784,7 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> itsemurhat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi)), <span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>) <span class="sc">+</span></span>
@@ -795,14 +795,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_itsemurha-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024)</p>
 </section>
 <section id="kuvio-1b-2-väkivaltakuolemat-ikäryhmittäin-värillinen" class="level4">
 <h4 class="anchored" data-anchor-id="kuvio-1b-2-väkivaltakuolemat-ikäryhmittäin-värillinen">Kuvio 1b 2: Väkivaltakuolemat ikäryhmittäin, värillinen</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
@@ -814,14 +814,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_vakivalta-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024)</p>
 </section>
 <section id="kuvio-1b-3-huumekuolemat-ikäryhmittäin-värillinen" class="level4">
 <h4 class="anchored" data-anchor-id="kuvio-1b-3-huumekuolemat-ikäryhmittäin-värillinen">Kuvio 1b 3: Huumekuolemat ikäryhmittäin, värillinen</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_23, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_ikaryhmat, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
@@ -833,7 +833,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/1_yd_kuolemansyyt_visualisointi_stack_huumekuolema-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024)</p>
 </section>
 </section>
 </section>
@@ -850,7 +850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_sp =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_sp =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>vakivalta_sp <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
@@ -858,14 +858,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_sp =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_sp =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>huumekuolemat_sp <span class="ot">&lt;-</span> huumekuolemat <span class="sc">%&gt;%</span> </span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_sp =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_sp =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -880,9 +880,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(itsemurhat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(itsemurhat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -895,9 +895,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)"</span>,</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -910,9 +910,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)"</span>,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -934,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(itsemurhat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(itsemurhat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
@@ -946,14 +946,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+<p>Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024)</p>
 </section>
 <section id="kuvio-2b-2-väkivaltakuolemat-sukupuolittain-värillinen" class="level4">
 <h4 class="anchored" data-anchor-id="kuvio-2b-2-väkivaltakuolemat-sukupuolittain-värillinen">Kuvio 2b 2: Väkivaltakuolemat sukupuolittain, värillinen</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vakivalta_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
@@ -965,14 +965,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_vakivalta-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023)</p>
+<p>Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024)</p>
 </section>
 <section id="kuvio-2b-3-huumekuolemat-sukupuolittain-värillinen" class="level4">
 <h4 class="anchored" data-anchor-id="kuvio-2b-3-huumekuolemat-sukupuolittain-värillinen">Kuvio 2b 3: Huumekuolemat sukupuolittain, värillinen</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_23_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(huumekuolemat_sp, <span class="fu">aes</span>(<span class="at">fill =</span> sukupuoli, <span class="at">y=</span>kuolleet_06_24_sp, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
@@ -984,7 +984,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/2_yd_kuolemansyyt_sukupuolittain_visualisointi_huumekuolema-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2023. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+<p>Kuvateksti: Huumeisiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä vuosina 2006-2024. Lähde: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024)</p>
 </section>
 </section>
 </section>
@@ -1000,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>vakivalta_yht <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
@@ -1008,19 +1008,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>huumekuolemat_yht <span class="ot">&lt;-</span> huumekuolemat <span class="sc">%&gt;%</span> </span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Miehet"</span>, <span class="st">"Naiset"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>yd_kuolemat_kaikki <span class="ot">&lt;-</span> <span class="fu">rbind</span>(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(kuolemansyy, sukupuoli), </span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> kuolleet_06_23_yht) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> kuolleet_06_24_yht) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yht_m =</span> <span class="fu">sum</span>(itsemurha_Miehet, huumekuolema_Miehet, vakivalta_Miehet),</span>
 <span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">yht_n =</span> <span class="fu">sum</span>(itsemurha_Naiset, huumekuolema_Naiset, vakivalta_Naiset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1038,7 +1038,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">huume_m =</span> <span class="st">"huumekuolema_Miehet"</span>, <span class="at">huume_n =</span> <span class="st">"huumekuolema_Naiset"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 18 × 9
+<pre><code># A tibble: 19 × 9
 # Rowwise: 
    vuosi itsem_m itsem_n huume_m huume_n vakiv_m vakiv_n yht_m yht_n
    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1059,7 +1059,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 15 2020       98      49      98      19      14       3   210    71
 16 2021       82      43      77      23      11       3   170    69
 17 2022      106      36      61      21      10       8   177    65
-18 2023      112      58     101      23       9       7   222    88</code></pre>
+18 2023      112      58     101      23       9       7   222    88
+19 2024       97      51      64      14      10       4   171    69</code></pre>
 </div>
 </div>
 </section>
@@ -1081,7 +1082,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>yd_kuolemat_kaikki_vuosi <span class="ot">&lt;-</span> <span class="fu">rbind</span>(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) <span class="sc">%&gt;%</span> </span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> vuosi, <span class="at">names_prefix =</span> <span class="st">"v_"</span>, </span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> kuolleet_06_23)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> kuolleet_06_24)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä. Tämä code chunk on laitettu eval = FALSE koska emme halua, että tämän dokumentin jokainen renderöinti ylikirjoittaa käsin tehdyt muutokset!</p>
@@ -2128,7 +2129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>vakivalta_yht <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
@@ -2136,7 +2137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>kaikki_muut_yht <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
@@ -2144,20 +2145,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="st">"Yhteensä"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>huumekuolemat_yht <span class="ot">&lt;-</span> huumekuolemat <span class="sc">%&gt;%</span> </span>
 <span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.numeric</span>(vuosi) <span class="sc">&gt;=</span> <span class="dv">2006</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_23_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>kaikki <span class="ot">&lt;-</span> <span class="fu">rbind</span>(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht, kaikki_muut_yht)</span>
 <span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>kaikki_wide <span class="ot">&lt;-</span> kaikki <span class="sc">%&gt;%</span> </span>
-<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> kuolemansyy, <span class="at">values_from =</span> kuolleet_06_23_yht) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> kuolemansyy, <span class="at">values_from =</span> kuolleet_06_24_yht) <span class="sc">%&gt;%</span> </span>
 <span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">muut =</span> muut <span class="sc">-</span> itsemurha <span class="sc">-</span> vakivalta <span class="sc">-</span> huumekuolema)</span>
 <span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>kaikki_long <span class="ot">&lt;-</span> kaikki_wide <span class="sc">%&gt;%</span> </span>
@@ -2178,7 +2179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kaikki_long, <span class="fu">aes</span>(<span class="at">fill =</span> kuolemansyy, <span class="at">y=</span>value, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 2006-2023"</span>,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 2006-2024"</span>,</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9)"</span>,</span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -2210,7 +2211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/3_yd_kuolemansyyt_vs_muut_visualisointi_final-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+<p>Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-2024. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024)</p>
 </section>
 </section>
 </section>
@@ -2228,14 +2229,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kuolemansyy <span class="sc">==</span> <span class="st">"itsemurha"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>vakivalta_yht_70 <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
 <span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kuolemansyy <span class="sc">==</span> <span class="st">"vakivalta"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>kaikki_muut_yht_70 <span class="ot">&lt;-</span> itsemurhat_vakivalta <span class="sc">%&gt;%</span> </span>
@@ -2243,13 +2244,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="st">"Yhteensä"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kuolemansyy =</span> <span class="st">"kaikki_kuolemansyyt"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>huumekuolemat_yht_70 <span class="ot">&lt;-</span> huumekuolemat <span class="sc">%&gt;%</span> </span>
 <span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sukupuoli <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yhteensä"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_23, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_yht =</span> <span class="fu">sum</span>(kuolleet_06_24, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>kaikki_70 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(itsemurhat_yht_70, vakivalta_yht_70, huumekuolemat_yht_70, kaikki_muut_yht_70) <span class="sc">%&gt;%</span> </span>
@@ -2272,7 +2273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kaikki_70, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> kuolleet_yht, <span class="at">group =</span> kuolemansyy)) <span class="sc">+</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>kuolemansyy)) <span class="sc">+</span> </span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 1969-2023"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 1969-2024"</span>,</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az, statfin_ksyyt_pxt_12d9)"</span>,</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Kuolleita (n)"</span>,</span>
@@ -2300,7 +2301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1969_visualisointi_final-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2023. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023)</p>
+<p>Kuvateksti: 15-29 -vuotiaana kuolleiden lukumäärä 1969-2024. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024)</p>
 </section>
 </section>
 <section id="suhteutettuna-ikäluokan-kokoon" class="level2">
@@ -2372,7 +2373,7 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kaikki_70_asdr, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> asdr, <span class="at">group =</span> kuolemansyy)) <span class="sc">+</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>kuolemansyy)) <span class="sc">+</span> </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 1969-2023 (ikävakioitu)"</span>,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Eri syistä kuolleet 15-29 -vuotiaat 1969-2024 (ikävakioitu)"</span>,</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin </span><span class="sc">\n</span><span class="st">(Tietokantataulukot: statfin_ksyyt_pxt_11az,</span><span class="sc">\n</span><span class="st"> statfin_ksyyt_pxt_12d9, statfin_vaerak_pxt_11rc)"</span>,</span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Per 1000 samanikäistä"</span>,</span>
@@ -2403,15 +2404,15 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <p><img src="datan-visualisointi_files/figure-html/4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2023 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2023, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2023), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc – Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)</p>
+<p>Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2024 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az – Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 – Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc – Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)</p>
 </section>
 </section>
 </section>
 </section>
-<section id="extra-menetetyt-elinvuodet-2006-2023" class="level1">
-<h1>Extra: Menetetyt elinvuodet 2006-2023</h1>
+<section id="extra-menetetyt-elinvuodet-2006-2024" class="level1">
+<h1>Extra: Menetetyt elinvuodet 2006-2024</h1>
 <p>Koska meillä on tiedossa vuosina eri vuosina kuolleiden nuorten lukumäärät, voimme laskea kullekin ikäryhmälle menetettyjen elinvuosien summan. Koska sukupuolten välillä on eroja elinajanodotteessa, käytetään tässä jaottelua miehiin ja naisiin.</p>
-<p>Elinajanodotteita on saatavilla vain vuodesta 1986 eteenpäin ja tietoa huumekuolemista vain vuodesta 2006 eteenpäin, joten pääsääntöisesti tässä käytetään rajausta 2006-2023. Olen kuitenkin yleisen mielenkiinnon vuoksi sisällyttänyt tähän dataa itsemurhista ja väkivaltakuolemista vuodesta 1986 eteenpäin, koska näillekin vuosille voidaan laskea menetettyjen elinvuosien määrä.</p>
+<p>Elinajanodotteita on saatavilla vain vuodesta 1986 eteenpäin ja tietoa huumekuolemista vain vuodesta 2006 eteenpäin, joten pääsääntöisesti tässä käytetään rajausta 2006-2024. Olen kuitenkin yleisen mielenkiinnon vuoksi sisällyttänyt tähän dataa itsemurhista ja väkivaltakuolemista vuodesta 1986 eteenpäin, koska näillekin vuosille voidaan laskea menetettyjen elinvuosien määrä.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -2426,20 +2427,20 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(vuosi <span class="sc">&gt;=</span> <span class="dv">1986</span>)</span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>menetetyt_elinvuodet_itsemurha <span class="ot">&lt;-</span> <span class="fu">left_join</span>(itsemurhat, kuolleet_12ap, <span class="at">by =</span> <span class="fu">join_by</span>(vuosi, sukupuoli, <span class="st">"ika"</span> <span class="sc">==</span> <span class="st">"ikaluokka"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_23 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_24 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
 <span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>menetetyt_elinvuodet_vakivalta <span class="ot">&lt;-</span> <span class="fu">left_join</span>(vakivaltakuolemat, kuolleet_12ap, <span class="at">by =</span> <span class="fu">join_by</span>(vuosi, sukupuoli, <span class="st">"ika"</span> <span class="sc">==</span> <span class="st">"ikaluokka"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_23 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_24 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
 <span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>menetetyt_elinvuodet_huumekuolema <span class="ot">&lt;-</span> <span class="fu">left_join</span>(huumekuolemat, kuolleet_12ap, <span class="at">by =</span> <span class="fu">join_by</span>(vuosi, sukupuoli, <span class="st">"ika"</span> <span class="sc">==</span> <span class="st">"ikaluokka"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_23 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">menetetyt_elinvuodet =</span> kuolleet_06_24 <span class="sc">*</span> elinajanodote_vuosia_mean)</span>
 <span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>menetetyt_elinvuodet_kaikki_yd <span class="ot">&lt;-</span> <span class="fu">rbind</span>(menetetyt_elinvuodet_itsemurha, menetetyt_elinvuodet_vakivalta, menetetyt_elinvuodet_huumekuolema)</span>
 <span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> menetetyt_elinvuodet_itsemurha, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> menetetyt_elinvuodet)) <span class="sc">+</span></span>
 <span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">interaction</span>(ika, sukupuoli))) <span class="sc">+</span> </span>
 <span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Menetettyjen elinvuosien määrä ikäryhmittäin ja sukupuolittain"</span>,</span>
-<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: itsemurha, 1986-2023"</span>,</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: itsemurha, 1986-2024"</span>,</span>
 <span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin </span><span class="sc">\n</span><span class="st">(Tietokantataulukot: statfin_ksyyt_pxt_11az,</span><span class="sc">\n</span><span class="st"> statfin_kuol_pxt_12ap)"</span>,</span>
 <span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Menetettyjen elinvuosien summa"</span>,</span>
@@ -2460,7 +2461,7 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> menetetyt_elinvuodet_vakivalta, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> menetetyt_elinvuodet)) <span class="sc">+</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">interaction</span>(ika, sukupuoli))) <span class="sc">+</span> </span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Menetettyjen elinvuosien määrä ikäryhmittäin ja sukupuolittain"</span>,</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: väkivalta, 1986-2023"</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: väkivalta, 1986-2024"</span>,</span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin </span><span class="sc">\n</span><span class="st">(Tietokantataulukot: statfin_ksyyt_pxt_11az, statfin_kuol_pxt_12ap)"</span>,</span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Menetettyjen elinvuosien summa"</span>,</span>
@@ -2481,7 +2482,7 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> menetetyt_elinvuodet_huumekuolema, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> menetetyt_elinvuodet)) <span class="sc">+</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">interaction</span>(ika, sukupuoli))) <span class="sc">+</span> </span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Menetettyjen elinvuosien määrä ikäryhmittäin ja sukupuolittain"</span>,</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: huumekuolema, 2006-2023"</span>,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kuolemansyy: huumekuolema, 2006-2024"</span>,</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Lähde: Tilastokeskus / StatFin </span><span class="sc">\n</span><span class="st">(Tietokantataulukot: statfin_ksyyt_pxt_12d9, statfin_kuol_pxt_12ap)"</span>,</span>
 <span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Menetettyjen elinvuosien summa"</span>,</span>
@@ -2661,7 +2662,7 @@ BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRbla
 LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 
 locale:
-[1] fi_FI.UTF-8/fi_FI.UTF-8/fi_FI.UTF-8/C/fi_FI.UTF-8/fi_FI.UTF-8
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 time zone: Europe/Helsinki
 tzcode source: internal
