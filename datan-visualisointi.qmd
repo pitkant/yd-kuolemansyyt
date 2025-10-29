@@ -35,6 +35,7 @@ library(gt)
 library(knitr)
 library(kableExtra)
 library(RColorBrewer)
+library(ggthemes)
 ```
 
 # 0.1 Datan hakeminen
@@ -44,6 +45,7 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
 kirjoita_data_excel_tiedostoihin <- FALSE
+tuota_vektorikuviot <- FALSE
 ```
 
 Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024" ([statfin_ksyyt_pxt_12d9](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px)) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
@@ -427,7 +429,11 @@ ggplot() +
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.7, end = 0.15) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+ggsave("prepared_plots/kuvio1_13x8.pdf", width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 
 ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
@@ -437,7 +443,11 @@ ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuo
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.7, end = 0.15) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+ggsave("prepared_plots/kuvio3_13x8.pdf", width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 
 ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
@@ -447,7 +457,12 @@ ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.7, end = 0.15) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+
+ggsave("prepared_plots/kuvio2_13x8.pdf", width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 ```
 ### Kuviot 1-3: Datan tallennus exceliin
 
@@ -508,6 +523,48 @@ if (kirjoita_data_excel_tiedostoihin) {
              sheetName = "Kuvio_3_vakivalta", 
              append = TRUE)
 
+}
+```
+
+
+### Kuviot 1-3: PDF-kuvioiden luominen
+
+```{r}
+kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
+  labs(x = "Vuosi",
+       y = "",
+       color = "Ikäryhmä", linetype = "Ikäryhmä") +
+  scale_color_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom") +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
+  labs(x = "Vuosi",
+       y = "",
+       color = "Ikäryhmä", linetype = "Ikäryhmä") +
+  scale_color_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom") +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
+  labs(x = "Vuosi",
+       y = "",
+       color = "Ikäryhmä", linetype = "Ikäryhmä") +
+  scale_color_grey(start = 0.7, end = 0.15) +
+  theme(legend.position = "bottom") +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio1
+kuvio2
+kuvio3
+
+if (tuota_vektorikuviot) {
+  ggsave("prepared_plots/kuvio1_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio2_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio3_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
@@ -1067,6 +1124,25 @@ if (kirjoita_data_excel_tiedostoihin) {
 }
 ```
 
+### Kuvio 4: 
+
+```{r}
+kuvio4 <- ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
+  geom_bar(position="stack", stat="identity", color = "black") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Kuolemansyy") +
+  scale_fill_grey(start = 0.7, end = 0.15) +
+  theme_tufte(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom")
+
+kuvio4
+
+if (tuota_vektorikuviot) {
+  ggsave("prepared_plots/kuvio4_13x8.pdf", plot = kuvio4, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+}
+```
+
 
 # 4. Viivadiagrammi nuorten kuolemista 1970-2024, yd-kuolemansyyt ja kaikki kuolemansyyt
 
@@ -1237,6 +1313,22 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
 ```
 
 Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2024 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
+
+```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final_bw, eval = TRUE}
+kuvio5 <- ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
+  geom_line(aes(color=kuolemansyy, linetype=kuolemansyy), size = 1.5/.pt) + 
+  labs(x = "Vuosi",
+       y = "",
+       colour = "Kuolemansyy", linetype = "Kuolemansyy") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom")
+
+if (tuota_vektorikuviot) {
+  # ggsave("prepared_plots/kuvio5_8x5.pdf", width = 80, height = 50, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio5_13x8.pdf", plot = kuvio5, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+}
+```
 
 ### Kuvio 5: Datan tallennus exceliin
 
