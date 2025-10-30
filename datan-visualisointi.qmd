@@ -44,7 +44,7 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
-kirjoita_data_excel_tiedostoihin <- TRUE
+kirjoita_data_excel_tiedostoihin <- FALSE
 tuota_vektorikuviot <- FALSE
 ```
 
