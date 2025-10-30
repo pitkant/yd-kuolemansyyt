@@ -1186,7 +1186,7 @@ kuvio4 <- kuvio4 + geom_text(
     ),
     stat = 'identity',
     colour = 'white',
-    size = 2,
+    size = 1.5,
     position=position_stack(vjust=0.5)
   )
 
