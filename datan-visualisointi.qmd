@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-29
+date: 2025-10-30
 format: 
   html:
     toc: true
@@ -44,7 +44,7 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
-kirjoita_data_excel_tiedostoihin <- FALSE
+kirjoita_data_excel_tiedostoihin <- TRUE
 tuota_vektorikuviot <- FALSE
 ```
 
@@ -527,7 +527,7 @@ if (kirjoita_data_excel_tiedostoihin) {
 ```
 
 
-### Kuviot 1-3: PDF-kuvioiden luominen
+# Artikkelin kuviot 1-3: PDF-kuvioiden luominen
 
 ```{r}
 kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
@@ -1046,9 +1046,44 @@ Kuvateksti: Eri syistä kuolleiden 15-29 -vuotiaiden lukumäärät vuosina 2006-
 
 # Artikkelin Kuvio 4: YD-kuolemansyyt yhdessä ja muut kuolemansyyt
 
+Haetaan itsemurhatiedot ilman "Itsemurhat huumeilla (X61,X62,X64/T400-9,T436)" -kategoriaa, jotta itsemurhien kanssa ei tule päällekkäisyyksiä.
+
+```{r}
+if (lataa_datasetit_uudelleen) {
+  pxweb_query_list <- 
+  list("Huume (B-luokitus)"=c("01-06","07-17","29-39"),
+       "Ikä"=c("15-19","20-24","25-29"),
+       "Vuosi"=c("2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"),
+       "Sukupuoli"=c("SSS", "1", "2"),
+       "Tiedot"=c("ksyylkm15"))
+
+# Download data 
+px_data <- 
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_12d9.px",
+            query = pxweb_query_list)
+
+# Convert to data.frame 
+px_data_frame <- as.data.frame(px_data, column.name.type = "text", variable.value.type = "text") %>% 
+  janitor::clean_names()
+
+statfin_ksyyt_pxt_12d9_ilman_itsemurhia <- px_data_frame %>% 
+  group_by(ika, sukupuoli, vuosi) %>% 
+  summarize(kuolleet_06_24 = sum(huumeisiin_kuolleet_b_luokitus, na.rm = TRUE)) %>% 
+  mutate(kuolemansyy = "huumekuolema")
+}
+if (tallenna_datasetit) {
+  saveRDS(statfin_ksyyt_pxt_12d9_ilman_itsemurhia, "prepared_data/statfin_ksyyt_pxt_12d9_ilman_itsemurhia.rds", compress = "xz")
+}
+
+
+```
+
+
 Lopullisen artikkelin version mukaisesti:
 
 ```{r 3b_yd_kuolemansyyt_vs_muut_filtterointi}
+statfin_ksyyt_pxt_12d9_ilman_itsemurhia <- readRDS("prepared_data/statfin_ksyyt_pxt_12d9_ilman_itsemurhia.rds")
+
 itsemurhat_yht <- itsemurhat_vakivalta %>% 
   filter(kuolemansyy == "itsemurha") %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
@@ -1073,7 +1108,7 @@ kaikki_muut_yht <- itsemurhat_vakivalta %>%
   summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
   ungroup()
 
-huumekuolemat_yht <- huumekuolemat %>% 
+huumekuolemat_yht <- statfin_ksyyt_pxt_12d9_ilman_itsemurhia %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
@@ -1124,7 +1159,7 @@ if (kirjoita_data_excel_tiedostoihin) {
 }
 ```
 
-### Kuvio 4: 
+### Kuvio 4: Stacked bar plotin tuottaminen ja tallennus pdf-tiedostoksi
 
 ```{r}
 kuvio4 <- ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
@@ -1314,15 +1349,19 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
 
 Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2024 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
 
+# Artikkelin kuvio 5: ASDR-kuolleisuus
+
 ```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final_bw, eval = TRUE}
 kuvio5 <- ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
-  geom_line(aes(color=kuolemansyy, linetype=kuolemansyy), size = 1.5/.pt) + 
+  geom_line(aes(color=kuolemansyy, linetype=kuolemansyy), linewidth = 1.5/.pt) + 
   labs(x = "Vuosi",
        y = "",
        colour = "Kuolemansyy", linetype = "Kuolemansyy") +
   scale_colour_grey() +
   theme_tufte(base_size = 8, base_family = "sans") +
   theme(legend.position = "bottom")
+
+kuvio5
 
 if (tuota_vektorikuviot) {
   # ggsave("prepared_plots/kuvio5_8x5.pdf", width = 80, height = 50, units = "mm", dpi = 300, scale = 1)
