@@ -1138,8 +1138,6 @@ ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
 ### Kuvio 4: Datan tallennus exceliin
 
 ```{r, eval = kirjoita_data_excel_tiedostoihin}
-library("xlsx")
-
 kaikki_wide_exceliin <- kaikki_wide %>% 
   dplyr::select(vuosi, muut, yd_kuolemansyy)
 
@@ -1153,7 +1151,13 @@ if (kirjoita_data_excel_tiedostoihin) {
 
 ### Kuvio 4: Stacked bar plotin tuottaminen ja tallennus pdf-tiedostoksi
 
+Stacked bar -plotin PANELin sisäisen prosenttiosuuden laskemisen kaava: https://stackoverflow.com/questions/66957975/percentage-labels-for-a-stacked-ggplot-barplot-with-groups-and-facets
+
 ```{r}
+library(scales)
+
+pct_format = scales::percent_format(accuracy = .1)
+
 kuvio4 <- ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", color = "black") + 
   labs(x = "Vuosi",
@@ -1162,6 +1166,29 @@ kuvio4 <- ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuos
   scale_fill_grey(start = 0.7, end = 0.15) +
   theme_tufte(base_size = 8, base_family = "sans") +
   theme(legend.position = "bottom")
+
+bygroup <- function(x, group, fun = sum, ...) {
+  splitted <- split(x, group)
+  funned   <- lapply(splitted, fun, ...)
+  funned   <- mapply(function(x, y) {
+    rep(x, length(y))
+  }, x = funned, y = splitted)
+  unsplit(funned, group)
+}
+
+kuvio4 <- kuvio4 + geom_text(
+    aes(
+      label = sprintf(
+        '%d\n(%s)',
+        after_stat(y),
+        pct_format(after_stat(y / bygroup(y, interaction(x, PANEL))))
+      )
+    ),
+    stat = 'identity',
+    colour = 'white',
+    size = 2,
+    position=position_stack(vjust=0.5)
+  )
 
 kuvio4
 
