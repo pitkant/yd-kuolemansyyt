@@ -36,6 +36,7 @@ library("knitr")
 library("kableExtra")
 library("RColorBrewer")
 library("ggthemes")
+library("ggstats")
 ```
 
 # 0.1 Datan hakeminen
@@ -46,6 +47,7 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
 kirjoita_data_excel_tiedostoihin <- FALSE
 tuota_vektorikuviot <- FALSE
+tuota_viivakuviot <- FALSE
 ```
 
 Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024" ([statfin_ksyyt_pxt_12d9](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px)) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
@@ -420,42 +422,47 @@ Tässä visualisoinnissa esitetään erikseen eri kuolinsyiden Yhteensä-määr�
 Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen.
 
 ```{r 1_yd_kuolemansyyt_visualisointi}
-ggplot() +
-  # geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +
-  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi)), position="dodge", stat="identity", color = "black") + 
+kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15) +
+  scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
   theme_tufte(base_size = 8, base_family = "sans")
 
-ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio1
+
+kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15) +
+  scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
   theme_tufte(base_size = 8, base_family = "sans")
 
-ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2
+
+kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
        x = "Vuosi",
        y = "Kuolleita (n)",
        fill = "Ikäryhmä") +
-  scale_fill_grey(start = 0.7, end = 0.15) +
+  scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
   theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio3
 
 ```
 ### Kuviot 1-3: Datan tallennus exceliin
@@ -519,7 +526,55 @@ if (kirjoita_data_excel_tiedostoihin) {
 
 # Artikkelin kuviot 1-3: PDF-kuvioiden luominen
 
-```{r}
+## Grouped bar -kuvaajat
+
+```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin}
+kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_grey(start = 0.15, end = 0.7) +
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio1
+
+kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_grey(start = 0.15, end = 0.7) +
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio2
+
+kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+  geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Ikäryhmä") +
+  scale_fill_grey(start = 0.15, end = 0.7) +
+  theme(legend.position = "bottom") +
+  scale_colour_grey() +
+  theme_tufte(base_size = 8, base_family = "sans")
+
+kuvio3
+
+if (tuota_vektorikuviot) {
+  ggsave("prepared_plots/kuvio1_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio2_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio3_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+}
+```
+
+## Vaihtoehto: Viivakuvaajat
+
+```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin_viivakuvaajat}
 kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
@@ -553,7 +608,7 @@ kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.
 
 kuvio3
 
-if (tuota_vektorikuviot) {
+if (tuota_vektorikuviot & tuota_viivakuviot) {
   ggsave("prepared_plots/kuvio1_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
   ggsave("prepared_plots/kuvio2_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
   ggsave("prepared_plots/kuvio3_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
@@ -1149,42 +1204,27 @@ if (kirjoita_data_excel_tiedostoihin) {
 }
 ```
 
-### Kuvio 4: Stacked bar plotin tuottaminen ja tallennus pdf-tiedostoksi
+# Kuvio 4: Stacked bar plotin tuottaminen ja tallennus pdf-tiedostoksi
 
-Stacked bar -plotin PANELin sisäisen prosenttiosuuden laskemisen kaava: https://stackoverflow.com/questions/66957975/percentage-labels-for-a-stacked-ggplot-barplot-with-groups-and-facets
+Lisätietoa ggstats-paketista: https://larmarange.github.io/ggstats/articles/stat_prop.html
 
 ```{r}
 library(scales)
+library(ggstats)
 
-pct_format = scales::percent_format(accuracy = .1)
-
-kuvio4 <- ggplot(kaikki_long, aes(fill = kuolemansyy, y=value, x=as.numeric(vuosi))) +
-  geom_bar(position="stack", stat="identity", color = "black") + 
+kuvio4 <- ggplot(kaikki_long) + 
+  aes(x = as.numeric(vuosi), fill = kuolemansyy, weight = value, by = vuosi) +
+  geom_bar(color = "black") + 
   labs(x = "Vuosi",
-       y = "",
+       y = "n",
        fill = "Kuolemansyy") +
   scale_fill_grey(start = 0.7, end = 0.15) +
   theme_tufte(base_size = 8, base_family = "sans") +
-  theme(legend.position = "bottom")
-
-bygroup <- function(x, group, fun = sum, ...) {
-  splitted <- split(x, group)
-  funned   <- lapply(splitted, fun, ...)
-  funned   <- mapply(function(x, y) {
-    rep(x, length(y))
-  }, x = funned, y = splitted)
-  unsplit(funned, group)
-}
+  theme(legend.position = "bottom", axis.title.y = element_text(angle = 0, vjust = 0.5))
 
 kuvio4 <- kuvio4 + geom_text(
-    aes(
-      label = sprintf(
-        '%d\n(%s)',
-        after_stat(y),
-        pct_format(after_stat(y / bygroup(y, interaction(x, PANEL))))
-      )
-    ),
-    stat = 'identity',
+    aes(label = scales::percent(after_stat(prop), accuracy = 1)),
+    stat = "prop",
     colour = 'white',
     size = 1.5,
     position=position_stack(vjust=0.5)
@@ -1368,6 +1408,23 @@ ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuole
 
 Kuvateksti: 15-29 -vuotiaiden kuolleisuus 1969-2024 (ikävakioitu). Kuolinluvut per 1000 samanikäistä. Lähteet: Tilastokeskus, kuolemansyyt (Tietokantataulukot: 11az -- Kuolleet tilaston peruskuolemansyyn (aikasarjaluokitus), iän ja sukupuolen mukaan, 1969-2024, 12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024), Tilastokeskus, väestörakenne (Tietokantataulukko: 11rc -- Väestö iän (5-v.) ja sukupuolen mukaan, 1865-2024)
 
+### Kuvio 5: Datan tallennus exceliin
+
+```{r, eval = kirjoita_data_excel_tiedostoihin}
+library("xlsx")
+
+kaikki_70_asdr_wide <- kaikki_70_asdr %>% 
+  dplyr::select(vuosi, kuolemansyy, asdr) %>% 
+  tidyr::pivot_wider(names_from = kuolemansyy, values_from = asdr)
+
+if (kirjoita_data_excel_tiedostoihin) {
+  write.xlsx(kaikki_70_asdr_wide,
+           file = "prepared_data/yd_artikkeli_kuviot.xlsx",
+           sheetName = "Kuvio_5_asdr", 
+           append = TRUE)
+}
+```
+
 # Artikkelin kuvio 5: ASDR-kuolleisuus
 
 ```{r 4_yd_kuolemansyyt_vs_muut_1970_visualisointi_asdr_final_bw, eval = TRUE}
@@ -1385,23 +1442,6 @@ kuvio5
 if (tuota_vektorikuviot) {
   # ggsave("prepared_plots/kuvio5_8x5.pdf", width = 80, height = 50, units = "mm", dpi = 300, scale = 1)
   ggsave("prepared_plots/kuvio5_13x8.pdf", plot = kuvio5, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-}
-```
-
-### Kuvio 5: Datan tallennus exceliin
-
-```{r, eval = kirjoita_data_excel_tiedostoihin}
-library("xlsx")
-
-kaikki_70_asdr_wide <- kaikki_70_asdr %>% 
-  dplyr::select(vuosi, kuolemansyy, asdr) %>% 
-  tidyr::pivot_wider(names_from = kuolemansyy, values_from = asdr)
-
-if (kirjoita_data_excel_tiedostoihin) {
-  write.xlsx(kaikki_70_asdr_wide,
-           file = "prepared_data/yd_artikkeli_kuviot.xlsx",
-           sheetName = "Kuvio_5_asdr", 
-           append = TRUE)
 }
 ```
 
@@ -1510,6 +1550,10 @@ print(citation("knitr"), bibtex = FALSE)
 print(citation("kableExtra"), bibtex = FALSE)
 
 print(citation("RColorBrewer"), bibtex = FALSE)
+
+print(citation("ggthemes"), bibtex = FALSE)
+
+print(citation("ggstats"), bibtex = FALSE)
 ```
 
 
