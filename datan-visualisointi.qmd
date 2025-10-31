@@ -537,7 +537,7 @@ kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24
   scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio1
 
@@ -549,7 +549,7 @@ kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.n
   scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio2
 
@@ -561,7 +561,7 @@ kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=
   scale_fill_grey(start = 0.15, end = 0.7) +
   theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio3
 
@@ -582,7 +582,7 @@ kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as
        color = "Ikäryhmä", linetype = "Ikäryhmä") +
   scale_color_grey(start = 0.7, end = 0.15) +
   theme(legend.position = "bottom") +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio1
 
@@ -593,7 +593,7 @@ kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x
        color = "Ikäryhmä", linetype = "Ikäryhmä") +
   scale_color_grey(start = 0.7, end = 0.15) +
   theme(legend.position = "bottom") +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio2
 
@@ -604,14 +604,14 @@ kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.
        color = "Ikäryhmä", linetype = "Ikäryhmä") +
   scale_color_grey(start = 0.7, end = 0.15) +
   theme(legend.position = "bottom") +
-  theme_tufte(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans")
 
 kuvio3
 
 if (tuota_vektorikuviot & tuota_viivakuviot) {
-  ggsave("prepared_plots/kuvio1_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio2_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio3_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio1_viiva_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio2_viiva_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio3_viiva_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
@@ -1219,15 +1219,15 @@ kuvio4 <- ggplot(kaikki_long) +
        y = "n",
        fill = "Kuolemansyy") +
   scale_fill_grey(start = 0.7, end = 0.15) +
-  theme_tufte(base_size = 8, base_family = "sans") +
+  theme_bw(base_size = 8, base_family = "sans") +
   theme(legend.position = "bottom", axis.title.y = element_text(angle = 0, vjust = 0.5))
 
 kuvio4 <- kuvio4 + geom_text(
     aes(label = scales::percent(after_stat(prop), accuracy = 1)),
     stat = "prop",
     colour = 'white',
-    size = 1.5,
-    position=position_stack(vjust=0.5)
+    size = 2,
+    position=position_stack(vjust=0.75)
   )
 
 kuvio4
@@ -1434,7 +1434,7 @@ kuvio5 <- ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, gro
        y = "",
        colour = "Kuolemansyy", linetype = "Kuolemansyy") +
   scale_colour_grey() +
-  theme_tufte(base_size = 8, base_family = "sans") +
+  theme_bw(base_size = 8, base_family = "sans") +
   theme(legend.position = "bottom")
 
 kuvio5
