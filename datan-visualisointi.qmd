@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-30
+date: 2025-10-31
 format: 
   html:
     toc: true
