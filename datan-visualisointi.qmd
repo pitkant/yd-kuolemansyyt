@@ -541,7 +541,7 @@ kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24
 
 kuvio1
 
-kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
@@ -553,7 +553,7 @@ kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.n
 
 kuvio2
 
-kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
