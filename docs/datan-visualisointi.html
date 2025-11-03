@@ -247,7 +247,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"RColorBrewer"</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggthemes"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggstats"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggstats"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"devEMF"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -614,19 +615,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>itsemurhat_ikaryhmat_total <span class="ot">&lt;-</span> itsemurhat_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"Yhteensä"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>vakivalta_ikaryhmat_total <span class="ot">&lt;-</span> vakivalta_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"Yhteensä"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>huumekuolemat_ikaryhmat_total <span class="ot">&lt;-</span> huumekuolemat_ikaryhmat <span class="sc">%&gt;%</span> </span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vuosi, sukupuoli, kuolemansyy) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">kuolleet_06_24 =</span> <span class="fu">sum</span>(kuolleet_06_24)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"15 - 29 (Yhteensä)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="st">"Yhteensä"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -635,13 +636,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>itsemurhat_ikaryhmat_2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(itsemurhat_ikaryhmat, itsemurhat_ikaryhmat_total) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"15 - 29 (Yhteensä)"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Yhteensä"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>vakivalta_ikaryhmat_2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(vakivalta_ikaryhmat, vakivalta_ikaryhmat_total) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"15 - 29 (Yhteensä)"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Yhteensä"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>huumekuolemat_ikaryhmat_2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(huumekuolemat_ikaryhmat, huumekuolemat_ikaryhmat_total) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"15 - 29 (Yhteensä)"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ika =</span> <span class="fu">factor</span>(ika, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Yhteensä"</span>, <span class="st">"15 - 19"</span>, <span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -779,15 +780,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>kuvio1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>kuvio1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> itsemurhat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span>vuosi)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>) <span class="sc">+</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.15</span>, <span class="at">end =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>kuvio1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -796,15 +797,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kuvio2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kuvio2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(huumekuolemat_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span>vuosi)) <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>) <span class="sc">+</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.15</span>, <span class="at">end =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>kuvio2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -813,15 +814,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kuvio3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span><span class="fu">as.numeric</span>(vuosi))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kuvio3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(vakivalta_ikaryhmat_2, <span class="fu">aes</span>(<span class="at">fill =</span> ika, <span class="at">y=</span>kuolleet_06_24, <span class="at">x=</span>vuosi)) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Ikäryhmä"</span>) <span class="sc">+</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.15</span>, <span class="at">end =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>kuvio3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -834,7 +835,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/kuvio1_13x8.pdf"</span>, <span class="at">plot =</span> kuvio1, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/kuvio2_13x8.pdf"</span>, <span class="at">plot =</span> kuvio2, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/kuvio3_13x8.pdf"</span>, <span class="at">plot =</span> kuvio3, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># EMF plot experimentation</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"prepared_plots/kuvio1_13x8.emf"</span>, <span class="at">plot =</span> kuvio1, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>, <span class="at">device =</span> {<span class="cf">function</span>(filename, ...) devEMF<span class="sc">::</span><span class="fu">emf</span>(<span class="at">file =</span> filename, ...)})</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/kuvio2_13x8.emf"</span>, <span class="at">plot =</span> kuvio2, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>, <span class="at">device =</span> emf)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/kuvio3_13x8.emf"</span>, <span class="at">plot =</span> kuvio3, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>, <span class="at">device =</span> emf)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -2561,12 +2567,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstats)</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>kuvio4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(kaikki_long) <span class="sc">+</span> </span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">fill =</span> kuolemansyy, <span class="at">weight =</span> value, <span class="at">by =</span> vuosi) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">fill =</span> kuolemansyy, <span class="at">weight =</span> value, <span class="at">by =</span> <span class="fu">as.character</span>(vuosi)) <span class="sc">+</span></span>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
 <span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"n"</span>,</span>
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Kuolemansyy"</span>) <span class="sc">+</span></span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.7</span>, <span class="at">end =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.5</span>, <span class="at">end =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
 <span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
 <span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
 <span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -3090,6 +3096,18 @@ Kindly cite the 'pxweb' R package as follows:
   &lt;https://doi.org/10.32614/CRAN.package.ggstats&gt;, R package version
   0.11.0, &lt;https://CRAN.R-project.org/package=ggstats&gt;.</code></pre>
 </div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">citation</span>(<span class="st">"devEMF"</span>), <span class="at">bibtex =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'devEMF' in publications use:
+
+  Johnson P (2025). _devEMF: EMF Graphics Output Device_.
+  doi:10.32614/CRAN.package.devEMF
+  &lt;https://doi.org/10.32614/CRAN.package.devEMF&gt;, R package version
+  4.5-1, &lt;https://CRAN.R-project.org/package=devEMF&gt;.</code></pre>
+</div>
 </div>
 </section>
 <section id="session-info" class="level1">
@@ -3098,7 +3116,7 @@ Kindly cite the 'pxweb' R package as follows:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.5.1 (2025-06-13)
@@ -3119,10 +3137,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] scales_1.4.0       ggstats_0.11.0     ggthemes_5.1.0     RColorBrewer_1.1-3
- [5] kableExtra_1.4.0   knitr_1.50         gt_1.1.0           xlsx_0.6.5        
- [9] patchwork_1.3.2    janitor_2.2.1      tidyr_1.3.1        dplyr_1.1.4       
-[13] ggplot2_4.0.0      pxweb_0.17.1      
+ [1] scales_1.4.0       devEMF_4.5-1       ggstats_0.11.0     ggthemes_5.1.0    
+ [5] RColorBrewer_1.1-3 kableExtra_1.4.0   knitr_1.50         gt_1.1.0          
+ [9] xlsx_0.6.5         patchwork_1.3.2    janitor_2.2.1      tidyr_1.3.1       
+[13] dplyr_1.1.4        ggplot2_4.0.0      pxweb_0.17.1      
 
 loaded via a namespace (and not attached):
  [1] utf8_1.2.6        xlsxjars_0.9.0    generics_0.1.4    xml2_1.4.1       

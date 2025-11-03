@@ -37,6 +37,7 @@ library("kableExtra")
 library("RColorBrewer")
 library("ggthemes")
 library("ggstats")
+library("devEMF")
 ```
 
 # 0.1 Datan hakeminen
@@ -384,19 +385,19 @@ huumekuolemat_ikaryhmat <- huumekuolemat %>%
 itsemurhat_ikaryhmat_total <- itsemurhat_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
   summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
-  mutate(ika = "15 - 29 (Yhteensä)") %>% 
+  mutate(ika = "Yhteensä") %>% 
   select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
 
 vakivalta_ikaryhmat_total <- vakivalta_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
   summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
-  mutate(ika = "15 - 29 (Yhteensä)") %>% 
+  mutate(ika = "Yhteensä") %>% 
   select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
 
 huumekuolemat_ikaryhmat_total <- huumekuolemat_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
   summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
-  mutate(ika = "15 - 29 (Yhteensä)") %>% 
+  mutate(ika = "Yhteensä") %>% 
   select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
 ```
 
@@ -404,13 +405,13 @@ Muutetaan ika-muuttujan character-arvot faktoreiksi, jolloin voidaan määritell
 
 ```{r 1_yd_kuolemansyyt_filtterointi_faktorit}
 itsemurhat_ikaryhmat_2 <- rbind(itsemurhat_ikaryhmat, itsemurhat_ikaryhmat_total) %>% 
-  mutate(ika = factor(ika, levels=c("15 - 29 (Yhteensä)", "15 - 19", "20 - 24", "25 - 29")))
+  mutate(ika = factor(ika, levels=c("Yhteensä", "15 - 19", "20 - 24", "25 - 29")))
 
 vakivalta_ikaryhmat_2 <- rbind(vakivalta_ikaryhmat, vakivalta_ikaryhmat_total) %>% 
-  mutate(ika = factor(ika, levels=c("15 - 29 (Yhteensä)", "15 - 19", "20 - 24", "25 - 29")))
+  mutate(ika = factor(ika, levels=c("Yhteensä", "15 - 19", "20 - 24", "25 - 29")))
 
 huumekuolemat_ikaryhmat_2 <- rbind(huumekuolemat_ikaryhmat, huumekuolemat_ikaryhmat_total) %>% 
-  mutate(ika = factor(ika, levels=c("15 - 29 (Yhteensä)", "15 - 19", "20 - 24", "25 - 29")))
+  mutate(ika = factor(ika, levels=c("Yhteensä", "15 - 19", "20 - 24", "25 - 29")))
 ```
 
 ## Visualisointi (geom_bar dodge)
@@ -529,39 +530,39 @@ if (kirjoita_data_excel_tiedostoihin) {
 ## Grouped bar -kuvaajat
 
 ```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin}
-kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.15, end = 0.7) +
-  theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_bw(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom")
 
 kuvio1
 
-kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.15, end = 0.7) +
-  theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_bw(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom")
 
 kuvio2
 
-kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
   scale_fill_grey(start = 0.15, end = 0.7) +
-  theme(legend.position = "bottom") +
   scale_colour_grey() +
-  theme_bw(base_size = 8, base_family = "sans")
+  theme_bw(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom")
 
 kuvio3
 
@@ -569,6 +570,11 @@ if (tuota_vektorikuviot) {
   ggsave("prepared_plots/kuvio1_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
   ggsave("prepared_plots/kuvio2_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
   ggsave("prepared_plots/kuvio3_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  
+  # EMF plot experimentation
+  ggsave(filename = "prepared_plots/kuvio1_13x8.emf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1, device = {function(filename, ...) devEMF::emf(file = filename, ...)})
+  ggsave("prepared_plots/kuvio2_13x8.emf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1, device = emf)
+  ggsave("prepared_plots/kuvio3_13x8.emf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1, device = emf)
 }
 ```
 
@@ -1213,12 +1219,12 @@ library(scales)
 library(ggstats)
 
 kuvio4 <- ggplot(kaikki_long) + 
-  aes(x = as.numeric(vuosi), fill = kuolemansyy, weight = value, by = vuosi) +
+  aes(x = as.numeric(vuosi), fill = kuolemansyy, weight = value, by = as.character(vuosi)) +
   geom_bar(color = "black") + 
   labs(x = "Vuosi",
        y = "n",
        fill = "Kuolemansyy") +
-  scale_fill_grey(start = 0.7, end = 0.15) +
+  scale_fill_grey(start = 0.5, end = 0.15) +
   theme_bw(base_size = 8, base_family = "sans") +
   theme(legend.position = "bottom", axis.title.y = element_text(angle = 0, vjust = 0.5))
 
@@ -1554,6 +1560,8 @@ print(citation("RColorBrewer"), bibtex = FALSE)
 print(citation("ggthemes"), bibtex = FALSE)
 
 print(citation("ggstats"), bibtex = FALSE)
+
+print(citation("devEMF"), bibtex = FALSE)
 ```
 
 
