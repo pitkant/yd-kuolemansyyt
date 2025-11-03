@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-10-31
+date: 2025-11-03
 format: 
   html:
     toc: true
@@ -575,7 +575,7 @@ if (tuota_vektorikuviot) {
 ## Vaihtoehto: Viivakuvaajat
 
 ```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin_viivakuvaajat}
-kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio1_viiva <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -584,9 +584,9 @@ kuvio1 <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as
   theme(legend.position = "bottom") +
   theme_bw(base_size = 8, base_family = "sans")
 
-kuvio1
+kuvio1_viiva
 
-kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2_viiva <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -595,9 +595,9 @@ kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x
   theme(legend.position = "bottom") +
   theme_bw(base_size = 8, base_family = "sans")
 
-kuvio2
+kuvio2_viiva
 
-kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio3_viiva <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -606,12 +606,12 @@ kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.
   theme(legend.position = "bottom") +
   theme_bw(base_size = 8, base_family = "sans")
 
-kuvio3
+kuvio3_viiva
 
 if (tuota_vektorikuviot & tuota_viivakuviot) {
-  ggsave("prepared_plots/kuvio1_viiva_13x8.pdf", plot = kuvio1, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio2_viiva_13x8.pdf", plot = kuvio2, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio3_viiva_13x8.pdf", plot = kuvio3, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio1_viiva_13x8.pdf", plot = kuvio1_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio2_viiva_13x8.pdf", plot = kuvio2_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/kuvio3_viiva_13x8.pdf", plot = kuvio3_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
