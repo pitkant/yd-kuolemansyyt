@@ -3017,30 +3017,28 @@ ASDR = \frac{\text{25-29 vuotiaana kuolleet vuonna A}}{\text{25-29-vuotiaiden ke
 <span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"(1a)"</span>) <span class="sc">+</span></span>
 <span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
 <span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
-<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fl">0.0</span>, <span class="fl">1.1</span>))</span>
-<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a><span class="co"># kuvio_extra_1a</span></span>
-<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a>kuvio_extra_1b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> kaikki_70_muut, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> asdr, <span class="at">group =</span> kuolemansyy)) <span class="sc">+</span></span>
-<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>kuolemansyy), <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
-<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
-<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Kuolemansyy"</span>,</span>
-<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"(1b)"</span>) <span class="sc">+</span></span>
-<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
-<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
-<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fl">0.0</span>, <span class="fl">1.1</span>))</span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a><span class="co"># kuvio_extra_1a</span></span>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>kuvio_extra_1b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> kaikki_70_muut, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(vuosi), <span class="at">y =</span> asdr, <span class="at">group =</span> kuolemansyy)) <span class="sc">+</span></span>
+<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>kuolemansyy), <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Vuosi"</span>,</span>
+<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Kuolemansyy"</span>,</span>
+<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"(1b)"</span>) <span class="sc">+</span></span>
+<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
+<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">8</span>, <span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
+<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a><span class="co"># kuvio_extra_1b</span></span>
 <span id="cb70-31"><a href="#cb70-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-32"><a href="#cb70-32" aria-hidden="true" tabindex="-1"></a><span class="co"># kuvio_extra_1b</span></span>
-<span id="cb70-33"><a href="#cb70-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-34"><a href="#cb70-34" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (tuota_vektorikuviot) {</span>
-<span id="cb70-35"><a href="#cb70-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/extras/kuvio_extra_1a_13x8.pdf"</span>, <span class="at">plot =</span> kuvio_extra_1a, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb70-36"><a href="#cb70-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/extras/kuvio_extra_1b_13x8.pdf"</span>, <span class="at">plot =</span> kuvio_extra_1b, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb70-37"><a href="#cb70-37" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb70-38"><a href="#cb70-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-39"><a href="#cb70-39" aria-hidden="true" tabindex="-1"></a>kuvio_extra_1a <span class="sc">+</span> kuvio_extra_1b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb70-32"><a href="#cb70-32" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (tuota_vektorikuviot) {</span>
+<span id="cb70-33"><a href="#cb70-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/extras/kuvio_extra_1a_13x8.pdf"</span>, <span class="at">plot =</span> kuvio_extra_1a, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb70-34"><a href="#cb70-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"prepared_plots/extras/kuvio_extra_1b_13x8.pdf"</span>, <span class="at">plot =</span> kuvio_extra_1b, <span class="at">width =</span> <span class="dv">130</span>, <span class="at">height =</span> <span class="dv">80</span>, <span class="at">units =</span> <span class="st">"mm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb70-35"><a href="#cb70-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb70-36"><a href="#cb70-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-37"><a href="#cb70-37" aria-hidden="true" tabindex="-1"></a>kuvio_extra_1a <span class="sc">+</span> kuvio_extra_1b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>

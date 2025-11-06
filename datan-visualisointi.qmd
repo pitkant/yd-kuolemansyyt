@@ -1469,8 +1469,7 @@ kuvio_extra_1a <- ggplot(data = kaikki_70_yd, aes(x = as.numeric(vuosi), y = asd
        title = "(1a)") +
   scale_colour_grey() +
   theme_bw(base_size = 8, base_family = "sans") +
-  theme(legend.position = "bottom") +
-  ylim(c(0.0, 1.1))
+  theme(legend.position = "bottom")
 
 # kuvio_extra_1a
 
@@ -1482,8 +1481,7 @@ kuvio_extra_1b <- ggplot(data = kaikki_70_muut, aes(x = as.numeric(vuosi), y = a
        title = "(1b)") +
   scale_fill_grey() +
   theme_bw(base_size = 8, base_family = "sans") +
-  theme(legend.position = "bottom") +
-  ylim(c(0.0, 1.1))
+  theme(legend.position = "bottom")
 
 # kuvio_extra_1b
 
