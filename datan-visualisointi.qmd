@@ -1,6 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-11-03
+date: 2025-11-06
 format: 
   html:
     toc: true
@@ -615,9 +615,9 @@ kuvio3_viiva <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24,
 kuvio3_viiva
 
 if (tuota_vektorikuviot & tuota_viivakuviot) {
-  ggsave("prepared_plots/kuvio1_viiva_13x8.pdf", plot = kuvio1_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio2_viiva_13x8.pdf", plot = kuvio2_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio3_viiva_13x8.pdf", plot = kuvio3_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/extras/kuvio1_viiva_13x8.pdf", plot = kuvio1_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/extras/kuvio2_viiva_13x8.pdf", plot = kuvio2_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/extras/kuvio3_viiva_13x8.pdf", plot = kuvio3_viiva, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
@@ -1451,7 +1451,51 @@ if (tuota_vektorikuviot) {
 }
 ```
 
-# Extra: Menetetyt elinvuodet 2006-2024
+# Extra 1: ASDR-kuolleisuus, YD-kuolemat viivoina ja muut kuolemat palkkeina
+
+```{r}
+kaikki_70_yd <- kaikki_70_asdr %>% 
+  filter(kuolemansyy != "Kaikki kuolemansyyt \n(ml. YD-syyt)")
+
+kaikki_70_muut <- kaikki_70_asdr %>% 
+  filter(kuolemansyy == "Kaikki kuolemansyyt \n(ml. YD-syyt)")
+
+kuvio_extra_1a <- ggplot(data = kaikki_70_yd, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
+  geom_line(aes(color=kuolemansyy, linetype=kuolemansyy), linewidth = 1.5/.pt) + 
+  labs(x = "Vuosi",
+       y = "",
+       colour = "Kuolemansyy",
+       linetype = "Kuolemansyy",
+       title = "(1a)") +
+  scale_colour_grey() +
+  theme_bw(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom") +
+  ylim(c(0.0, 1.1))
+
+# kuvio_extra_1a
+
+kuvio_extra_1b <- ggplot(data = kaikki_70_muut, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
+  geom_bar(aes(fill=kuolemansyy), stat = "identity") + 
+  labs(x = "Vuosi",
+       y = "",
+       fill = "Kuolemansyy",
+       title = "(1b)") +
+  scale_fill_grey() +
+  theme_bw(base_size = 8, base_family = "sans") +
+  theme(legend.position = "bottom") +
+  ylim(c(0.0, 1.1))
+
+# kuvio_extra_1b
+
+if (tuota_vektorikuviot) {
+  ggsave("prepared_plots/extras/kuvio_extra_1a_13x8.pdf", plot = kuvio_extra_1a, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/extras/kuvio_extra_1b_13x8.pdf", plot = kuvio_extra_1b, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+}
+
+kuvio_extra_1a + kuvio_extra_1b
+```
+
+# Extra 2: Menetetyt elinvuodet 2006-2024
 
 Koska meillä on tiedossa vuosina eri vuosina kuolleiden nuorten lukumäärät, voimme laskea kullekin ikäryhmälle menetettyjen elinvuosien summan. Koska sukupuolten välillä on eroja elinajanodotteessa, käytetään tässä jaottelua miehiin ja naisiin.
 
