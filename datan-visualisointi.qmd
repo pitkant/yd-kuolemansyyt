@@ -1453,7 +1453,7 @@ if (tuota_vektorikuviot) {
 
 # Extra 1: ASDR-kuolleisuus, YD-kuolemat viivoina ja muut kuolemat palkkeina
 
-```{r}
+```{r extra_visualisoinnit_asdr_yd_kuolemat_ja_muut_erikseen}
 kaikki_70_yd <- kaikki_70_asdr %>% 
   filter(kuolemansyy != "Kaikki kuolemansyyt \n(ml. YD-syyt)")
 
@@ -1475,7 +1475,7 @@ kuvio_extra_1a <- ggplot(data = kaikki_70_yd, aes(x = as.numeric(vuosi), y = asd
 # kuvio_extra_1a
 
 kuvio_extra_1b <- ggplot(data = kaikki_70_muut, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
-  geom_bar(aes(fill=kuolemansyy), stat = "identity") + 
+  geom_bar(aes(fill=kuolemansyy), stat = "identity", width = 0.5) + 
   labs(x = "Vuosi",
        y = "",
        fill = "Kuolemansyy",
