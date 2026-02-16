@@ -1181,7 +1181,7 @@ kaikki_long <- kaikki_wide %>%
   mutate(kuolemansyy = factor(kuolemansyy, levels=c("muut", "yd_kuolemansyy")))
 
 kaikki_long <- kaikki_long %>% 
-  mutate(kuolemansyy = factor(kuolemansyy, levels=c("muut", "yd_kuolemansyy"), labels = c("Kaikki kuolemansyyt \n(pl. YD-syyt)", "YD-kuolemansyyt")))
+  mutate(kuolemansyy = factor(kuolemansyy, levels=c("muut", "yd_kuolemansyy"), labels = c("Muut kuolemansyyt", "Itsemurha-, huume- ja \nväkivaltakuolemat")))
 
 ```
 
@@ -1222,11 +1222,11 @@ kuvio4 <- ggplot(kaikki_long) +
   aes(x = as.numeric(vuosi), fill = kuolemansyy, weight = value, by = as.character(vuosi)) +
   geom_bar(color = "black") + 
   labs(x = "Vuosi",
-       y = "n",
-       fill = "Kuolemansyy") +
+       y = "Lukumäärä (n)",
+       fill = "") +
   scale_fill_grey(start = 0.5, end = 0.15) +
   theme_bw(base_size = 8, base_family = "sans") +
-  theme(legend.position = "bottom", axis.title.y = element_text(angle = 0, vjust = 0.5))
+  theme(legend.position = "bottom", axis.title.y = element_text(angle = 90, vjust = 0.5))
 
 kuvio4 <- kuvio4 + geom_text(
     aes(label = scales::percent(after_stat(prop), accuracy = 1)),
@@ -1239,7 +1239,7 @@ kuvio4 <- kuvio4 + geom_text(
 kuvio4
 
 if (tuota_vektorikuviot) {
-  ggsave("prepared_plots/kuvio4_13x8.pdf", plot = kuvio4, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/analyysit_remake/kuvio2_13x8.pdf", plot = kuvio4, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
@@ -1282,7 +1282,7 @@ huumekuolemat_yht_70 <- huumekuolemat %>%
   ungroup()
 
 kaikki_70 <- rbind(itsemurhat_yht_70, vakivalta_yht_70, huumekuolemat_yht_70, kaikki_muut_yht_70) %>% 
-  mutate(kuolemansyy = factor(kuolemansyy, levels=c("kaikki_kuolemansyyt", "itsemurha", "huumekuolema", "vakivalta"), labels = c("Kaikki kuolemansyyt \n(ml. YD-syyt)", "Itsemurha", "Huumekuolema", "Väkivalta")))
+  mutate(kuolemansyy = factor(kuolemansyy, levels=c("kaikki_kuolemansyyt", "itsemurha", "huumekuolema", "vakivalta"), labels = c("Kaikki kuolemansyyt \nyhteensä", "Itsemurha", "Huumekuolema", "Väkivalta")))
 
 # kaikki_wide_70 <- kaikki_70 %>%
 #   pivot_wider(names_from = kuolemansyy, values_from = kuolleet_yht) %>%
@@ -1437,7 +1437,7 @@ if (kirjoita_data_excel_tiedostoihin) {
 kuvio5 <- ggplot(data = kaikki_70_asdr, aes(x = as.numeric(vuosi), y = asdr, group = kuolemansyy)) +
   geom_line(aes(color=kuolemansyy, linetype=kuolemansyy), linewidth = 1.5/.pt) + 
   labs(x = "Vuosi",
-       y = "",
+       y = "Ikävakioitu kuolleisuusluku (per 1000)",
        colour = "Kuolemansyy", linetype = "Kuolemansyy") +
   scale_colour_grey() +
   theme_bw(base_size = 8, base_family = "sans") +
@@ -1447,7 +1447,7 @@ kuvio5
 
 if (tuota_vektorikuviot) {
   # ggsave("prepared_plots/kuvio5_8x5.pdf", width = 80, height = 50, units = "mm", dpi = 300, scale = 1)
-  ggsave("prepared_plots/kuvio5_13x8.pdf", plot = kuvio5, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
+  ggsave("prepared_plots/analyysit_remake/kuvio1_13x8.pdf", plot = kuvio5, width = 130, height = 80, units = "mm", dpi = 300, scale = 1)
 }
 ```
 
