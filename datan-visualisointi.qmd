@@ -47,8 +47,8 @@ Asetus jolla säädellään sitä, haetaanko datat aina uudelleen pxweb-rajapinn
 ```{r}
 tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
 kirjoita_data_excel_tiedostoihin <- FALSE
-tuota_vektorikuviot <- TRUE
-tuota_viivakuviot <- TRUE
+tuota_vektorikuviot <- FALSE
+tuota_viivakuviot <- FALSE
 ```
 
 Taulukossa "12d9 -- Huumeisiin kuolleet (B-luokitus) tilaston peruskuolemansyyn, iän ja sukupuolen mukaan, 2006-2024" ([statfin_ksyyt_pxt_12d9](https://pxdata.stat.fi/PXWeb/pxweb/fi/StatFin/StatFin__ksyyt/statfin_ksyyt_pxt_12d9.px)) käytetään Yhteensä-lukua, joka sisältää seuraavat kategoriat:
