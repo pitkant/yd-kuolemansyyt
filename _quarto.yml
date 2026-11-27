@@ -2,3 +2,24 @@ project:
   type: website
   output-dir: docs
 
+website: 
+  sidebar:
+    style: "docked"
+    search: true
+    contents: 
+      - text: "Etusivu"
+        href: index.qmd
+      - section: "YD-kuolemansyiden määrä"
+        contents:
+          - datan-visualisointi.qmd
+          - eu-vertailu.qmd
+          
+
+format:
+    html:
+        author: Pyry Kantanen
+        toc: true
+        toc-depth: 3
+        toc-expand: 3
+        code-overflow: wrap
+        code-fold: true

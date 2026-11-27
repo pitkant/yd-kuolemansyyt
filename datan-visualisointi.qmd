@@ -1,11 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-11-06
-format: 
-  html:
-    toc: true
-    toc-location: left
-    code-fold: true
+date: 2026-11-24
 execute: 
   echo: true
   warning: false
