@@ -549,10 +549,10 @@ Edellä mainitusta voitaneen vetää johtopäätös, että ainoa tapa vertailla 
 ```{r}
 eu_ksyyt_huumeet_94_25_separated <- readRDS(file = "prepared_data/eu_ksyyt_huumeet_94_25_separated.rds")
 
-eu_ksyyt_huumeet_94_25_toxico <- eu_ksyyt_huumeet_94_25_separated |> 
-  filter(icd10 == "TOXICO")
+eu_ksyyt_huumeet_94_25_x40_x49 <- eu_ksyyt_huumeet_94_25_separated |> 
+  filter(icd10 == "X40-X49")
 
-eu_ksyyt_huumeet_94_25_asdr <- left_join(eu_ksyyt_huumeet_94_25_toxico, itse_laskettu_keskivakiluku_eu, by = join_by("vuosi" == "vuosi", "geo" == "geo")) |>  
+eu_ksyyt_huumeet_94_25_asdr <- left_join(eu_ksyyt_huumeet_94_25_x40_x49, itse_laskettu_keskivakiluku_eu, by = join_by("vuosi" == "vuosi", "geo" == "geo")) |>  
   mutate(asdr = (kuolleet_yht / keskivakiluku) * 1000) |> 
   mutate(vuosi = as.numeric(vuosi))
 ```
@@ -569,7 +569,7 @@ asdr_plotti <- ggplot(eu_ksyyt_huumeet_94_25_asdr, aes(x = vuosi, y = asdr)) +
 ggplotly(asdr_plotti)
 ```
 
-Huomataan, että Sveitsissä ja Norjassa 1990-luvulla ja 2000-luvun alussa on ollut paljon huumekuolemia nuorten keskuudessa. Itävallassa piikki on ollut vasta 2003-2013 paikkeilla. Liechtensteinin kaltaisten kääpiövaltioiden tapauksessa muutamakin kuolemantapaus voi aihuettaa voimakkaita piikkejä, kuten 2021 tapauksessa. Suomen luvut ovat pitkällä aikavälillä melko maltillisia, joskin 2020-luvun kärkisijoilla.
+Huomataan, että Baltian maat ovat olleet kärkisijoilla 1990-luvun loppupuolella. Viime vuosina kärkisijoilla ovat Latvia, Viro, Suomi, Norja ja Sveitsi.
 
 # Toistettavuus
 
