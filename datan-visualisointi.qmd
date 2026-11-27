@@ -1,11 +1,6 @@
 ---
 title: "YP YD-visualisoinnit"
-date: 2025-11-06
-format: 
-  html:
-    toc: true
-    toc-location: left
-    code-fold: true
+date: 2026-11-24
 execute: 
   echo: true
   warning: false
@@ -62,14 +57,14 @@ Alaviitteissä mainitaan: "Luokitus perustuu Euroopan huumausaineiden ja niiden 
 
 ```{r 0_datan_hakeminen_pxweb, eval=lataa_datasetit_uudelleen}
 pxweb_query_list <- 
-  list("Tilaston peruskuolemansyy (aikasarjaluokitus)"=c("SSS", "50","51"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(1969:2024),
-       "Tiedot"=c("ksyylkm"))
+  list("kuolinsyyt_1_20210101"=c("SSS", "50","51"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(1969:2025),
+       "contentscode"=c("ksyylkm"))
 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_11az.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/11az.px",
             query = pxweb_query_list)
 
 statfin_ksyyt_pxt_11az <- as.data.frame(px_data,
@@ -80,29 +75,29 @@ statfin_ksyyt_pxt_11az <- statfin_ksyyt_pxt_11az %>%
   janitor::clean_names()
 
 pxweb_query_list <- 
-  list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14",
-                                                            "F15", "F16", "F19", 
-                                                            "X41", "X42", "X44",
-                                                            "X61", "X62", "X64", 
-                                                            "Y11", "Y12", "Y14"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(1998:2024),
-       "Tiedot"=c("ksyylkm"))
+  list("kuolinsyyt_80_20210101"=c("F11","F12", "F14",
+                                  "F15", "F16", "F19",
+                                  "X41", "X42", "X44",
+                                  "X61", "X62", "X64",
+                                  "Y11", "Y12", "Y14"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(1998:2025),
+       "contentscode"=c("ksyylkm"))
 
 # Huumausainekuolemat ICD-10 -koodeilla, ilman itsemurhia
 pxweb_query_list <- 
-  list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14", 
-                                                            "F15", "F16", "F19", 
-                                                            "X41", "X42", "X44",
-                                                            "Y11", "Y12", "Y14"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(1998:2024),
-       "Tiedot"=c("ksyylkm"))
+  list("kuolinsyyt_80_20210101"=c("F11","F12", "F14",
+                                  "F15", "F16", "F19",
+                                  "X41", "X42", "X44",
+                                  "Y11", "Y12", "Y14"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(1998:2025),
+       "contentscode"=c("ksyylkm"))
 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_11be.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/11be.px",
             query = pxweb_query_list)
 
 statfin_ksyyt_pxt_11be <- as.data.frame(px_data,
@@ -113,14 +108,15 @@ statfin_ksyyt_pxt_11be <- statfin_ksyyt_pxt_11be %>%
   janitor::clean_names()
 
 pxweb_query_list <- 
-  list("Huume (B-luokitus)"=c("SSS"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(2006:2024),
-       "Tiedot"=c("ksyylkm15"))
+  list("kuolinsyyt_4_20060101"=c("SSS"),
+#       "kuolinsyyt_4_20060101"=c("SSS","01-06","07-17","18-28","29-39"), sisältää myös itsemurhat ym.
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(2006:2025),
+       "contentscode"=c("ksyylkm15"))
 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_12d9.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/12d9.px",
             query = pxweb_query_list)
 
 statfin_ksyyt_pxt_12d9 <- as.data.frame(px_data,
@@ -150,30 +146,30 @@ Mikäli huumekuolemia haluttaisiin katsoa pidemmältä ajalta, tulisi käyttää
 ```{r, eval = lataa_datasetit_uudelleen}
 # PXWEB query: Huumausainekuolemat ICD-10 -koodeilla, ilman itsemurhia
 pxweb_query_list <- 
-  list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14", 
-                                                            "F15", "F16", "F19", 
-                                                            "X41", "X42", "X44",
-                                                            "Y11", "Y12", "Y14"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(1998:2024),
-       "Tiedot"=c("ksyylkm"))
+  list("kuolinsyyt_80_20210101"=c("F11","F12", "F14",
+                                  "F15", "F16", "F19",
+                                  "X41", "X42", "X44",
+                                  "Y11", "Y12", "Y14"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(1998:2025),
+       "contentscode"=c("ksyylkm"))
 
 # PXWEB query 
 pxweb_query_list <- 
-  list("Tilaston peruskuolemansyy (ICD-10, 3-merkkitaso)"=c("F11","F12", "F14",
-                                                            "F15", "F16", "F19", 
-                                                            "X41", "X42", "X44",
-                                                            "X61", "X62", "X64", 
-                                                            "Y11", "Y12", "Y14"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Vuosi"=as.character(1998:2024),
-       "Tiedot"=c("ksyylkm"))
+  list("kuolinsyyt_80_20210101"=c("F11","F12", "F14",
+                                  "F15", "F16", "F19",
+                                  "X41", "X42", "X44",
+                                  "X61", "X62", "X64",
+                                  "Y11", "Y12", "Y14"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "timeperiod_y"=as.character(1998:2025),
+       "contentscode"=c("ksyylkm"))
 
 # Download data 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_11be.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/11be.px",
             query = pxweb_query_list)
 
 # Convert to data.frame, clean names and do summarizing
@@ -216,14 +212,14 @@ Tilastokeskuksen aineistosta "11s1 -- Keskiväkiluku iän ja sukupuolen mukaan a
 ```{r vaestorakenne_keskivakiluku, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
-  list("Alue"="SSS",
-       "Vuosi"=as.character(1981:2024),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Ikä"=paste0("0", 15:29),
-       "Tiedot"=c("keskiv"))
+  list("alue_23_20260101"="SSS",
+       "timeperiod_y"=as.character(1981:2025),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "ikaryhma_10_20180101"=paste0("0", 15:29),
+       "contentscode"=c("vaerak-keskiv"))
 
 # Download data 
-px_data <- pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11s1.px",
+px_data <- pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/11s1.px",
             query = pxweb_query_list)
 
 # Convert to data.frame 
@@ -250,14 +246,14 @@ Eli vuoden 2024 keskiväkiluku saadaan laskemalla yhteen vuoden 2024 väkiluku j
 ```{r vaestorakenne_keskivakiluku_laskeminen_itse, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
-  list("Vuosi"=as.character(1865:2024),
-       "Sukupuoli"=c("SSS"),
-       "Ikä"=c("15-19", "20-24", "25-29"),
-       "Tiedot"=c("vaesto"))
+  list("timeperiod_y"=as.character(1865:2025),
+       "sukupuoli_9_20180101"=c("SSS"),
+       "ikaryhma_10_20180101"=c("15-19", "20-24", "25-29"),
+       "contentscode"=c("vaerak-vaesto"))
 
 # Download data 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11rc.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/vaerak/11rc.px",
             query = pxweb_query_list)
 
 # Convert to data.frame 
@@ -298,14 +294,14 @@ Elinajanodotteet vuosina ovat järjestyksessä pienimmästä iästä suurimpaan,
 ```{r elinajanodotteet, eval = lataa_datasetit_uudelleen}
 # PXWEB query 
 pxweb_query_list <- 
-  list("Vuosi"=c("1986","1987","1988","1989","1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"),
-       "Sukupuoli"=c("SSS","1","2"),
-       "Ikä"=c("015","016","017","018","019","020","021","022","023","024","025","026","027","028","029"),
-       "Tiedot"=c("eodote"))
+  list("timeperiod_y"=as.character(1986:2025),
+       "sukupuoli_9_20180101"=c("SSS","1","2"),
+       "ikaryhma_10_20180101"=c("015","016","017","018","019","020","021","022","023","024","025","026","027","028","029"),
+       "contentscode"=c("eodote"))
 
 # Download data 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/kuol/statfin_kuol_pxt_12ap.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/kuol/12ap.px",
             query = pxweb_query_list)
 
 # Convert to data.frame 
@@ -342,14 +338,14 @@ itsemurhat_vakivalta <- statfin_ksyyt_pxt_11az %>%
   # filter(sukupuoli %in% c("Miehet", "Naiset"), as.numeric(vuosi) >= 2006) %>% 
   # filter(!(tilaston_peruskuolemansyy_aikasarjaluokitus %in% "00-54 Yhteensä")) %>% 
   group_by(tilaston_peruskuolemansyy_aikasarjaluokitus, vuosi, ika, sukupuoli) %>% 
-  summarize(kuolleet_06_24 = sum(kuolleet)) %>% 
+  summarize(kuolleet_06_25 = sum(kuolleet)) %>% 
   mutate(kuolemansyy = case_when(
     tilaston_peruskuolemansyy_aikasarjaluokitus == "50 Itsemurhat (X60-X84, Y870)" ~ "itsemurha",
     tilaston_peruskuolemansyy_aikasarjaluokitus == "51 Murha, tappo tai muu tahallinen pahoinpitely (X85-Y09, Y871)" ~ "vakivalta",
     .default = "muut"
   )) %>% 
   ungroup() %>% 
-  select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
+  select(vuosi, ika, sukupuoli, kuolleet_06_25, kuolemansyy)
 
 statfin_ksyyt_pxt_12d9 <- statfin_ksyyt_pxt_12d9 %>% 
   janitor::clean_names()
@@ -357,7 +353,7 @@ statfin_ksyyt_pxt_12d9 <- statfin_ksyyt_pxt_12d9 %>%
 huumekuolemat <- statfin_ksyyt_pxt_12d9 %>% 
   # filter(sukupuoli %in% c("Miehet", "Naiset"), as.numeric(vuosi) >= 2006) %>% 
   group_by(vuosi, ika, sukupuoli) %>% 
-  summarize(kuolleet_06_24 = sum(huumeisiin_kuolleet_b_luokitus, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25 = sum(huumeisiin_kuolleet_b_luokitus, na.rm = TRUE)) %>% 
   ungroup() %>% 
   mutate(kuolemansyy = "huumekuolema")
 ```
@@ -384,21 +380,21 @@ huumekuolemat_ikaryhmat <- huumekuolemat %>%
 
 itsemurhat_ikaryhmat_total <- itsemurhat_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
+  summarize(kuolleet_06_25 = sum(kuolleet_06_25)) %>% 
   mutate(ika = "Yhteensä") %>% 
-  select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
+  select(vuosi, ika, sukupuoli, kuolleet_06_25, kuolemansyy)
 
 vakivalta_ikaryhmat_total <- vakivalta_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
+  summarize(kuolleet_06_25 = sum(kuolleet_06_25)) %>% 
   mutate(ika = "Yhteensä") %>% 
-  select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
+  select(vuosi, ika, sukupuoli, kuolleet_06_25, kuolemansyy)
 
 huumekuolemat_ikaryhmat_total <- huumekuolemat_ikaryhmat %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24 = sum(kuolleet_06_24)) %>% 
+  summarize(kuolleet_06_25 = sum(kuolleet_06_25)) %>% 
   mutate(ika = "Yhteensä") %>% 
-  select(vuosi, ika, sukupuoli, kuolleet_06_24, kuolemansyy)
+  select(vuosi, ika, sukupuoli, kuolleet_06_25, kuolemansyy)
 ```
 
 Muutetaan ika-muuttujan character-arvot faktoreiksi, jolloin voidaan määritellä manuaalisesti niiden järjestys. Normaalisti muuttujat visualisoitaisiin aakkosjärjestyksessä (alfanumeerisessa järjestyksessä), jolloin numerot tulisivat ennen tekstimuuttujia. Haluamme kuitenkin tässä (?), että "Yhteensä" on ennen numeroita.
@@ -423,7 +419,7 @@ Tässä visualisoinnissa esitetään erikseen eri kuolinsyiden Yhteensä-määr�
 Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen.
 
 ```{r 1_yd_kuolemansyyt_visualisointi}
-kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -437,7 +433,7 @@ kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24
 
 kuvio1
 
-kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -451,7 +447,7 @@ kuvio2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.n
 
 kuvio2
 
-kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
@@ -472,7 +468,7 @@ Data kannattaa tallentaa ensin vähän leveämpään muotoon
 
 ```{r, eval = kirjoita_data_excel_tiedostoihin}
 itsemurhat_ikaryhmat_2_wide <- itsemurhat_ikaryhmat_2 %>% 
-  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_25) %>% 
   mutate(ika = case_when(
     ika == "15 - 19" ~ "15_19",
     ika == "20 - 24" ~ "20_24",
@@ -480,10 +476,10 @@ itsemurhat_ikaryhmat_2_wide <- itsemurhat_ikaryhmat_2 %>%
     ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
     .default = as.character(ika)
   )) %>% 
-  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_25)
 
 vakivalta_ikaryhmat_2_wide <- vakivalta_ikaryhmat_2 %>% 
-  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_25) %>% 
   mutate(ika = case_when(
     ika == "15 - 19" ~ "15_19",
     ika == "20 - 24" ~ "20_24",
@@ -491,10 +487,10 @@ vakivalta_ikaryhmat_2_wide <- vakivalta_ikaryhmat_2 %>%
     ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
     .default = as.character(ika)
   )) %>% 
-  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_25)
 
 huumekuolemat_ikaryhmat_2_wide <- huumekuolemat_ikaryhmat_2 %>% 
-  dplyr::select(vuosi, ika, kuolleet_06_24) %>% 
+  dplyr::select(vuosi, ika, kuolleet_06_25) %>% 
   mutate(ika = case_when(
     ika == "15 - 19" ~ "15_19",
     ika == "20 - 24" ~ "20_24",
@@ -502,7 +498,7 @@ huumekuolemat_ikaryhmat_2_wide <- huumekuolemat_ikaryhmat_2 %>%
     ika == "15 - 29 (Yhteensä)" ~ "yhteensa",
     .default = as.character(ika)
   )) %>% 
-  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_24)
+  tidyr::pivot_wider(names_from = ika, names_prefix = "ika_", values_from = kuolleet_06_25)
 
 
 if (kirjoita_data_excel_tiedostoihin) {
@@ -530,7 +526,7 @@ if (kirjoita_data_excel_tiedostoihin) {
 ## Grouped bar -kuvaajat
 
 ```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin}
-kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
+kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
@@ -542,7 +538,7 @@ kuvio1 <- ggplot(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24
 
 kuvio1
 
-kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
+kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
@@ -554,7 +550,7 @@ kuvio2 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=
 
 kuvio2
 
-kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=vuosi)) +
+kuvio3 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=vuosi)) +
   geom_bar(position="dodge", stat="identity", color = "black", size = 0.25) + 
   labs(x = "Vuosi",
        y = "",
@@ -581,7 +577,7 @@ if (tuota_vektorikuviot) {
 ## Vaihtoehto: Viivakuvaajat
 
 ```{r 1_yd_kuolemansyyt_visualisointi_artikkeliin_viivakuvaajat}
-kuvio1_viiva <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio1_viiva <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -592,7 +588,7 @@ kuvio1_viiva <- ggplot(itsemurhat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24
 
 kuvio1_viiva
 
-kuvio2_viiva <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio2_viiva <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -603,7 +599,7 @@ kuvio2_viiva <- ggplot(huumekuolemat_ikaryhmat_2, aes(group = ika, y=kuolleet_06
 
 kuvio2_viiva
 
-kuvio3_viiva <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+kuvio3_viiva <- ggplot(vakivalta_ikaryhmat_2, aes(group = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_line(aes(color=ika, linetype=ika), linewidth = 1/.pt) + 
   labs(x = "Vuosi",
        y = "",
@@ -630,18 +626,18 @@ Hyödyntämällä patchwork-kirjastoa saamme yhdistettyä useita kuvioita yhteen
 
 ```{r 1_yd_kuolemansyyt_visualisointi_patchwork}
 p1 <- ggplot() +
-  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi)), position="dodge", stat="identity", color = "black") + 
+  geom_bar(data = itsemurhat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi)), position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
   labs(title = "Itsemurhat", x = "Vuosi", y = "Kuolleet (n)", fill = "Ikäryhmä")
 
-p2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+p2 <- ggplot(vakivalta_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
   labs(title = "Väkivalta", x = "Vuosi", y = "Kuolleet (n)", fill = "Ikäryhmä")
 
-p3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+p3 <- ggplot(huumekuolemat_ikaryhmat_2, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   ylim(0, 200) +
   scale_fill_grey(start = 0.7, end = 0.15) +
@@ -663,7 +659,7 @@ Tässä visualisoinnissa YD-kuolemien kokonaismäärä näkyy pinoamalla erillis
 ```{r 1_yd_kuolemansyyt_visualisointi_stack_mv, eval = TRUE}
 ggplot() +
   # geom_bar(data = itsemurhat_ikaryhmat_total, aes(y = total, x=as.numeric(vuosi)), stat="identity", position="dodge") +
-  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
+  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
        x = "Vuosi",
@@ -672,7 +668,7 @@ ggplot() +
   scale_fill_grey(start = 0.75, end = 0.25) +
   theme(legend.position = "bottom")
 
-ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -682,7 +678,7 @@ ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi
   scale_fill_grey(start = 0.75, end = 0.25) +
   theme(legend.position = "bottom")
 
-ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
@@ -700,7 +696,7 @@ ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(v
 
 ```{r 1_yd_kuolemansyyt_visualisointi_stack_itsemurha, eval = TRUE}
 ggplot() +
-  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
+  geom_bar(data = itsemurhat_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi)), position="stack", stat="identity", color = "black") + 
   labs(x = "Vuosi",
        y = "",
        fill = "Ikäryhmä") +
@@ -713,7 +709,7 @@ Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin vu
 #### Kuvio 1b 2: Väkivaltakuolemat ikäryhmittäin, värillinen
 
 ```{r 1_yd_kuolemansyyt_visualisointi_stack_vakivalta, eval = TRUE}
-ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+ggplot(vakivalta_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", colour = "black") + 
   labs(x = "Vuosi",
        y = "",
@@ -727,7 +723,7 @@ Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden määrä ikäryhmittäin v
 #### Kuvio 1b 3: Huumekuolemat ikäryhmittäin, värillinen
 
 ```{r 1_yd_kuolemansyyt_visualisointi_stack_huumekuolema, eval = TRUE}
-ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_24, x=as.numeric(vuosi))) +
+ggplot(huumekuolemat_ikaryhmat, aes(fill = ika, y=kuolleet_06_25, x=as.numeric(vuosi))) +
   geom_bar(position="stack", stat="identity", colour = "black") + 
   labs(x = "Vuosi",
        y = "",
@@ -748,7 +744,7 @@ itsemurhat_sp <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   group_by(vuosi, sukupuoli) %>% 
-  summarize(kuolleet_06_24_sp = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_sp = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 vakivalta_sp <- itsemurhat_vakivalta %>% 
@@ -756,14 +752,14 @@ vakivalta_sp <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   group_by(vuosi, sukupuoli) %>% 
-  summarize(kuolleet_06_24_sp = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_sp = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 huumekuolemat_sp <- huumekuolemat %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   group_by(vuosi, sukupuoli) %>% 
-  summarize(kuolleet_06_24_sp = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_sp = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 ```
 
@@ -776,7 +772,7 @@ huumekuolemat_sp <- huumekuolemat %>%
 Mustavalkoiset kuviot, joissa on mukana title, caption ja y-akselin label:
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_luonnos, eval = TRUE}
-ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Itsemurhiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -786,7 +782,7 @@ ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vu
   scale_fill_grey(start = 0, end = 0.5) +
   theme(legend.position = "bottom")
 
-ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Väkivaltaan kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_11az)",
@@ -796,7 +792,7 @@ ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuo
   scale_fill_grey(start = 0, end = 0.5) +
   theme(legend.position = "bottom")
 
-ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(title = "Huumeisiin kuolleet 15-29 -vuotiaat 2006-2024",
        caption = "Lähde: Tilastokeskus / StatFin (statfin_ksyyt_pxt_12d9)",
@@ -814,7 +810,7 @@ ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric
 Värilliset kuvat. Sukupuolen visualisointiin käytetään tässä väripalettia Set2 joka on colorblind safe, qualitative (ks. lisätietoja ja lisää paletteja: [colorbrewer2.org](https://colorbrewer2.org)).
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_itsemurha, eval = TRUE}
-ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(itsemurhat_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(x = "Vuosi",
        y = "",
@@ -828,7 +824,7 @@ Kuvateksti: Itsemurhiin kuolleiden 15-29 -vuotiaiden miesten ja naisten määrä
 #### Kuvio 2b 2: Väkivaltakuolemat sukupuolittain, värillinen
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_vakivalta, eval = TRUE}
-ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(vakivalta_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(x = "Vuosi",
        y = "",
@@ -842,7 +838,7 @@ Kuvateksti: Väkivaltaan kuolleiden 15-29 -vuotiaiden miesten ja naisten määr�
 #### Kuvio 2b 3: Huumekuolemat sukupuolittain, värillinen
 
 ```{r 2_yd_kuolemansyyt_sukupuolittain_visualisointi_huumekuolema, eval = TRUE}
-ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_24_sp, x=as.numeric(vuosi))) +
+ggplot(huumekuolemat_sp, aes(fill = sukupuoli, y=kuolleet_06_25_sp, x=as.numeric(vuosi))) +
   geom_bar(position="dodge", stat="identity", color = "black") + 
   labs(x = "Vuosi",
        y = "",
@@ -863,7 +859,7 @@ itsemurhat_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 vakivalta_yht <- itsemurhat_vakivalta %>% 
@@ -871,19 +867,19 @@ vakivalta_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 huumekuolemat_yht <- huumekuolemat %>% 
   filter(sukupuoli %in% c("Miehet", "Naiset")) %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 yd_kuolemat_kaikki <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) %>% 
   tidyr::pivot_wider(names_from = c(kuolemansyy, sukupuoli), 
-                     values_from = kuolleet_06_24_yht) %>% 
+                     values_from = kuolleet_06_25_yht) %>% 
   rowwise() %>% 
   mutate(yht_m = sum(itsemurha_Miehet, huumekuolema_Miehet, vakivalta_Miehet),
          yht_n = sum(itsemurha_Naiset, huumekuolema_Naiset, vakivalta_Naiset))
@@ -916,7 +912,7 @@ huumekuolemat_yht <- huumekuolemat %>%
 
 yd_kuolemat_kaikki_vuosi <- rbind(itsemurhat_yht, huumekuolemat_yht, vakivalta_yht) %>% 
   tidyr::pivot_wider(names_from = vuosi, names_prefix = "v_", 
-                     values_from = kuolleet_06_24)
+                     values_from = kuolleet_06_25)
 ```
 
 Taulukon muoto on sellainen, että sen valmiiksi tekeminen on helpointa Excelissä. Tämä code chunk on laitettu eval = FALSE koska emme halua, että tämän dokumentin jokainen renderöinti ylikirjoittaa käsin tehdyt muutokset!
@@ -1023,7 +1019,7 @@ itsemurhat_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 vakivalta_yht <- itsemurhat_vakivalta %>% 
@@ -1031,7 +1027,7 @@ vakivalta_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki_muut_yht <- itsemurhat_vakivalta %>% 
@@ -1039,20 +1035,20 @@ kaikki_muut_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% "Yhteensä") %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 huumekuolemat_yht <- huumekuolemat %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki <- rbind(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht, kaikki_muut_yht)
 
 kaikki_wide <- kaikki %>% 
-  pivot_wider(names_from = kuolemansyy, values_from = kuolleet_06_24_yht) %>% 
+  pivot_wider(names_from = kuolemansyy, values_from = kuolleet_06_25_yht) %>% 
   mutate(muut = muut - itsemurha - vakivalta - huumekuolema)
 
 kaikki_long <- kaikki_wide %>% 
@@ -1104,15 +1100,15 @@ Haetaan itsemurhatiedot ilman "Itsemurhat huumeilla (X61,X62,X64/T400-9,T436)" -
 ```{r}
 if (lataa_datasetit_uudelleen) {
   pxweb_query_list <- 
-  list("Huume (B-luokitus)"=c("01-06","07-17","29-39"),
-       "Ikä"=c("15-19","20-24","25-29"),
-       "Vuosi"=c("2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"),
-       "Sukupuoli"=c("SSS", "1", "2"),
-       "Tiedot"=c("ksyylkm15"))
+  list("kuolinsyyt_4_20060101"=c("01-06","07-17","29-39"),
+       "ikaryhma_10_20180101"=c("15-19","20-24","25-29"),
+       "timeperiod_y"=as.character(2006:2025),
+       "sukupuoli_9_20180101"=c("SSS", "1", "2"),
+       "contentscode"=c("ksyylkm15"))
 
 # Download data 
 px_data <- 
-  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/statfin_ksyyt_pxt_12d9.px",
+  pxweb_get(url = "https://statfin.stat.fi/PXWeb/api/v1/fi/StatFin/ksyyt/12d9.px",
             query = pxweb_query_list)
 
 # Convert to data.frame 
@@ -1121,7 +1117,7 @@ px_data_frame <- as.data.frame(px_data, column.name.type = "text", variable.valu
 
 statfin_ksyyt_pxt_12d9_ilman_itsemurhia <- px_data_frame %>% 
   group_by(ika, sukupuoli, vuosi) %>% 
-  summarize(kuolleet_06_24 = sum(huumeisiin_kuolleet_b_luokitus, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25 = sum(huumeisiin_kuolleet_b_luokitus, na.rm = TRUE)) %>% 
   mutate(kuolemansyy = "huumekuolema")
 }
 if (tallenna_datasetit) {
@@ -1142,7 +1138,7 @@ itsemurhat_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 vakivalta_yht <- itsemurhat_vakivalta %>% 
@@ -1150,7 +1146,7 @@ vakivalta_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki_muut_yht <- itsemurhat_vakivalta %>% 
@@ -1158,20 +1154,20 @@ kaikki_muut_yht <- itsemurhat_vakivalta %>%
   filter(as.numeric(vuosi) >= 2006) %>%
   filter(sukupuoli %in% "Yhteensä") %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 huumekuolemat_yht <- statfin_ksyyt_pxt_12d9_ilman_itsemurhia %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   filter(as.numeric(vuosi) >= 2006) %>%
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_06_24_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_06_25_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki <- rbind(itsemurhat_yht, vakivalta_yht, huumekuolemat_yht, kaikki_muut_yht)
 
 kaikki_wide <- kaikki %>% 
-  pivot_wider(names_from = kuolemansyy, values_from = kuolleet_06_24_yht) %>% 
+  pivot_wider(names_from = kuolemansyy, values_from = kuolleet_06_25_yht) %>% 
   mutate(muut = muut - itsemurha - vakivalta - huumekuolema) %>% 
   mutate(yd_kuolemansyy = itsemurha + vakivalta + huumekuolema)
 
@@ -1257,14 +1253,14 @@ itsemurhat_yht_70 <- itsemurhat_vakivalta %>%
   filter(kuolemansyy == "itsemurha") %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 vakivalta_yht_70 <- itsemurhat_vakivalta %>% 
   filter(kuolemansyy == "vakivalta") %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki_muut_yht_70 <- itsemurhat_vakivalta %>% 
@@ -1272,13 +1268,13 @@ kaikki_muut_yht_70 <- itsemurhat_vakivalta %>%
   filter(sukupuoli %in% "Yhteensä") %>% 
   mutate(kuolemansyy = "kaikki_kuolemansyyt") %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 huumekuolemat_yht_70 <- huumekuolemat %>% 
   filter(sukupuoli %in% c("Yhteensä")) %>% 
   group_by(vuosi, sukupuoli, kuolemansyy) %>% 
-  summarize(kuolleet_yht = sum(kuolleet_06_24, na.rm = TRUE)) %>% 
+  summarize(kuolleet_yht = sum(kuolleet_06_25, na.rm = TRUE)) %>% 
   ungroup()
 
 kaikki_70 <- rbind(itsemurhat_yht_70, vakivalta_yht_70, huumekuolemat_yht_70, kaikki_muut_yht_70) %>% 
@@ -1511,13 +1507,13 @@ vakivaltakuolemat <- itsemurhat_vakivalta %>%
   filter(vuosi >= 1986)
 
 menetetyt_elinvuodet_itsemurha <- left_join(itsemurhat, kuolleet_12ap, by = join_by(vuosi, sukupuoli, "ika" == "ikaluokka")) %>% 
-  mutate(menetetyt_elinvuodet = kuolleet_06_24 * elinajanodote_vuosia_mean)
+  mutate(menetetyt_elinvuodet = kuolleet_06_25 * elinajanodote_vuosia_mean)
 
 menetetyt_elinvuodet_vakivalta <- left_join(vakivaltakuolemat, kuolleet_12ap, by = join_by(vuosi, sukupuoli, "ika" == "ikaluokka")) %>% 
-  mutate(menetetyt_elinvuodet = kuolleet_06_24 * elinajanodote_vuosia_mean)
+  mutate(menetetyt_elinvuodet = kuolleet_06_25 * elinajanodote_vuosia_mean)
   
 menetetyt_elinvuodet_huumekuolema <- left_join(huumekuolemat, kuolleet_12ap, by = join_by(vuosi, sukupuoli, "ika" == "ikaluokka")) %>% 
-  mutate(menetetyt_elinvuodet = kuolleet_06_24 * elinajanodote_vuosia_mean)
+  mutate(menetetyt_elinvuodet = kuolleet_06_25 * elinajanodote_vuosia_mean)
 
 menetetyt_elinvuodet_kaikki_yd <- rbind(menetetyt_elinvuodet_itsemurha, menetetyt_elinvuodet_vakivalta, menetetyt_elinvuodet_huumekuolema)
 

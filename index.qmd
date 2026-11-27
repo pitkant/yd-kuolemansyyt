@@ -1,0 +1,17 @@
+---
+title: "index"
+format: html
+---
+
+# Tietoa
+
+Tämä sivusto tarjoaa interaktiivisen tavan tarkastella ns. YD-kuolemansyihin liittyviä tilastotietoja.
+
+# Toistettavuus
+
+Tämä sivusto on generoitu käyttämällä alla mainuttua R-versiota ja R-paketteja:
+
+```{r}
+sessionInfo()
+```
+
