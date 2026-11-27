@@ -389,15 +389,17 @@ ggplot(comparison_groups, aes(group = desc(group))) +
 ### Eurostat-kysely
 
 Kyselyssä käytetyt ICD10-koodit:
- - TOXICO: Drug dependence, toxicomania (F11-F16, F18-F19)
- - X40-X49: Accidental poisoning by and exposure to noxious substances
- - Y10-Y34_Y872: Event of undetermined intent
+
+- TOXICO: Drug dependence, toxicomania (F11-F16, F18-F19)
+- X40-X49: Accidental poisoning by and exposure to noxious substances
+- Y10-Y34_Y872: Event of undetermined intent
  
 Toisessa työkirjassa huumekuolemien koodeiksi määriteltiin seuraavat:
- - Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)
- - Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436)
- - Itsemurhat huumeilla (X61, X62, X64/T400-9, T436)
- - Huumeiden aiheuttamat myrkytykset, tahallisuus epäselvä (Y11, Y12, Y14/T400-9, T436)
+
+- Huumeiden käytön aiheuttamat riippuvuudet (F11-F12, F14-F16, F19)
+- Tapaturmaiset huumeiden aiheuttamat myrkytykset (X41, X42, X44/T400-9, T436)
+- Itsemurhat huumeilla (X61, X62, X64/T400-9, T436)
+- Huumeiden aiheuttamat myrkytykset, tahallisuus epäselvä (Y11, Y12, Y14/T400-9, T436)
  
 Itsemurhat huumeilla on kuitenkin jätetty tästä tarkastelusta ulos, sillä itsemurhia tarkastellaan omana ryhmänään. Siksi `X60-X84_Y870 Intentional self-harm` -kategoria ei näy Eurostat-kyselyssä.
 
