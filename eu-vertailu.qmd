@@ -35,7 +35,7 @@ maakoodit
 Säädämme asetukset, joissa määritetään haetaanko datat aina uudelleen Eurostatin rajapinnasta vai luetaanko ne lokaalista kansiosta. Eurostatin API-rajapinnan kuormittamisen välttämiseksi datat luetaan lähtökohtaisesti prepared_data -kansiosta, johon ne on tallennettu.
 
 ```{r}
-tallenna_datasetit <- lataa_datasetit_uudelleen <- TRUE
+tallenna_datasetit <- lataa_datasetit_uudelleen <- FALSE
 tuota_vektorikuviot <- FALSE
 tuota_viivakuviot <- FALSE
 ```
@@ -476,6 +476,10 @@ huumekuolemat_yht <- statfin_ksyyt_pxt_12d9_ilman_itsemurhia %>%
 #### Visualisointi
 
 ```{r}
+eu_ksyyt_huumeet_94_25 <- readRDS(
+  file = "prepared_data/eu_ksyyt_huumeet_94_25.rds"
+)
+
 eu_ksyyt_huumeet_94_25_fi <- eu_ksyyt_huumeet_94_25 |> 
   filter(geo == "FI") |> 
   mutate(vuosi = as.numeric(vuosi)) |> 
@@ -551,3 +555,11 @@ ggplotly(asdr_plotti)
 ```
 
 Huomataan, että Sveitsissä ja Norjassa 1990-luvulla ja 2000-luvun alussa on ollut paljon huumekuolemia nuorten keskuudessa. Itävallassa piikki on ollut vasta 2003-2013 paikkeilla. Liechtensteinin kaltaisten kääpiövaltioiden tapauksessa muutamakin kuolemantapaus voi aihuettaa voimakkaita piikkejä, kuten 2021 tapauksessa. Suomen luvut ovat pitkällä aikavälillä melko maltillisia, joskin 2020-luvun kärkisijoilla.
+
+# Toistettavuus
+
+Tämä työkirja on generoitu käyttämällä alla mainittua R-versiota ja R-paketteja:
+
+```{r}
+sessionInfo()
+```
